@@ -1,0 +1,50 @@
+$background-color: #001a33;
+
+$header-background-color: #ffb84d;
+
+$primary-color: #f5d142;
+$secondary-color: #3d0099;
+$tertiary-color: #b30059;
+$project-colors: #a9ffb9, #79cdcd, #958cd9;
+
+$link-color: $primary-color;
+$link-hover-color: darker($primary-color, 30%) !default;
+
+$section-heading-text-color: #888;
+
+$menu-color-light: #777;
+$menu-color-dark: #ddd;
+
+$menu-color-active: #fff;
+
+$card-shadow: 0px 10px 46px -24px rgba(255, 255, 255, 0.75);
+
+@mixin iconClick {
+	&:active {
+		transform: translateY(calc(100% / 2 + 2px));
+	}
+}
+
+@mixin mediaSm {
+	@media screen and (min-width: 576px) {
+		@content;
+	}
+}
+
+@mixin mediaMd {
+	@media screen and (min-width: 768px) {
+		@content;
+	}
+}
+
+@mixin mediaLg {
+	@media screen and (min-width: 992px) {
+		@content;
+	}
+}
+
+@mixin mediaXl {
+	@media screen and (min-width: 1200px) {
+		@content;
+	}
+}

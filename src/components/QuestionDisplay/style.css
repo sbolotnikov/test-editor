@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* body {
+  background: #585c68;
+}
+
+.wrapper {
+  width: 780px;
+  margin: 100px auto 0;
+}
+
+.wrapper .title {
+  font-size: 24px;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 50px;
+} */
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.container .option_item {
+  display: block;
+  position: relative;
+  width: 175px;
+  height: 175px;
+  margin: 10px;
+}
+
+.container .option_item .checkOut {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  opacity: 0;
+}
+
+.option_item .option_inner {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 5px;
+  text-align: center;
+  padding: 58px 40px;
+  cursor: pointer;
+  color: #585c68;
+  display: block;
+  border: 5px solid transparent;
+  position: relative;
+}
+
+.option_item .option_inner .name {
+  user-select: none;
+  color: white;
+  text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+}
+
+/* .option_item .checkbox:checked ~ .option_inner.facebook {
+  border-color: #3b5999;
+  color: #3b5999;
+} */
+
+
+.option_item .checkOut:checked ~ .option_inner {
+  border-color: #b92b27;
+  color: #b92b27;
+}
+
+.option_item .option_inner .tickmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 20px solid;
+  border-color: #000 transparent transparent #000;
+  display: none;
+}
+
+.option_item .option_inner .tickmark:before {
+  content: "";
+  position: absolute;
+  top: -18px;
+  left: -18px;
+  width: 15px;
+  height: 5px;
+  border: 3px solid;
+  border-color: transparent transparent #fff #fff;
+  transform: rotate(-45deg);
+}
+
+.option_item .checkOut:checked ~ .option_inner .tickmark {
+  display: block;
+}
+
+/* .option_item .option_inner.facebook .tickmark {
+  border-color: #3b5999 transparent transparent #3b5999;
+} */
+
+.option_item .option_inner .tickmark {
+  border-color: #b92b27 transparent transparent #b92b27;
+}
