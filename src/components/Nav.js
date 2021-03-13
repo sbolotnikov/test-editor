@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-// import API from '../../utils/API';
-// import "./navbar.css";
 import { useAuth } from "../contexts/AuthContext"
-// import ErrorNotice from "../misc/errorNotice";
 
 function Nav(props) {
     const [isNavCollapsed, setIsNavCollpased] = useState(true);
-    const { currentUser, logout } = useAuth()
-    const [error, setError] = useState("");
+    const { currentUser, logout } = useAuth();
     const [imgDisplay, setImgDisplay] = useState('');
     // use history to redirect after login
     const history = useHistory();

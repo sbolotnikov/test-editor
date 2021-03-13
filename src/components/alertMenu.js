@@ -1,15 +1,7 @@
-import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert} from "react-bootstrap"
-import { propTypes } from "react-bootstrap/esm/Image"
-import { Link, useHistory } from "react-router-dom"
+import React from "react"
+import { Button, Card, Alert} from "react-bootstrap"
 
 export default function AlertMenu(props) {
-  const emailRef = useRef()
-  const passwordRef = useRef()
-
-  const [error, setError] = useState("")
-  const history = useHistory()
-
 
   return (
     

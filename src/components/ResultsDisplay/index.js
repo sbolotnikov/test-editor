@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import { useHistory } from "react-router-dom"
 import { Button } from 'react-bootstrap';
 import firebase from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";

@@ -4,11 +4,10 @@ import TestCreateNav from '../../components/testCreateNav';
 import { useAuth } from "../../contexts/AuthContext"
 import firebase from "../../firebase";
 import "./style.css";
-import { Row, Col, Button, Container } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import GetTests from '../../components/getTests.js';
 import AlertMenu from '../../components/alertMenu';
 import Cloudinary from '../../components/Cloudinary';
-var demoArr = [];
 var emptyQ = {
     question: '',
     rights: [{ text: '', img: '', choice: true }],
@@ -275,7 +274,6 @@ function ToRenderEverything() {
                 {testArray[displayQ] &&
                     <GetQuestion q={testArray[displayQ]} background={testBackground} onChange={(t) => handleReturnQuestion(t)} />
                 }
-                {/* {correctAnswersArray && <GetAnswers answers={correctAnswersArray} correct={true} onDelete={(n) => delRecord(n, 1)} onNew={(e) => newRecord(e, 1)} onChange={(t) => handleReturnData(t, 1)} />} */}
 
             </div>
     )

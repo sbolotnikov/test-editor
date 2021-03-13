@@ -5,6 +5,8 @@
 body {
 	background-color: $background-color;
 	font-family: 'Rubik', sans-serif;
+	height:100vh;
+	width:100vw;
 }
 
 header {
@@ -61,7 +63,14 @@ nav {
 		font-size: 2rem;
 	}
 }
-li.nav-item{
+nav.navbar{
+	position:sticky;
+	left:0;
+	top:0;
+	width:100vh;
+	z-index: 1000;
+}
+a.nav-link, a.navHeader{
     font: 400 25px/1.3 'Berkshire Swash', Helvetica, sans-serif;
     background-color: $secondary-color;
     color: $primary-color;
