@@ -92,7 +92,7 @@ function Nav(props) {
             </div>
 
             <Link to="/" className="nav-link">
-                <img src={imgDisplay} alt="member photo" className="member-photo" />
+               <img className="member-photo" src={imgDisplay>"" ? imgDisplay : process.env.PUBLIC_URL + "./images/defaultIcon.png"} alt="profile pic"/>
             </Link>
         </nav>
     );
