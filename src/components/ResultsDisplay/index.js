@@ -34,7 +34,7 @@ const ResultsDisplay = props => {
            {props.testId.length > 0 && <GetResults testId={props.testId} />}
 
             <h3 style={{ width: '100%', textAlign: 'center' }}>You have {props.rate}% {timeInSeconds(props.time)}sec left</h3>
-            {props.testId.length > 0 &&  <div style={{ width: '60vw', maxHeight: '30vh', overflow: 'auto', textAlign: 'center', justifyContent: 'center' }}>
+             <div style={{ width: '60vw', maxHeight: '30vh', overflow: 'auto', textAlign: 'center', justifyContent: 'center' }}>
              <table style={{ margin: 'auto' }} >
                     <tr>
                         <th>Question</th>
@@ -51,7 +51,7 @@ const ResultsDisplay = props => {
                         )
                     })}
                 </table>
-            </div>}
+            </div>
             {props.testId.length > 0 && <h3 style={{ width: '100%', textAlign: 'center' }}>Would you like to save results?</h3>}
 
             {testeeId.current.length <= 0 && <label className='headerStyle' style={{ width: '100%', textAlign: 'center' }}  >Enter your display Name. You are not in our database
