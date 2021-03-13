@@ -1,6 +1,6 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import GetText from './GetText.js';
-import { Button } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 
 function GetAnswers(props) {
     function handleNewText() {
@@ -25,23 +25,25 @@ function GetAnswers(props) {
     const [answers, setAnswers] = useState([]);
     useEffect(() => {
         setAnswers(props.answers);
-    },[props.answers]);   
+    }, [props.answers]);
     return (
-        <Fragment>
-            <div style={{ width: '100%' }}>
-                {answers && answers.map((answerOption, j) => {
-                    return (
-                        <div style={{position:'relative', margin:'5px'}}>
-                            <GetText num={j} answer={answerOption} onDelete={e => e.target.value} onNew={e => e.target.value} onChange={(t) => handleChangeText(t)} />
-                            <Button style={{position:'absolute', bottom: 0, right: 0}} variant='danger' id={"eraseBtn_" + j} value={j} onClick={e => handleDelete(e)}>x</Button>
-                        </div>
-                    )
-                }
-                )}
-                <Button variant='success' onClick={e => { handleNewText() }}>New</Button>
-                {/* <LayoutBox type={1} vis={1} question={'props.question'} checkedMarks={[1]} answers={[{ 'text': '6.96 miles/sec','img': '',  'choice': true }]} /> */}
+        <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+            <div className="w-100" style={{ maxWidth: "400px" }}>
+                <div style={{ width: '100%' }}>
+                    {answers && answers.map((answerOption, j) => {
+                        return (
+                            <div style={{ position: 'relative', margin: '5px' }}>
+                                <GetText num={j} answer={answerOption} onDelete={e => e.target.value} onNew={e => e.target.value} onChange={(t) => handleChangeText(t)} />
+                                <Button style={{ position: 'absolute', bottom: 0, right: 0 }} variant='danger' id={"eraseBtn_" + j} value={j} onClick={e => handleDelete(e)}>x</Button>
+                            </div>
+                        )
+                    }
+                    )}
+                    <Button variant='success' onClick={e => { handleNewText() }}>New</Button>
+                    {/* <LayoutBox type={1} vis={1} question={'props.question'} checkedMarks={[1]} answers={[{ 'text': '6.96 miles/sec','img': '',  'choice': true }]} /> */}
+                </div>
             </div>
-        </Fragment >
+        </Container>
     )
 }
 export default GetAnswers;

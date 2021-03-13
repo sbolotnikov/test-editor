@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import LayoutBox from '../../components/LayoutBox';
 import LayoutSimple from '../../components/LayoutSimple';
 import "./style.css";

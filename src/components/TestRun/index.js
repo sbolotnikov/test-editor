@@ -79,14 +79,14 @@ function TestRun(props) {
       if (arr[i] === true) n += 1
     }
     console.log(((n / correctArr.length * 100).toFixed(2)).toString());
-    setRating(((n / correctArr.length * 100).toFixed(2)).toString());
+    setRating(((n / correctArr.length * 100).toFixed(2)));
     setResults(arr);
     setResultTime(t);
     console.log(results)
   }
 
   useEffect(() => {
-
+    console.log(props.test.id)
     let answersSet = [];
     for (let i = 0; i < quizMain.length; i++) {
       answersSet = randomChoice(quizMain[i].rights, quizMain[i].info.correct).concat(randomChoice(quizMain[i].wrongs, quizMain[i].info.positions - quizMain[i].info.correct));
@@ -109,9 +109,9 @@ function TestRun(props) {
 
   return (
     <Fragment>
-      {results.length > 0 && <ResultsDisplay res={results} rate={rating} time={resultTime} />}
-      {testGenerated && <TestNav qNumber={testGenerated.length} hours={quizDuration[0]} minutes={quizDuration[1]} seconds={quizDuration[2]} onExit={(t) => { handleQuizEnd(t) }} onChange={(q) => { handleChangeQuestion(q) }} />}
-      {testGenerated && <QuestionDisplay background={testBackground} info={testGenerated[displayQ].info} vis={visible} question={testGenerated[displayQ].question} answers={testGenerated[displayQ].answers} checkedMarks={choices[displayQ]} onChange={(ch) => { handleChoices(ch) }} />}
+      {results.length > 0 && <ResultsDisplay res={results} rate={rating} time={resultTime} background={testBackground} testId={props.local?"":props.test.id} />}
+      {testGenerated && results.length <= 0 && <TestNav qNumber={testGenerated.length} hours={quizDuration[0]} minutes={quizDuration[1]} seconds={quizDuration[2]} onExit={(t) => { handleQuizEnd(t) }} onChange={(q) => { handleChangeQuestion(q) }} />}
+      {testGenerated && results.length <= 0 && <QuestionDisplay background={testBackground} info={testGenerated[displayQ].info} vis={visible} question={testGenerated[displayQ].question} answers={testGenerated[displayQ].answers} checkedMarks={choices[displayQ]} onChange={(ch) => { handleChoices(ch) }} />}
     </Fragment >
   )
 }

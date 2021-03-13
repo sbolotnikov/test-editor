@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import QuestionDisplay from './QuestionDisplay';
 import GetAnswers from './GetAnswers.js';
+import Cloudinary from './Cloudinary';
 import { Row, Col, Button } from 'react-bootstrap';
 var demoArr=[];
 
@@ -14,7 +15,11 @@ function GetQuestion(props) {
     const [show, setShow] = useState(false);
     const [rights, setRights] = useState([]);
     const [wrongs, setWrongs] = useState([]);
-
+    const getImgUrl = (url) => {
+        document.querySelector("#mainImg").value=url;
+        setImg(url);
+        props.onChange({"mainImg":url})
+    }
     // list available layouts
     var layouts = ["simple", "box"];
     useEffect(() => {
@@ -82,7 +87,8 @@ function GetQuestion(props) {
                     <textarea id="question" style={{ width: '100%' }} onChange={e => { setQuestion(e.target.value); props.onChange({"question":e.target.value})}} />
                     <h4 className='headerStyle'>Add your question main picture link (if you have one)</h4>
                     <input id="mainImg" style={{ width: '100%' }} onChange={e =>{setImg(e.target.value); props.onChange({"mainImg":e.target.value})}} />
-                    <label style={{ width: '100%', color: 'yellow' }}>
+                    <Cloudinary style={{width: "200px", objectFit: "cover", margin: "10px"}} getImgUrl={getImgUrl} />
+                    <label style={{ width: '100%', color: 'black' }}>
                     <select id="layout1" style={{ width: '40%', marginRight: '5px', marginTop: '5px' }} onChange={e => {setLayout(e.target.value); props.onChange({"layout1":e.target.value})}} >
                         {layouts.map((option, i) => {
                             return (           
@@ -93,11 +99,11 @@ function GetQuestion(props) {
                         </select>
                         Choose question layout
                     </label>
-                    <label style={{ width: '50%', color: 'yellow' }}>
+                    <label style={{ width: '50%', color: 'black' }}>
                         <input id="positionsCount" type="number" min={0} max={rights.length+wrongs.length} style={{ width: '20%', marginRight: '5px', marginTop: '5px' }} onChange={e =>{setPositions(e.target.value); props.onChange({"positionsCount":e.target.value})}} />
                         How many positions would be displayed?(Maximum should be less then answers options)
                     </label>
-                    <label style={{ width: '50%', color: 'yellow' }}>
+                    <label style={{ width: '50%', color: 'black' }}>
                         <input id="correctCount" type="number" min={0} max={rights.length} style={{ width: '20%', marginRight: '5px', marginTop: '5px' }} onChange={e =>{setCorrect(e.target.value); props.onChange({"correctCount":e.target.value})}} />
                         How many correct options should be selected?(Maximum should be less then correct answers options)
                     </label>

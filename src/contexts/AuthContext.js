@@ -13,8 +13,28 @@ export function AuthProvider({ children }) {
 
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password)
-  }
+    // console.log(name, email,password, url)
+    // return auth.createUser({
+    //    email: email,
+    //    password: password, 
+    //    displayName:name,
+    //    photoURL:url})
 
+    // try {
+    //   const userNewAuth = await firebase.auth().createUserWithEmailAndPassword(email, password);
+    //   var user = {
+    //     name: "Raja",
+    //     phone: "779797329",
+    //     address: "474 Mercer Drive",
+    //     uid: userNewAuth.uid,
+    //     email: userNewAuth.email
+    //   }
+    //   writeUserData(user)
+
+    // } catch (error) {
+    //   console.log(error.message)
+    // }
+  }
   function login(email, password) {
     return auth.signInWithEmailAndPassword(email, password)
   }
@@ -35,6 +55,19 @@ export function AuthProvider({ children }) {
     return currentUser.updatePassword(password)
   }
 
+  function updateUser(name, url) {
+    console.log("setting profile " + name + url);
+    console.log(currentUser)
+    return currentUser.updateProfile({
+      displayName: name,
+      photoURL: url
+    }).then(function () {
+      // Update successful.
+    }).catch(function (error) {
+      console.log("error on Profile update")// An error happened.
+    });
+  }
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user)
@@ -51,7 +84,8 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     updateEmail,
-    updatePassword
+    updatePassword,
+    updateUser
   }
 
   return (
