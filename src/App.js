@@ -10,6 +10,7 @@ import Login from "./components/Login"
 import PrivateRoute from "./components/PrivateRoute"
 import ForgotPassword from "./components/ForgotPassword"
 import UpdateProfile from "./components/UpdateProfile"
+import DirectTestPage from "./components/DirectTestPage"
 import Nav from "./components/Nav"
 //Pages
 import testPage from './pages/testPage';
@@ -19,20 +20,22 @@ function App() {
 
   return (
 
-        <Router>
-          <AuthProvider>
-            <Nav/>
-            <Switch>
-              <PrivateRoute exact path="/" component={Dashboard} />
-              <PrivateRoute path="/update-profile" component={UpdateProfile} />
-              <Route path="/signup" component={Signup} />
-              <Route path="/login" component={Login} />
-              <Route path="/forgot-password" component={ForgotPassword} />
-			        <PrivateRoute exact path="/create" component={makeTest}/>
-			        <Route exact path="/test" component={testPage}/>
-            </Switch>
-          </AuthProvider>
-        </Router>
+    <Router>
+      <AuthProvider>
+        <Nav />
+        <Switch>
+          <PrivateRoute exact path="/" component={Dashboard} />
+          <PrivateRoute path="/update-profile" component={UpdateProfile} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/login" component={Login} />
+          <Route path="/forgot-password" component={ForgotPassword} />
+          <PrivateRoute exact path="/create" component={makeTest} />
+          <Route exact path="/test" component={testPage} />
+          <Route path="/taketest/:id"><DirectTestPage /></Route>
+           
+        </Switch>
+      </AuthProvider>
+    </Router>
   )
 }
 
