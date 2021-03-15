@@ -3,10 +3,12 @@ import { Button } from 'react-bootstrap';
 import firebase from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import GetResults from "../getResults";
+import { useHistory } from "react-router-dom"
 const ResultsDisplay = props => {
     const { currentUser } = useAuth()
     const [testeeName, setTesteeName] = useState(currentUser ? currentUser.displayName : "");
     const testeeId = useRef(currentUser ? currentUser.uid : "");
+    const history = useHistory();
     function handleSave() {
         const db = firebase.firestore();
         db.collection("results").add({
@@ -20,7 +22,8 @@ const ResultsDisplay = props => {
         
     }
     function handleDont() {
-        window.location.reload();
+        // window.location.reload();
+        history.push("/test-editor/test")
     }
     function timeInSeconds(t) {
         let time = t.split(':');

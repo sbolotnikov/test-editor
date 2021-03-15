@@ -8,6 +8,7 @@ import { Button } from 'react-bootstrap';
 import GetTests from '../../components/getTests.js';
 import AlertMenu from '../../components/alertMenu';
 import Cloudinary from '../../components/Cloudinary';
+import { useHistory } from "react-router-dom"
 var emptyQ = {
     question: '',
     rights: [{ text: '', img: '', choice: true }],
@@ -31,7 +32,7 @@ function ToRenderEverything() {
     const [testMM, setTestMM] = useState(0);
     const [testSS, setTestSS] = useState(0);
 
-
+    const history = useHistory();
     const [newPressed, setNewPressed]=useState(false);
     const [recordWarning, setRecordWarning]=useState('')
     const [testArray, setTestArray] = useState([emptyQ]);
@@ -42,7 +43,10 @@ function ToRenderEverything() {
             reloadNeeded()
         }
     }
-    const reloadNeeded=(a)=>{window.location.reload();}
+    const reloadNeeded=(a)=>{
+        history.push("/test-editor/create/")
+        // window.location.reload();
+    }
     const getImgUrl = (url) => {
         document.querySelector("#background").value = url;
         setTestBackground(url);
@@ -163,7 +167,7 @@ function ToRenderEverything() {
         db.collection("tests").add(text)
         .then(result=>{
             console.log("file created in DB");
-            window.location.reload();
+            reloadNeeded()
         })
         .catch(e=>{console.log("no connectionto DB");})
     }
@@ -214,7 +218,7 @@ function ToRenderEverything() {
         db.collection('tests').doc(testAuthor.testId).set(text)
         .then(result=>{
             console.log("file updated");
-            window.location.reload();
+            reloadNeeded();
         })
         .catch(e=>{console.log("file fail to updated");})
     }

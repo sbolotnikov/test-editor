@@ -11,7 +11,7 @@ function Nav(props) {
     async function logoutHandle(e) {
         try {
             await logout();
-            history.push("/login")
+            history.push("/test-editor/login")
         } catch {
             // setError("Failed to log out");
             console.log("Failed to log out");
