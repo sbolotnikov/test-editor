@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react"
 import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
-import { Link, useHistory } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
 import Cloudinary from './Cloudinary';
 
 export default function UpdateProfile() {
@@ -13,7 +13,7 @@ export default function UpdateProfile() {
   const { currentUser, updatePassword, updateEmail, updateUser} = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  const history = useHistory()
+  const [toRoot, setToRoot] = useState(false);
   const getImgUrl = (url) => {
     document.querySelector("#userURL").childNodes[1].value=url;
 }
@@ -38,7 +38,8 @@ export default function UpdateProfile() {
     }
     Promise.all(promises)
       .then(() => {
-        history.push("/test-editor/")
+        // history.push("/test-editor/")
+        setToRoot(true);
       })
       .catch(() => {
         setError("Failed to update account")
@@ -51,6 +52,8 @@ export default function UpdateProfile() {
     console.log('Value: ' + process.env.REACT_APP_CLOUDNAME);
     console.log('Value: ' + process.env.REACT_APP_CLOUD_PRESET);
   },[])
+
+  if (toRoot===true){return <Redirect to="/" />}
   return (
     <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
       <div className="w-100" style={{ maxWidth: "400px" }}>

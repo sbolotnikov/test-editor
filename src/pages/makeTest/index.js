@@ -8,7 +8,7 @@ import { Button } from 'react-bootstrap';
 import GetTests from '../../components/getTests.js';
 import AlertMenu from '../../components/alertMenu';
 import Cloudinary from '../../components/Cloudinary';
-import { useHistory } from "react-router-dom"
+import {Redirect } from "react-router-dom"
 var emptyQ = {
     question: '',
     rights: [{ text: '', img: '', choice: true }],
@@ -31,11 +31,12 @@ function ToRenderEverything() {
     const [testHH, setTestHH] = useState(0);
     const [testMM, setTestMM] = useState(0);
     const [testSS, setTestSS] = useState(0);
-
-    const history = useHistory();
+    // const [toCreate, setToCreate] = useState(false);
+    
     const [newPressed, setNewPressed]=useState(false);
     const [recordWarning, setRecordWarning]=useState('')
     const [testArray, setTestArray] = useState([emptyQ]);
+    // if (toCreate===true){return <Redirect to="/create" />};
     const db = firebase.firestore();
     const onReturn = (decision1) => {
         setNewPressed(false);
@@ -44,8 +45,9 @@ function ToRenderEverything() {
         }
     }
     const reloadNeeded=(a)=>{
-        history.push("/test-editor/create/")
-        // window.location.reload();
+        // history.push("/test-editor/create/")
+        window.location.reload();
+        // setToCreate(true);
     }
     const getImgUrl = (url) => {
         document.querySelector("#background").value = url;

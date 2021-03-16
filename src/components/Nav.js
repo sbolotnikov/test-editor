@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"
 
 function Nav(props) {
     const [isNavCollapsed, setIsNavCollpased] = useState(true);
     const { currentUser, logout } = useAuth();
     const [imgDisplay, setImgDisplay] = useState('');
-    // use history to redirect after login
-    const history = useHistory();
+    const [toLogin, setToLogin] = useState(false);
     async function logoutHandle(e) {
         try {
             await logout();
-            history.push("/test-editor/login")
+            setToLogin(true);
+            // history.push("/test-editor/login")
         } catch {
-            // setError("Failed to log out");
             console.log("Failed to log out");
         }
     }
@@ -25,7 +24,7 @@ function Nav(props) {
         if (currentUser) {currentUser.photoURL>"" ? setImgDisplay(currentUser.photoURL) : setImgDisplay(imgLink);}
 
     }, [currentUser]);
-
+    if (toLogin===true){return <Redirect to="/login" />}
     return (
         <nav className="navbar navbar-expand-lg" >
             <Link to="/" className="navHeader">

@@ -1,14 +1,20 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import firebase from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import GetResults from "../getResults";
-import { useHistory } from "react-router-dom"
+// import { Redirect, Link } from "react-router-dom"
 const ResultsDisplay = props => {
     const { currentUser } = useAuth()
     const [testeeName, setTesteeName] = useState(currentUser ? currentUser.displayName : "");
     const testeeId = useRef(currentUser ? currentUser.uid : "");
-    const history = useHistory();
+    // const [toTest, setToTest] = useState([false]);
+
+
+    // useEffect(() => {
+    // if (toTest[0]===true){
+    //     return <Redirect to="/update-profile" />;}
+    // },[toTest]);
     function handleSave() {
         const db = firebase.firestore();
         db.collection("results").add({
@@ -22,8 +28,10 @@ const ResultsDisplay = props => {
         
     }
     function handleDont() {
-        // window.location.reload();
-        history.push("/test-editor/test")
+        // history.push("/test-editor/test")
+        window.location.reload();
+        console.log("redirect to /test")
+        // setToTest([true]);
     }
     function timeInSeconds(t) {
         let time = t.split(':');
