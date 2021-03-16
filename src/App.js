@@ -32,7 +32,7 @@ function App() {
           <PrivateRoute exact path="/create" component={makeTest} />
           <Route exact path="/test" component={testPage} />
           <Route path="/taketest/:id"><DirectTestPage /></Route>
-           
+          {/* /taketest/RtqxyubO57LToxbaOzpj */}
         </Switch>
       </AuthProvider>
     </Router>

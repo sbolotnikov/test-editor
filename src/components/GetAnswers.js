@@ -14,7 +14,7 @@ function GetAnswers(props) {
         if ((t.text === '') && (t.img === '')) {
             localArr.splice(t.num, 1);
         } else {
-            let answerRenew = { text: t.text, img: t.img, correct: props.correct }
+            let answerRenew = { text: t.text, img: t.img, choice: props.correct }
             localArr.splice(t.num, 1, answerRenew)
         }
         props.onChange(localArr);
