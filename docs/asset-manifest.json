@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/test-editor/static/css/main.6d18a735.chunk.css",
+    "main.js": "/test-editor/static/js/main.effd5d0a.chunk.js",
+    "main.js.map": "/test-editor/static/js/main.effd5d0a.chunk.js.map",
+    "runtime-main.js": "/test-editor/static/js/runtime-main.a7d905c2.js",
+    "runtime-main.js.map": "/test-editor/static/js/runtime-main.a7d905c2.js.map",
+    "static/css/2.fabbef47.chunk.css": "/test-editor/static/css/2.fabbef47.chunk.css",
+    "static/js/2.5dbe16ff.chunk.js": "/test-editor/static/js/2.5dbe16ff.chunk.js",
+    "static/js/2.5dbe16ff.chunk.js.map": "/test-editor/static/js/2.5dbe16ff.chunk.js.map",
+    "static/js/3.2da7f63c.chunk.js": "/test-editor/static/js/3.2da7f63c.chunk.js",
+    "static/js/3.2da7f63c.chunk.js.map": "/test-editor/static/js/3.2da7f63c.chunk.js.map",
+    "index.html": "/test-editor/index.html",
+    "static/css/2.fabbef47.chunk.css.map": "/test-editor/static/css/2.fabbef47.chunk.css.map",
+    "static/css/main.6d18a735.chunk.css.map": "/test-editor/static/css/main.6d18a735.chunk.css.map",
+    "static/js/2.5dbe16ff.chunk.js.LICENSE.txt": "/test-editor/static/js/2.5dbe16ff.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a7d905c2.js",
+    "static/css/2.fabbef47.chunk.css",
+    "static/js/2.5dbe16ff.chunk.js",
+    "static/css/main.6d18a735.chunk.css",
+    "static/js/main.effd5d0a.chunk.js"
+  ]
+}
