@@ -50,7 +50,7 @@ function GetTests(props) {
                 {testRecords && testRecords.map((test, j) => {
                     return (
                         <div style={{ position: 'relative', margin: '5px' }} >
-                            <div value={test.id} onClick={e => handleClick(e)} >{test.main.name} by {test.main.authorName} </div>
+                            <div style={{cursor: "pointer"}} value={test.id} onClick={e => handleClick(e)} >{test.main.name} by {test.main.authorName} </div>
                             <Button style={{ position: 'absolute', bottom: 0, right: 0 }} variant='danger' id={"eraseBtn_" + j} value={j} onClick={e => handleDelete(e)}>x</Button>
                         </div>
                     )

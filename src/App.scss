@@ -90,4 +90,55 @@ div.cloudinary-button {
   div.cloudinary-button:hover :active {
 	background: $menu-color-light
   }
+  .navContainer{
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	max-width:1000px;
+	margin:auto;
+	border-radius:0 0 15px 15px;
+	justify-content: center;
+	background-color: $secondary-color;
+}
+.modalContainer{
+	position:relative;
+	top:0;
+	left:0;
+	display:flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+    flex-direction: column;
+	height:100%;
+	width:100%;
+	padding:0;
+	margin:0;
+	z-index:1010;
+}
+.closeTag{
+	color: $primary-color;
+    font-size: 2.3vw;
+	cursor: pointer;
+}
+  .testNav{
+    margin:0;
+    padding: 0;
+    color: $primary-color;
+    border: $tertiary-color;
+	border-radius: 15px;
+    font-size: 3.3vw;
+	background-color: $secondary-color;
+}
+  .testNavLight{
+	background: white;
+	border-radius: 15px;
+	color: $primary-color;
+	font-size: 3.3vw;
+	margin:auto 0
+}
+@media screen and (min-width: 900px) {
+.testNav , .testNavLight{
+       font-size: 35px;
+    }
+  }
+  
 @import './styles/media';

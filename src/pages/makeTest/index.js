@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import GetQuestion from '../../components/GetQuestion.js';
 import TestCreateNav from '../../components/testCreateNav';
 import { useAuth } from "../../contexts/AuthContext"
@@ -8,7 +8,8 @@ import { Button } from 'react-bootstrap';
 import GetTests from '../../components/getTests.js';
 import AlertMenu from '../../components/alertMenu';
 import Cloudinary from '../../components/Cloudinary';
-import {Redirect } from "react-router-dom"
+import QuestionDisplay from '../../components/QuestionDisplay';
+var demoArr = [];
 var emptyQ = {
     question: '',
     rights: [{ text: '', img: '', choice: true }],
@@ -31,20 +32,20 @@ function ToRenderEverything() {
     const [testHH, setTestHH] = useState(0);
     const [testMM, setTestMM] = useState(0);
     const [testSS, setTestSS] = useState(0);
-    // const [toCreate, setToCreate] = useState(false);
-    
-    const [newPressed, setNewPressed]=useState(false);
-    const [recordWarning, setRecordWarning]=useState('')
+    const [show, setShow] = useState(false);
+
+    const [newPressed, setNewPressed] = useState(false);
+    const [recordWarning, setRecordWarning] = useState('')
     const [testArray, setTestArray] = useState([emptyQ]);
     // if (toCreate===true){return <Redirect to="/create" />};
     const db = firebase.firestore();
     const onReturn = (decision1) => {
         setNewPressed(false);
-        if (decision1==="Proceed"){
+        if (decision1 === "Proceed") {
             reloadNeeded()
         }
     }
-    const reloadNeeded=(a)=>{
+    const reloadNeeded = (a) => {
         // history.push("/test-editor/create/")
         window.location.reload();
         // setToCreate(true);
@@ -91,9 +92,43 @@ function ToRenderEverything() {
         setDisplayQ(testArray.length);
         console.log(displayQ);
     }
-    function handleDelete() {
-        setTestArray(testArray.filter(item => testArray.indexOf(item) !== displayQ));
+    function handleShow() {
+        let arr = testArray[displayQ].rights.slice(0, testArray[displayQ].info.correct);
+        demoArr = testArray[displayQ].wrongs.slice(0, testArray[displayQ].info.positions - testArray[displayQ].info.correct);
+        for (let i = 0; i < arr.length; i++) {
+            demoArr.push(arr[i]);
+        }
+        console.log(demoArr);
+        show ? setShow(false) : setShow(true)
 
+    }
+    function handleDelete() {
+
+        if (displayQ === testArray.length - 1) setDisplayQ(displayQ - 1)
+        setTestArray(testArray.filter(item => testArray.indexOf(item) !== displayQ));
+    }
+    function handleMove(t) {
+        if (t[0] !== t[1]) {
+            let arr = [];
+            let record1 = testArray[t[0]];
+
+
+            for (let i = 0; i < testArray.length; i++) {
+                if (i === t[1]) {
+                    if (t[1] > t[0]) {
+                        arr.push(testArray[i]);
+                        arr.push(record1);
+                    } else {
+                        arr.push(record1);
+                        arr.push(testArray[i]);
+                    }
+                }
+                else if (i !== t[0]) arr.push(testArray[i])
+            }
+            setTestArray(arr);
+            setDisplayQ(t[1])
+            console.log(record1, arr)
+        }
     }
     function getTestfromDB(n) {
         console.log(n)
@@ -167,11 +202,11 @@ function ToRenderEverything() {
         console.log(text)
 
         db.collection("tests").add(text)
-        .then(result=>{
-            console.log("file created in DB");
-            reloadNeeded()
-        })
-        .catch(e=>{console.log("no connectionto DB");})
+            .then(result => {
+                console.log("file created in DB");
+                reloadNeeded()
+            })
+            .catch(e => { console.log("no connectionto DB"); })
     }
     function download(e) {
         //   e.preventDefault();
@@ -218,70 +253,75 @@ function ToRenderEverything() {
             test: testArray
         };
         db.collection('tests').doc(testAuthor.testId).set(text)
-        .then(result=>{
-            console.log("file updated");
-            reloadNeeded();
-        })
-        .catch(e=>{console.log("file fail to updated");})
+            .then(result => {
+                console.log("file updated");
+                reloadNeeded();
+            })
+            .catch(e => { console.log("file fail to updated"); })
     }
-    function  startNewTest(e){
-        if (testName>""){
+    function startNewTest(e) {
+        if (testName > "") {
             setNewPressed(true);
-            setRecordWarning(`Did you safe your changes? Your present test ${testName} by ${(testAuthor.name>"")? testAuthor.name: "You"} will be lost. Proceed?`)
+            setRecordWarning(`Did you safe your changes? Your present test ${testName} by ${(testAuthor.name > "") ? testAuthor.name : "You"} will be lost. Proceed?`)
         }
     }
     return (
-            <div style={{ maxWidth: "1440px", overflow: "hidden" }}>
+        <div style={{ maxWidth: "1440px", overflow: "hidden" }}>
 
-                <label className='headerStyle'> Load locally saved tests
+            <label className='headerStyle'> Load locally saved tests
                 <input type="file" id="fileinput" onChange={e => readSingleFile(e)} />
-                </label>
-                <Button variant='success' onClick={e => startNewTest(e)}>New</Button>
-                <Button id="filedownload" onClick={e => download(e)}>Download</Button>
-                <Button id="fileUpload" onClick={e => upload(e)}>Upload as New</Button>
-               {testAuthor.testId>"" && <Button id="fileUpload" onClick={e => update(e)}>Update test in DB</Button>}
-                <GetTests user={currentUser.uid} reloadNeeded={reloadNeeded} onChange={n => getTestfromDB(n)} />
-                {newPressed && <AlertMenu onReturn={onReturn} style={{zIndex:550}} styling={{ 
-                left:"10vw",
+            </label>
+            <Button variant='success' onClick={e => startNewTest(e)}>New</Button>
+            <Button id="filedownload" onClick={e => download(e)}>Download</Button>
+            <Button id="fileUpload" onClick={e => upload(e)}>Upload as New</Button>
+            {testAuthor.testId > "" && <Button id="fileUpload" onClick={e => update(e)}>Update test in DB</Button>}
+            <GetTests user={currentUser.uid} reloadNeeded={reloadNeeded} onChange={n => getTestfromDB(n)} />
+            {newPressed && <AlertMenu onReturn={onReturn} style={{ zIndex: 550 }} styling={{
+                left: "10vw",
                 top: "10vh",
-                variantHead:"warning",
-                heading:"Warning",
-                text:recordWarning,
-                color1:"danger",
-                button1:"Proceed",
-                color2:"secondary",
-                button2:"Cancel"
-            }}/>}
-                <label className='headerStyle' style={{ width: '100%' }} >Enter your test Name
+                variantHead: "warning",
+                heading: "Warning",
+                text: recordWarning,
+                color1: "danger",
+                button1: "Proceed",
+                color2: "secondary",
+                button2: "Cancel"
+            }} />}
+            <label className='headerStyle' style={{ width: '100%' }} >Enter your test Name
                     <input id="testName" style={{ width: '100%' }} onChange={e => setTestName(e.target.value)} />
-                </label>
-                <label className='headerStyle' style={{ width: '43%' }} >Is this test Private or Public?
+            </label>
+            <label className='headerStyle' style={{ width: '43%' }} >Is this test Private or Public?
                     <select id="visibility" type="" style={{ width: '50%', float: 'right' }} onChange={e => setVisibility(e.target.value)} >
-                        <option value="Private">Private</option>
-                        <option value="Public">Public</option>
-                    </select>
-                </label>
-                <label className='headerStyle' style={{ width: '55%' }} >Would you allow others to edit content of test?
+                    <option value="Private">Private</option>
+                    <option value="Public">Public</option>
+                </select>
+            </label>
+            <label className='headerStyle' style={{ width: '55%' }} >Would you allow others to edit content of test?
                     <select id="editability" style={{ width: '30%', float: 'right' }} onChange={e => setEditability(e.target.value)}>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                </label>
-                <h4 className='headerStyle' style={{ width: '40%' }} >Add test background image link</h4>
-                <input id="background" style={{ width: '59%' }} onChange={e => setTestBackground(e.target.value)} />
-                <Cloudinary style={{ width: "200px", objectFit: "cover", margin: "10px" }} getImgUrl={getImgUrl} />
-                <h4 className='headerStyle' style={{ width: '100%' }} >Enter Time limits (if there are no time limit enter 0 0 0) :
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </label>
+            <h4 className='headerStyle' style={{ width: '40%' }} >Add test background image link</h4>
+            <input id="background" style={{ width: '59%' }} onChange={e => setTestBackground(e.target.value)} />
+            <Cloudinary style={{ width: "200px", objectFit: "cover", margin: "10px" }} getImgUrl={getImgUrl} />
+            <h4 className='headerStyle' style={{ width: '100%' }} >Enter Time limits (if there are no time limit enter 0 0 0) :
                     <input id="hh" type="number" min={0} max={10} size={2} style={{ width: '9%' }} onChange={e => setTestHH(e.target.value)} /> hh
                     <input id="mm" type="number" min={0} max={59} size={2} style={{ width: '9%' }} onChange={e => setTestMM(e.target.value)} /> mm
                     <input id="ss" type="number" min={0} max={59} size={2} style={{ width: '9%' }} onChange={e => setTestSS(e.target.value)} /> ss
                     </h4>
-                <TestCreateNav qNumber={testArray.length ? testArray.length : 0} onNew={(e) => handleAdd(e)} onDel={(t) => { handleDelete(t) }} onChange={(q) => { handleUpdateQuestion(q) }} />
+            <TestCreateNav qNumber={testArray.length ? testArray.length : 0} onNew={(e) => handleAdd(e)} onDel={(t) => handleDelete(t)} onMove={(t) => handleMove(t)} onShow={(e) => handleShow(e)} onChange={(q) => { handleUpdateQuestion(q) }} />
+            {show &&
+                <div className="modalContainer" >
+                    <div className="closeTag" onClick={(e) => setShow(false)}>&#10060;Close</div>
+                    <QuestionDisplay style={{ pointerEvents: 'none' }} background={testBackground} info={{ positions: testArray[displayQ].info.positions, correct: testArray[displayQ].info.correct, layout: testArray[displayQ].info.layout, img: testArray[displayQ].info.img }} vis={1} question={testArray[displayQ].question} answers={demoArr} checkedMarks={[]} onChange={(ch) => { }} />
+                </div>
+            }
+            {testArray[displayQ] &&
+                <GetQuestion q={testArray[displayQ]} background={testBackground} onChange={(t) => handleReturnQuestion(t)} />
+            }
 
-                {testArray[displayQ] &&
-                    <GetQuestion q={testArray[displayQ]} background={testBackground} onChange={(t) => handleReturnQuestion(t)} />
-                }
-
-            </div>
+        </div >
     )
 }
 export default ToRenderEverything;

@@ -60,8 +60,8 @@ function ToRenderEverything() {
       {!testLoad && <div style={{ width: '100%' }}>
         {testRecords && testRecords.map((test, j) => {
           return (
-            <div style={{ position: 'relative', margin: '5px' }} >
-              <div value={test.id} onClick={e => handleClick(e)} >{test.main.name} by {test.main.authorName} </div>
+            <div  style={{ position: 'relative', margin: '5px' }} >
+              <div style={{cursor: "pointer"}}  value={test.id} onClick={e => handleClick(e)} >{test.main.name} by {test.main.authorName} </div>
             </div>
           )
         }

@@ -12,7 +12,6 @@ function GetQuestion(props) {
     const [correct, setCorrect] = useState(0);
     const [img, setImg] = useState('');
     const [layout, setLayout] = useState('');
-    const [show, setShow] = useState(false);
     const [rights, setRights] = useState([]);
     const [wrongs, setWrongs] = useState([]);
     const getImgUrl = (url) => {
@@ -60,15 +59,7 @@ function GetQuestion(props) {
          }
         props.onChange(questionObj) 
     }
-    function showLayout(e){
-       let arr=rights.slice(0,correct);
-       demoArr=wrongs.slice(0,positions-correct);
-       for (let i=0; i<arr.length;i++){
-           demoArr.push(arr[i]);
-       }
-       console.log(demoArr);
-        (show===false)? setShow(true): setShow(false)
-    }
+ 
 
     function delRecord(n, corr) {
         if (corr){
@@ -116,9 +107,7 @@ function GetQuestion(props) {
                             <h3 className='headerStyle'>Enter text of the wrong answers:</h3>
                             {wrongs && <GetAnswers answers={wrongs} correct={false} onDelete={(n) => delRecord(n, 0)} onNew={(e) => newRecord(e, 0)} onChange={(t) => handleReturnData(t, 0)} />}
                         </Col>
-                        <Button onClick={e=>showLayout(e)} >Preview</Button>
                     </Row>        
-                    {show && <QuestionDisplay style={{pointerEvents:'none'}} background={props.background} info={{positions: positions, correct: correct,layout: layout, img:img}}  vis={1} question={question} answers={demoArr} checkedMarks={[]} onChange={(ch) => { }}  />}
         </Fragment >
     )
 }

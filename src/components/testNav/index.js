@@ -66,6 +66,10 @@ function TestNav(props) {
                 navButton.forEach(function(userItem) {
                  userItem.classList.remove('invisible');
                 });
+                navButton=document.querySelectorAll(".testNavLight");
+                navButton.forEach(function(userItem) {
+                    userItem.classList.remove('invisible');
+                   });
                 document.querySelector("#startNav").classList.add('invisible');             
                 questionNow.value = 1;
             } else questionNow.value = n;
@@ -74,21 +78,21 @@ function TestNav(props) {
     }
     return (
         <Fragment>
-            <div style={{display: 'flex',flexWrap: 'wrap', width: '100%', justifyContent: 'center'}}>
+            <div className="navContainer" >
                <Button id="startNav" style={{position:'absolute', top:'50vh', zIndex:'200', transformOrigin: 'center',margin:'10px 0 0 0'}}
                 onClick={timerDraw}>Start</Button>          
-                <Button  className="testNav invisible"
-                    onClick={e => { questionNumberSet('1') }}>&#9198;</Button>
-                <Button className="testNav invisible"
-                    onClick={e => { questionNumberSet(-1) }}>&#9194;</Button>
-                <input className="testNav invisible" type="number" id="questionPage" min="1" max={props.qNumber.toString()} onClick={e => questionNumberSet(e.target.value)}></input>
-                <Button className="testNav invisible"
-                    onClick={e => { questionNumberSet(1) }}>&#9193;</Button>
-                <Button className="testNav invisible"
-                    onClick={e => { questionNumberSet(props.qNumber.toString()) }}>&#9197;</Button>
-                <Button className="testNav invisible"
-                    onClick={stopTest}>&#128721;</Button>
-                <h4 className="testNav invisible">{displayTime}</h4>    
+                <button  className="testNav  invisible"
+                    onClick={e => { questionNumberSet('1') }}>&#9198;First</button>
+                <button className="testNav invisible"
+                    onClick={e => { questionNumberSet(-1) }}>&#9194;Back</button>
+                <input  className="testNavLight text-center invisible" type="number" id="questionPage" min="1" max={props.qNumber.toString()} onClick={e => questionNumberSet(e.target.value)}></input>
+                <button className="testNav invisible "
+                    onClick={e => { questionNumberSet(1) }}>&#9193;Next</button>
+                <button className="testNav invisible"
+                    onClick={e => { questionNumberSet(props.qNumber.toString()) }}>&#9197;Last</button>
+                <input  className="testNavLight text-center invisible" type="text" value={displayTime} style={{width:'8ch'}} />
+                <button className="testNav invisible"
+                    onClick={stopTest}>&#128721;Stop</button>  
             </div>
         </Fragment>
     );
