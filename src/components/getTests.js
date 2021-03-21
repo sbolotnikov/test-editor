@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import firebase from "../firebase";
-import { Button, Container } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import AlertMenu from './alertMenu';
 import CustomSelect from './CustomSelect';
 function GetTests(props) {
     const db = firebase.firestore();
     const [testRecords, setTestsRecords] = useState([]);
     const [testRecordsDisplay, setTestsRecordsDisplay] = useState([]);
-    const [deletePressed, setDeletePressed] = useState(false);
+    const [revealAlert, setRevealAlert] = useState(false);
+    const [alertStyle, setAlertStyle] = useState({});
     const [recordWarning, setRecordWarning] = useState('');
     const [deleteRecId, setDeleteRecId] = useState(false);
     const [selectedOption, setSelectedOption] = useState(null);
     const [categories, setCategories] = useState([]);
     const onReturn = (decision1) => {
-        setDeletePressed(false);
+        setRevealAlert(false);
         if (decision1 === "Delete") {
             db.collection('tests').doc(deleteRecId).delete()
                 .then(res => {
@@ -25,39 +26,91 @@ function GetTests(props) {
                 })
         }
     }
-    function handleLink(e){
-        let recId = e.target.previousSibling.getAttribute("value");
-        recId=`https://sbolotnikov.github.io/test-editor/#/taketest/${recId}`;
+    function handleLink(e) {
+        let recId = e.target.getAttribute("value");
         console.log(recId)
+        setAlertStyle({
+            left: "0",
+            top: "0",
+            variantHead: "success",
+            heading: "Direct link to Test",
+            text: `https://sbolotnikov.github.io/test-editor/#/taketest/${recId}`,
+            color1: "",
+            button1: "",
+            color2: "secondary",
+            button2: "Cancel"
+        });
+        setRevealAlert(true)
     }
     function handleDelete(e) {
-        let recId = e.target.previousSibling.getAttribute("value")
+        let recId = e.target.getAttribute("value")
         setDeleteRecId(recId)
         let elementPos = testRecords.map(function (x) { return x.id; }).indexOf(recId);
         let objFound = testRecords[elementPos];
+        setAlertStyle({
+            left: "0",
+            top: "0",
+            variantHead: "danger",
+            heading: "Warning",
+            text: recordWarning,
+            color1: "danger",
+            button1: "Delete",
+            color2: "secondary",
+            button2: "Cancel"
+        });
         setRecordWarning(`Do you really want to delete ${objFound.main.name} by ${objFound.main.authorName}?`)
-        setDeletePressed(true)
+        setRevealAlert(true)
     }
     function handleClick(test) {
         console.log(test.target.getAttribute("value"))
         props.onChange(testRecords.filter(item => item.id === test.target.getAttribute("value")));
     }
     const fetchData = async () => {
-
+        let arrTemp = [];
         const data = await db.collection("tests").get();
-        setTestsRecords(data.docs.map(doc => ({ ...doc.data(), id: doc.id })).filter(doc => (doc.main.author === props.user) || (doc.main.editability === 'Yes')));
+        if (props.forPage === 'create')
+            arrTemp = data.docs.map(doc => ({ ...doc.data(), id: doc.id })).filter(doc => (doc.main.author === props.user) || (doc.main.editability === 'Yes'));
+        else
+            arrTemp = data.docs.map(doc => ({ ...doc.data(), id: doc.id })).filter(doc => (doc.main.author === props.user) || (doc.main.visibility === 'Public'));
+        arrTemp.sort(function (a, b) {
+            var nameA = a.main.name.toUpperCase(); // ignore upper and lowercase
+            var nameB = b.main.name.toUpperCase(); // ignore upper and lowercase
+            if (nameA < nameB) {
+                return -1;
+            }
+            if (nameA > nameB) {
+                return 1;
+            }
+
+            // names must be equal
+            return 0;
+
+        });
+        setTestsRecords(arrTemp)
     };
     const fetchCategories = async () => {
 
         const data = await db.collection("categories").get();
-        setCategories(data.docs.map(doc => ({ ...doc.data() })));
+        let arrTemp=data.docs.map(doc => ({ ...doc.data() }));
+        arrTemp.sort(function (a, b) {
+            var nameA = a.label.toUpperCase(); // ignore upper and lowercase
+            var nameB = b.label.toUpperCase(); // ignore upper and lowercase
+            if (nameA < nameB) {
+                return -1;
+            }
+            if (nameA > nameB) {
+                return 1;
+            }
+
+            // names must be equal
+            return 0;
+
+        });
+        setCategories(arrTemp);
     };
     useEffect(() => {
-        // setCategories([{ value: 'Astronomy', label:"Astronomy" },{ value: "Sergeys' test", label:"Sergeys' test" }])
         fetchCategories();
         fetchData();
-        console.log(testRecords);
-
     }, []);
     useEffect(() => {
         let recordSet = testRecords;
@@ -74,47 +127,24 @@ function GetTests(props) {
         setTestsRecordsDisplay(recordSet);
     }, [selectedOption])
     return (
-        <Container>
-            <div style={{ width: '100%' }}>
-                {categories &&
-                    <CustomSelect isMulti={true} style={{ width: '300px', menuColor: 'red' }} value={selectedOption} onChange={setSelectedOption} options={categories} label="Choose categories" />
-                }
-                {/* {newPressed && <AlertMenu onReturn={onReturn} style={{ zIndex: 550 }} styling={{
-                left: "10vw",
-                top: "10vh",
-                variantHead: "success",
-                heading: "Your direct link to Test",
-                text: recordWarning,
-                color1: "success",
-                button1: "",
-                color2: "secondary",
-                button2: "Cancel"
-            }} />} */}
-                {testRecordsDisplay && testRecordsDisplay.map((test, j) => {
-                    return (
-                        <div style={{ position: 'relative', margin: '5px' }} >
-                            <div style={{ cursor: "pointer" }} value={test.id} onClick={e => handleClick(e)} >{test.main.name} by {test.main.authorName} </div>
-                            <Button style={{ position: 'absolute', bottom: 0, right: 0 }} variant='success' id={"linkBtn_" + j} value={j} onClick={e => handleLink(e)}>link</Button>
-                            <Button style={{ position: 'absolute', bottom: 0, right: '-40px'}} variant='danger' id={"eraseBtn_" + j} value={j} onClick={e => handleDelete(e)}>x</Button>
-
-                        </div>
-                    )
-                }
-                )}
-
-            </div>
-            {deletePressed && <AlertMenu onReturn={onReturn} styling={{
-                left: "10vw",
-                top: "10vh",
-                variantHead: "danger",
-                heading: "Warning",
-                text: recordWarning,
-                color1: "danger",
-                button1: "Delete",
-                color2: "secondary",
-                button2: "Cancel"
-            }} />}
-        </Container>
+        <div style={{ width: '100%' }}>
+            {categories &&
+                <CustomSelect isMulti={true} style={{ width: '300px', menuColor: 'red' }} value={selectedOption} onChange={setSelectedOption} options={categories} label="Choose categories" />
+            }
+            {testRecordsDisplay && testRecordsDisplay.map((test, j) => {
+                return (
+                    <div style={{ display: "flex", margin: '5px' }} >
+                        <Button style={{ fontSize: '12px', whiteSpace: 'nowrap' }} variant='success' id={"linkBtn_" + j} value={test.id} onClick={e => handleLink(e)}>Link &#128279;</Button>
+                        {(props.forPage === 'create') &&
+                            <Button style={{ fontSize: '12px', whiteSpace: 'nowrap' }} variant='danger' id={"eraseBtn_" + j} value={test.id} onClick={e => handleDelete(e)}>Del &#10008;</Button>
+                        }
+                        <div style={{ cursor: "pointer", whiteSpace: 'nowrap', width: "auto", overflow: 'hidden', textOverflow: 'ellipsis' }} value={test.id} onClick={e => handleClick(e)} >{test.main.name} by {test.main.authorName} </div>
+                    </div>
+                )
+            }
+            )}
+            {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
+        </div>
     );
 }
 export default GetTests;

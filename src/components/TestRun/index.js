@@ -5,7 +5,7 @@ import ResultsDisplay from '../ResultsDisplay';
 import "./style.css";
 
 function TestRun(props) {
-  var quizDuration = [props.test.main.hours, props.test.main.minutes, props.test.main.seconds];
+  var quizDuration = [parseInt(props.test.main.hours), parseInt(props.test.main.minutes), parseInt(props.test.main.seconds)];
   var testBackground = props.test.main.background;
   var quizMain = props.test.test;
   var test = [];
