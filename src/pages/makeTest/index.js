@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GetQuestion from '../../components/GetQuestion.js';
 import TestCreateNav from '../../components/testCreateNav';
 import { useAuth } from "../../contexts/AuthContext"
@@ -9,6 +9,8 @@ import GetTests from '../../components/getTests.js';
 import AlertMenu from '../../components/alertMenu';
 import Cloudinary from '../../components/Cloudinary';
 import QuestionDisplay from '../../components/QuestionDisplay';
+import CustomSelect from '../../components/CustomSelect';
+
 var demoArr = [];
 var emptyQ = {
     question: '',
@@ -22,6 +24,7 @@ var emptyQ = {
     }
 }
 function ToRenderEverything() {
+    var defOptionArray=[];
     const { currentUser } = useAuth()
     const [testName, setTestName] = useState('');
     const [testAuthor, setTestAuthor] = useState({ authorId: "", name: "", testId: "" });
@@ -33,12 +36,17 @@ function ToRenderEverything() {
     const [testMM, setTestMM] = useState(0);
     const [testSS, setTestSS] = useState(0);
     const [show, setShow] = useState(false);
-
     const [newPressed, setNewPressed] = useState(false);
     const [recordWarning, setRecordWarning] = useState('')
     const [testArray, setTestArray] = useState([emptyQ]);
-    // if (toCreate===true){return <Redirect to="/create" />};
+    const [selectedOption, setSelectedOption] = useState([]);
+    const [categories, setCategories] = useState([]);
     const db = firebase.firestore();
+    const fetchCategories = async () => {
+
+        const data = await db.collection("categories").get();
+        setCategories(data.docs.map(doc => ({ ...doc.data()})));
+    };
     const onReturn = (decision1) => {
         setNewPressed(false);
         if (decision1 === "Proceed") {
@@ -130,11 +138,18 @@ function ToRenderEverything() {
             console.log(record1, arr)
         }
     }
-    function getTestfromDB(n) {
+    async function getTestfromDB(n) {
         console.log(n)
         let newTest = n[0];
         setTestArray(newTest.test);
-        setTestAuthor({ authorId: newTest.main.author, name: newTest.main.authorName, testId: newTest.id })
+        setTestAuthor({ authorId: newTest.main.author, name: newTest.main.authorName, testId: newTest.id });
+        defOptionArray=newTest.main.categories
+        setSelectedOption(defOptionArray);
+
+
+
+
+        // document.querySelector("#categoriesSelect").setAttribute("defaultValue",selectedOption);
         document.querySelector("#testName").value = newTest.main.name;
         setTestName(newTest.main.name);
         document.querySelector("#visibility").value = newTest.main.visibility;
@@ -162,6 +177,7 @@ function ToRenderEverything() {
                 console.log(newTest)
                 setTestArray(newTest.test);
                 setTestAuthor({ authorId: "", name: "", testId: "" });
+                setSelectedOption(newTest.main.categories);
                 document.querySelector("#testName").value = newTest.main.name;
                 setTestName(newTest.main.name);
                 document.querySelector("#visibility").value = newTest.main.visibility;
@@ -189,6 +205,7 @@ function ToRenderEverything() {
             main: {
                 author: currentUser.uid,
                 authorName: currentUser.displayName,
+                categories: selectedOption,
                 name: testName,
                 visibility: visibility,
                 editability: editability,
@@ -214,6 +231,7 @@ function ToRenderEverything() {
             main: {
                 author: currentUser.uid,
                 authorName: currentUser.displayName,
+                categories: selectedOption,
                 name: testName,
                 visibility: visibility,
                 editability: editability,
@@ -242,6 +260,7 @@ function ToRenderEverything() {
             main: {
                 author: testAuthor.authorId,
                 authorName: testAuthor.name,
+                categories: selectedOption,
                 name: testName,
                 visibility: visibility,
                 editability: editability,
@@ -265,6 +284,9 @@ function ToRenderEverything() {
             setRecordWarning(`Did you safe your changes? Your present test ${testName} by ${(testAuthor.name > "") ? testAuthor.name : "You"} will be lost. Proceed?`)
         }
     }
+    useEffect(() => {
+        fetchCategories();
+    }, []);
     return (
         <div style={{ maxWidth: "1440px", overflow: "hidden" }}>
 
@@ -302,6 +324,9 @@ function ToRenderEverything() {
                     <option value="No">No</option>
                 </select>
             </label>
+            {selectedOption && 
+            <CustomSelect isMulti={true} style={{width:'300px', menuColor:'red'}} value={selectedOption} onChange={setSelectedOption} options={categories} label="Choose a test categories" />
+            }
             <h4 className='headerStyle' style={{ width: '40%' }} >Add test background image link</h4>
             <input id="background" style={{ width: '59%' }} onChange={e => setTestBackground(e.target.value)} />
             <Cloudinary style={{ width: "200px", objectFit: "cover", margin: "10px" }} getImgUrl={getImgUrl} />
