@@ -111,7 +111,7 @@ function TestRun(props) {
     <>
       {results.length > 0 && <ResultsDisplay res={results} rate={rating} time={resultTime} background={testBackground} testId={props.local?"":props.test.id} />}
       {testGenerated && results.length <= 0 && <TestNav qNumber={testGenerated.length} hours={quizDuration[0]} minutes={quizDuration[1]} seconds={quizDuration[2]} onExit={(t) => { handleQuizEnd(t) }} onChange={(q) => { handleChangeQuestion(q) }} />}
-      {testGenerated && results.length <= 0 && <QuestionDisplay background={testBackground} info={testGenerated[displayQ].info} vis={visible} question={testGenerated[displayQ].question} answers={testGenerated[displayQ].answers} checkedMarks={choices[displayQ]} onChange={(ch) => { handleChoices(ch) }} />}
+      {testGenerated && results.length <= 0 && <QuestionDisplay background={testBackground} gradient={props.test.main.gradient}   info={testGenerated[displayQ].info} vis={visible} question={testGenerated[displayQ].question} answers={testGenerated[displayQ].answers} checkedMarks={choices[displayQ]} onChange={(ch) => { handleChoices(ch) }} />}
     </>
   )
 }

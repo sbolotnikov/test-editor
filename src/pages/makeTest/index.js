@@ -6,6 +6,7 @@ import firebase from "../../firebase";
 import "./style.css";
 import { Button } from 'react-bootstrap';
 import GetTests from '../../components/getTests.js';
+import GetGradient from '../../components/getGradient.js';
 import AlertMenu from '../../components/alertMenu';
 import Cloudinary from '../../components/Cloudinary';
 import QuestionDisplay from '../../components/QuestionDisplay';
@@ -32,6 +33,7 @@ function ToRenderEverything() {
     const [editability, setEditability] = useState('');
     const [displayQ, setDisplayQ] = useState(0);
     const [testBackground, setTestBackground] = useState('');
+    const [testGradient, setTestGradient] = useState('');
     const [testHH, setTestHH] = useState(0);
     const [testMM, setTestMM] = useState(0);
     const [testSS, setTestSS] = useState(0);
@@ -41,6 +43,9 @@ function ToRenderEverything() {
     const [testArray, setTestArray] = useState([emptyQ]);
     const [selectedOption, setSelectedOption] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [addTestGradientVisible, setAddTestGradientVisible] = useState(false);
+    const [addBackgroundVisible, setAddBackgroundVisible] = useState(false);
+
     const db = firebase.firestore();
     const fetchCategories = async () => {
 
@@ -77,6 +82,7 @@ function ToRenderEverything() {
                     visibility: visibility,
                     editability: editability,
                     background: testBackground,
+                    gradient: testGradient,
                     hours: testHH,
                     minutes: testMM,
                     seconds: testSS
@@ -92,12 +98,12 @@ function ToRenderEverything() {
         }
         if (decision1 === "Add") {
             console.log(inputValue)
-            if ((categories.map(function(x) {return x.value; }).indexOf(inputValue) === -1) && (inputValue.length > 5)) {
+            if ((categories.map(function (x) { return x.value; }).indexOf(inputValue) === -1) && (inputValue.length > 5)) {
                 let newItem = { label: inputValue, value: inputValue }
                 db.collection('categories').add(newItem)
                     .then(result => {
                         console.log("categories updated");
-                        setCategories([...categories,newItem]);
+                        setCategories([...categories, newItem]);
                     })
                     .catch(e => { console.log("categories fail to updated"); })
                 setRevealAlert(false);
@@ -106,7 +112,7 @@ function ToRenderEverything() {
                     left: "0",
                     top: "0",
                     variantHead: "danger",
-                    heading: (inputValue.length > 5)?"Already Exist":"Enter more symbols",
+                    heading: (inputValue.length > 5) ? "Already Exist" : "Enter more symbols",
                     text: `Please enter new unique Category name more then 5 symbols long and click Add`,
                     inputField: 'true',
                     inputValue: inputValue,
@@ -127,6 +133,10 @@ function ToRenderEverything() {
     const getImgUrl = (url) => {
         document.querySelector("#background").value = url;
         setTestBackground(url);
+    }
+    const getGradientCSS = (n) => {
+        document.querySelector("#backgroundGradient").value = n;
+        setTestGradient(n)
     }
     function handleUpdateQuestion(q) {
         if (q > 0) { setDisplayQ(q - 1) }
@@ -214,6 +224,8 @@ function ToRenderEverything() {
         setEditability(newTest.main.editability);
         document.querySelector("#background").value = newTest.main.background;
         setTestBackground(newTest.main.background);
+        document.querySelector("#backgroundGradient").value = newTest.main.gradient;
+        setTestGradient(newTest.main.gradient);
         document.querySelector("#hh").value = newTest.main.hours;
         setTestHH(newTest.main.hours);
         document.querySelector("#mm").value = newTest.main.minutes;
@@ -240,6 +252,8 @@ function ToRenderEverything() {
                 setEditability(newTest.main.editability);
                 document.querySelector("#background").value = newTest.main.background;
                 setTestBackground(newTest.main.background);
+                document.querySelector("#backgroundGradient").value = newTest.main.gradient;
+                setTestGradient(newTest.main.gradient);
                 document.querySelector("#hh").value = newTest.main.hours;
                 setTestHH(newTest.main.hours);
                 document.querySelector("#mm").value = newTest.main.minutes;
@@ -262,6 +276,7 @@ function ToRenderEverything() {
                 visibility: visibility,
                 editability: editability,
                 background: testBackground,
+                gradient: testGradient,
                 hours: testHH,
                 minutes: testMM,
                 seconds: testSS
@@ -285,6 +300,7 @@ function ToRenderEverything() {
                 visibility: visibility,
                 editability: editability,
                 background: testBackground,
+                gradient: testGradient,
                 hours: testHH,
                 minutes: testMM,
                 seconds: testSS
@@ -355,12 +371,17 @@ function ToRenderEverything() {
             <label className='headerStyle'> Load locally saved tests
                 <input type="file" id="fileinput" onChange={e => readSingleFile(e)} />
             </label>
-            <Button variant='success' onClick={e => startNewTest(e)}>New</Button>
-            <Button id="filedownload" onClick={e => download(e)}>Download</Button>
-            <Button id="fileUpload" onClick={e => upload(e)}>Upload as New</Button>
-            {testAuthor.testId > "" && <Button id="fileUpload" onClick={e => update(e)}>Update test in DB</Button>}
             <GetTests user={currentUser.uid} forPage={'create'} reloadNeeded={reloadNeeded} onChange={n => getTestfromDB(n)} />
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
+            <div className='navContainer' style={{ width: '97%', margin: '40px auto', padding:"10px"}}>
+                <h3 style={{ width: '100%', textAlign: "center", fontSize:'4vw', color:'#b30059' }}>Test edit panel</h3>
+               
+                <button className="testNav" onClick={e => startNewTest(e)}>New &#10133;</button>
+                <button className="testNav" onClick={e => download(e)}>Download &#128190;</button>
+                <button className="testNav" onClick={e => upload(e)}>Upload as New &#128228;</button>
+                {testAuthor.testId > "" && <button className="testNav"   onClick={e => update(e)}>Update in DB &#128257;</button>}
+                
+            </div>
             <label className='headerStyle' style={{ width: '100%' }} >Enter your test Name
                     <input id="testName" style={{ width: '100%' }} onChange={e => setTestName(e.target.value)} />
             </label>
@@ -380,40 +401,41 @@ function ToRenderEverything() {
                 <CustomSelect isMulti={true} style={{ width: '300px', menuColor: 'red' }} value={selectedOption} onChange={setSelectedOption} options={categories} label="Choose a test categories" />
             }
             <Button onClick={e => handleNewCategory(e)}>Add New Category</Button>
-            <h4 className='headerStyle' style={{ width: '40%' }} >Add test background image link</h4>
-
-            {/* backgroundImage: `url(${props.background})`, backgroundRepeat: "no-repeat", backgroundSize: 'cover' 
-            
-
-            background: bg-color bg-image position/bg-size bg-repeat bg-origin bg-clip bg-attachment initial|inherit;
-            background-image: repeating-linear-gradient(red, yellow 10%, green 20%);
-        */}
-
-
-
-
-
-
-
-
-
-
-            <input id="background" style={{ width: '59%' }} onChange={e => setTestBackground(e.target.value)} />
-            <Cloudinary style={{ width: "200px", objectFit: "cover", margin: "10px" }} getImgUrl={getImgUrl} />
             <h4 className='headerStyle' style={{ width: '100%' }} >Enter Time limits (if there are no time limit enter 0 0 0) :
                     <input id="hh" type="number" min={0} max={10} size={2} style={{ width: '9%' }} onChange={e => setTestHH(e.target.value)} /> hh
                     <input id="mm" type="number" min={0} max={59} size={2} style={{ width: '9%' }} onChange={e => setTestMM(e.target.value)} /> mm
                     <input id="ss" type="number" min={0} max={59} size={2} style={{ width: '9%' }} onChange={e => setTestSS(e.target.value)} /> ss
-                    </h4>
+            </h4>
+            <label className='headerStyle'>
+                <input type="checkbox" id="checkAddTestBackground" onChange={e => setAddBackgroundVisible(document.querySelector("#checkAddTestBackground").checked)} />
+                Add/change BACKGROUND to your test
+            </label>
+            <div style={{ display: addBackgroundVisible ? "block" : "none", width: '50%' }}>
+
+                <h4 className='headerStyle' style={{ width: '100%' }} >Enter test background image link or upload your image from computer</h4>
+                <input id="background" style={{ width: '100%' }} onChange={e => setTestBackground(e.target.value)} />
+                <Cloudinary style={{ width: "40%", objectFit: "cover", margin: "10px" }} getImgUrl={getImgUrl} />
+            </div>
+            <label className='headerStyle'>
+                <input type="checkbox" id="checkAddTestGradient" onChange={e => setAddTestGradientVisible(document.querySelector("#checkAddTestGradient").checked)} />
+                Add/change background GRADIENT to your test
+            </label>
+            <div style={{ display: addTestGradientVisible ? "block" : "none", width: '50%' }}>
+                <h4 className='headerStyle' style={{ width: '100%' }} >Enter test background gradient CSS here</h4>
+                <textarea id="backgroundGradient" style={{ width: '100%' }} onChange={e => setTestGradient(e.target.value)} />
+                <GetGradient reloadNeeded={reloadNeeded} onChange={n => getGradientCSS(n)} />
+            </div>
+
+
             <TestCreateNav qNumber={testArray.length ? testArray.length : 0} onNew={(e) => handleAdd(e)} onDel={(t) => handleDelete(t)} onMove={(t) => handleMove(t)} onShow={(e) => handleShow(e)} onChange={(q) => { handleUpdateQuestion(q) }} />
             {show &&
                 <div className="modalContainer" >
                     <div className="closeTag" onClick={(e) => setShow(false)}>&#10060;Close</div>
-                    <QuestionDisplay style={{ pointerEvents: 'none' }} background={testBackground} info={{ positions: testArray[displayQ].info.positions, correct: testArray[displayQ].info.correct, layout: testArray[displayQ].info.layout, img: testArray[displayQ].info.img }} vis={1} question={testArray[displayQ].question} answers={demoArr} checkedMarks={[]} onChange={(ch) => { }} />
+                    <QuestionDisplay style={{ pointerEvents: 'none' }} background={testBackground} gradient={testGradient} info={{ positions: testArray[displayQ].info.positions, correct: testArray[displayQ].info.correct, layout: testArray[displayQ].info.layout, img: testArray[displayQ].info.img }} vis={1} question={testArray[displayQ].question} answers={demoArr} checkedMarks={[]} onChange={(ch) => { }} />
                 </div>
             }
             {testArray[displayQ] &&
-                <GetQuestion q={testArray[displayQ]} background={testBackground} onChange={(t) => handleReturnQuestion(t)} />
+                <GetQuestion q={testArray[displayQ]} onChange={(t) => handleReturnQuestion(t)} />
             }
 
         </div >

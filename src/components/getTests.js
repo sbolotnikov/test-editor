@@ -9,7 +9,6 @@ function GetTests(props) {
     const [testRecordsDisplay, setTestsRecordsDisplay] = useState([]);
     const [revealAlert, setRevealAlert] = useState(false);
     const [alertStyle, setAlertStyle] = useState({});
-    const [recordWarning, setRecordWarning] = useState('');
     const [deleteRecId, setDeleteRecId] = useState(false);
     const [selectedOption, setSelectedOption] = useState(null);
     const [categories, setCategories] = useState([]);
@@ -52,13 +51,12 @@ function GetTests(props) {
             top: "0",
             variantHead: "danger",
             heading: "Warning",
-            text: recordWarning,
+            text: `Do you really want to delete \n ${objFound.main.name} \n by  \n ${objFound.main.authorName}`,
             color1: "danger",
             button1: "Delete",
             color2: "secondary",
             button2: "Cancel"
         });
-        setRecordWarning(`Do you really want to delete ${objFound.main.name} by ${objFound.main.authorName}?`)
         setRevealAlert(true)
     }
     function handleClick(test) {

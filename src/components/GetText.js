@@ -5,9 +5,9 @@ function GetText(props) {
     const [imgLink, setImgLink] = useState(props.answer.img);
     const [checkBox, setCheckBox] = useState();
     const getImgUrl = (url) => {
-        document.querySelector("#mainImg").value=url;
+        document.querySelector("#mainImg").value = url;
         setImgLink(url);
-        sendBack(answerText,url);
+        sendBack(answerText, url);
     }
     function changeInput(e) {
         setAnswerText(e.target.value)
@@ -37,18 +37,18 @@ function GetText(props) {
         } else {
             setCheckBox(0);
         }
-    },[props.answer]);
+    }, [props.answer]);
     return (
-        <Fragment>
             <div >
                 <textarea style={{ width: '100%' }} id={"answer_" + props.num} value={answerText} onChange={e => changeInput(e)} />
-                <label style={{color:'black', width:'100%' }}>
-                <input type="checkbox" id={"check_" + props.num} onChange={e => changeCheck(e)} checked={(checkBox === 1) ? 'checked' : ''} />
+                <label style={{ color: 'black', width: '100%' }}>
+                    <input type="checkbox" id={"check_" + props.num} onChange={e => changeCheck(e)} checked={(checkBox === 1) ? 'checked' : ''} />
                 check to add image link</label>
-                <input type="text" id={"pic_" + props.num} style={{ width: '80%', opacity: checkBox }} value={imgLink} onChange={e => changeImage(e)} /> 
-                {checkBox && <Cloudinary style={{width: "200px", objectFit: "cover", margin: "10px"}} getImgUrl={getImgUrl} /> }          
+                {checkBox && <div>
+                    <input type="text" id={"pic_" + props.num} style={{ width: '80%', opacity: checkBox }} value={imgLink} onChange={e => changeImage(e)} />
+                    <Cloudinary style={{ width: "200px", objectFit: "cover", margin: "10px" }} getImgUrl={getImgUrl} />
+                </div>}
             </div>
-        </Fragment>
     );
 }
 export default GetText;
