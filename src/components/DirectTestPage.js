@@ -9,7 +9,6 @@ export default function DirectTestPage() {
   const db = firebase.firestore();
   let { id } = useParams();
   useEffect(() => {
-    console.log(id)
      db.collection("tests").doc(id).get().then((querySnapshot) => {
       
       setTest({ ...querySnapshot.data(), id: id } );

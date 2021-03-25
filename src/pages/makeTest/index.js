@@ -145,8 +145,6 @@ function ToRenderEverything() {
         else {
             setDisplayQ(q);
         }
-        console.log(displayQ);
-        console.log(testArray)
     }
     function handleReturnQuestion(t) {
         let arr = [...testArray];
@@ -158,7 +156,6 @@ function ToRenderEverything() {
         if (Object.getOwnPropertyNames(t)[0] === "rights") arr[displayQ].rights = t.rights;
         if (Object.getOwnPropertyNames(t)[0] === "wrongs") arr[displayQ].wrongs = t.wrongs;
         setTestArray(arr);
-        console.log(arr);
     }
     function handleCopyQuestion(e){
         let questionCopy=testArray[displayQ];
@@ -229,6 +226,8 @@ function ToRenderEverything() {
         console.log(n)
         let newTest = n[0];
         setTestArray(newTest.test);
+        setDisplayQ(0);
+        document.querySelector("#questionPage").value=1;
         setTestAuthor({ authorId: newTest.main.author, name: newTest.main.authorName, testId: newTest.id });
         defOptionArray = newTest.main.categories
         setSelectedOption(defOptionArray);
@@ -258,6 +257,8 @@ function ToRenderEverything() {
                 let newTest = JSON.parse(e.target.result);
                 console.log(newTest)
                 setTestArray(newTest.test);
+                setDisplayQ(0);
+                document.querySelector("#questionPage").value=1;
                 setTestAuthor({ authorId: "", name: "", testId: "" });
                 setSelectedOption(newTest.main.categories);
                 document.querySelector("#testName").value = newTest.main.name;
@@ -390,7 +391,7 @@ function ToRenderEverything() {
             <GetTests user={currentUser.uid} forPage={'create'} reloadNeeded={reloadNeeded} onChange={n => getTestfromDB(n)} />
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
             <div className='navContainer' style={{ width: '97%', margin: '40px auto', padding:"10px"}}>
-                <h3 style={{ width: '100%', textAlign: "center", fontSize:'4vw', color:'#b30059' }}>Test edit panel</h3>
+                <h3 style={{ width: '100%', textAlign: "center", fontSize:'4vw', color:'#b30059' }}><strong>Test editing panel</strong></h3>
                
                 <button className="testNav" onClick={e => startNewTest(e)}>New &#10133;</button>
                 <button className="testNav" onClick={e => download(e)}>Download &#128190;</button>

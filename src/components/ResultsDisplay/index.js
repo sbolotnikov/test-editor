@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import firebase from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
@@ -44,7 +44,7 @@ const ResultsDisplay = props => {
            {props.testId.length > 0 && <GetResults testId={props.testId} />}
 
             <h3 style={{ width: '100%', textAlign: 'center' }}>You have {props.rate}% {timeInSeconds(props.time)}sec left</h3>
-             <div style={{ width: '60vw', maxHeight: '30vh', overflow: 'auto', textAlign: 'center', justifyContent: 'center' }}>
+             <div style={{ width: '60vw', maxHeight: '30vh', overflow: 'auto', textAlign: 'center', justifyContent: 'center',borderRadius:"10px",  backgroundImage: 'linear-gradient(90deg, transparent 0%, transparent 8%,rgba(90, 90, 90,0.05) 8%, rgba(90, 90, 90,0.05) 21%,transparent 21%, transparent 100%),linear-gradient(45deg, transparent 0%, transparent 23%,rgba(90, 90, 90,0.05) 23%, rgba(90, 90, 90,0.05) 37%,transparent 37%, transparent 100%),linear-gradient(0deg, transparent 0%, transparent 37%,rgba(90, 90, 90,0.05) 37%, rgba(90, 90, 90,0.05) 49%,transparent 49%, transparent 100%),linear-gradient(90deg, rgb(255,255,255),rgb(255,255,255))' }}>
              <table style={{ margin: 'auto' }} >
                     <tr>
                         <th>Question</th>
@@ -53,9 +53,9 @@ const ResultsDisplay = props => {
 
                     {props.res.map((res, j) => {
                         return (
-                            <tr>
-                                <td>{j + 1}</td>
-                                <td>{res ? <span>&#9989;</span> : <span>&#10060;</span>}</td>
+                            <tr key={"n"+j}>
+                                <td key={"num"+j} >{j + 1}</td>
+                                <td key={"correct"+j}>{res ? <span>&#9989;</span> : <span>&#10060;</span>}</td>
                             </tr>
 
                         )

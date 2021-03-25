@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import Textfit  from 'react-textfit';
 import "./style.css";
 function LayoutSimple(props) {
@@ -38,10 +38,10 @@ function LayoutSimple(props) {
             <div  className="d-flex align-middle justify-content-center">
                 {props.answers.map((answerOption, j) => {
                     return (
-                        <label className="option_simple" for={"answer_" + j}>
-                            <input type="checkbox" className="checkOut" id={"answer_" + j} value={j} onChange={e => checkingMulti(e)} />
-                            <div className="option_inner" >
-                                <span className="name">{answerOption.text}</span>
+                        <label className="option_simple" key={"labelSimple"+j}>
+                            <input type="checkbox" className="checkOut" key={"inputSimple"+j} id={"answer_" + j} value={j} onChange={e => checkingMulti(e)} />
+                            <div className="option_inner" key={"divSimple"+j}>
+                                <span className="name" key={"spanSimple"+j} >{answerOption.text}</span>
                             </div>
                         </label>
                     )

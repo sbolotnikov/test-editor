@@ -28,7 +28,6 @@ function GetAnswers(props) {
         props.onDelete(e.target.value)
     }
     function handleCopy(e){
-        console.log(e.target.value)
         props.onCopy(e.target.value)
     }
     const [answers, setAnswers] = useState([]);
@@ -36,15 +35,15 @@ function GetAnswers(props) {
         setAnswers(props.answers);
     }, [props.answers]);
     return (
-        <div className="d-flex align-items-start justify-content-center" style={{ minHeight: "100vh" }}>
+        <div className="d-flex align-items-start justify-content-center">
             <div className="w-100" style={{ maxWidth: "400px" }}>
                 <div style={{ width: '100%' }}>
                     {answers && answers.map((answerOption, j) => {
                         return (
-                            <div style={{ position: 'relative', margin: '5px' }}>
-                                <Button style={{ float:"right" }} variant='danger' id={"eraseBtn_" + j} value={j} onClick={e => handleDelete(e)}>x</Button>
-                                <Button style={{ float:"right" }} variant='info' id={"copyBtn_" + j} value={j} onClick={e => handleCopy(e)}>Copy</Button>
-                                <GetText num={j} answer={answerOption} onDelete={e => e.target.value} onNew={e => e.target.value} onChange={(t) => handleChangeText(t)} />
+                            <div key={props.correct?"right"+j:"wrong"+j} style={{ position: 'relative', margin: '5px' }}>
+                                <Button style={{ float:"right" }} variant='danger' key={props.correct?"right_eraseBtn_":"wrong_eraseBtn_" + j} value={j} onClick={e => handleDelete(e)}>x</Button>
+                                <Button style={{ float:"right" }} variant='info' key={props.correct?"right_copyBtn_":"wrong_copyBtn_" + j} value={j} onClick={e => handleCopy(e)}>Copy</Button>
+                                <GetText key={props.correct?"right_text"+j:"wrong_text"+j} cor={props.correct?"right":"wrong"} num={j} answer={answerOption} onDelete={e => e.target.value} onNew={e => e.target.value} onChange={(t) => handleChangeText(t)} />
                                 
                             </div>
                         )

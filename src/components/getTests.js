@@ -131,12 +131,12 @@ function GetTests(props) {
             }
             {testRecordsDisplay && testRecordsDisplay.map((test, j) => {
                 return (
-                    <div style={{ display: "flex", margin: '5px' }} >
-                        <Button style={{ fontSize: '12px', whiteSpace: 'nowrap' }} variant='success' id={"linkBtn_" + j} value={test.id} onClick={e => handleLink(e)}>Link &#128279;</Button>
+                    <div key={"divTests"+j} style={{ display: "flex", margin: '5px' }} >
+                        <Button key={"linkBtnTests"+j} style={{ fontSize: '12px', whiteSpace: 'nowrap' }} variant='success' value={test.id} onClick={e => handleLink(e)}>Link &#128279;</Button>
                         {(props.forPage === 'create') &&
-                            <Button style={{ fontSize: '12px', whiteSpace: 'nowrap' }} variant='danger' id={"eraseBtn_" + j} value={test.id} onClick={e => handleDelete(e)}>Del &#10008;</Button>
+                            <Button key={"eraseBtnTests"+j} style={{ fontSize: '12px', whiteSpace: 'nowrap' }} variant='danger' value={test.id} onClick={e => handleDelete(e)}>Del &#10008;</Button>
                         }
-                        <div style={{ cursor: "pointer", whiteSpace: 'nowrap', width: "auto", overflow: 'hidden', textOverflow: 'ellipsis' }} value={test.id} onClick={e => handleClick(e)} >{test.main.name} by {test.main.authorName} </div>
+                        <div key={"textTests"+j} style={{ cursor: "pointer", whiteSpace: 'nowrap', width: "auto", overflow: 'hidden', textOverflow: 'ellipsis' }} value={test.id} onClick={e => handleClick(e)} >{test.main.name} by {test.main.authorName} </div>
                     </div>
                 )
             }

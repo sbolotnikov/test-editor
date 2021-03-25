@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
 import "./style.css";
 function TestCreateNav(props) {
 
@@ -58,6 +57,7 @@ const [moveVis, setMoveVis]=useState(false);
     return (
         <Fragment>
             <div className="navContainer" >
+            <h3 style={{ width: '100%', textAlign: "center", fontSize:'4vw', color:'#b30059' }}><strong>Question editing panel</strong></h3>
                 <button className="testNav"
                     onClick={e => { questionNumberSet('1') }}>&#9198;First</button>
                 <button className="testNav"
@@ -83,7 +83,7 @@ const [moveVis, setMoveVis]=useState(false);
                     {props.onMove([parseInt(document.querySelector("#questionPage").value)-1,parseInt(e.target.value)]);
                      document.querySelector("#questionPage").value=(parseInt(e.target.value)+1).toString()}}>
                    {qArr.map((option, i) => {
-                            return ( <option value={i}>{qArr[i]}</option>)
+                            return ( <option key={i} value={i}>{qArr[i]}</option>)
                         }
                         )}
   </select> } 

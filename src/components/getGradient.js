@@ -55,7 +55,6 @@ function GetGradient(props) {
         setRevealAlert(true)
     }
     function handleClick(grad) {
-        console.log(grad.target.getAttribute("value"))
         let gr = gradients.filter(item => item.id === grad.target.getAttribute("value"));
         props.onChange(gr[0].value);
     }
@@ -74,10 +73,10 @@ function GetGradient(props) {
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
             {gradients && gradients.map((item, j) => {
                 return (
-                    <div style={{ display: "flex", margin: '5px' }} >
-                        <div style={{ cursor: "pointer", width: '50%', height: '50px', textShadow: "4px 4px 16px white", backgroundImage: item.value, backgroundSize: 'cover' }} value={item.id} onClick={e => handleClick(e)} >
-                            {item.name} </div>
-                        <Button style={{ fontSize: '12px', whiteSpace: 'nowrap' }} variant='danger' id={"eraseBtn_" + j} value={item.id} onClick={e => handleDelete(e)}>Del &#10008;</Button>
+                    <div style={{ display: "flex", margin: '5px' }} key={"gradient_"+j} >
+                        <div key={"gradient_name"+j}  style={{ cursor: "pointer", width: '50%', height: '50px', textShadow: "4px 4px 16px white", backgroundImage: item.value, backgroundSize: 'cover' }}
+                         value={item.id} onClick={e => handleClick(e)} >{item.name} </div>
+                        <Button key={"gradient_del_button"+j}  style={{ fontSize: '12px', whiteSpace: 'nowrap' }} variant='danger' value={item.id} onClick={e => handleDelete(e)}>Del &#10008;</Button>
                     </div>
                 )
             }

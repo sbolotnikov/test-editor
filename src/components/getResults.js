@@ -16,7 +16,6 @@ function GetResults(props) {
                     if (b.result === a.result) { return b.time - a.time } else { return b.result - a.result }
                 });
                 setTestsRecords(resultsData);
-                console.log(testRecords)
             });
 
             // setTestsRecords(data.docs.map(doc => ({ ...data()})).filter(doc => (doc.testId=== props.testId)));
@@ -27,23 +26,25 @@ function GetResults(props) {
     }, [])
 
     return (
-        <div style={{ width: '60vw', maxHeight: '30vh', overflow: 'auto', textAlign: 'center', justifyContent: 'center' }}>
+        <div style={{ width: '60vw', maxHeight: '30vh', overflow: 'auto', textAlign: 'center', justifyContent: 'center',borderRadius:"10px", backgroundImage: 'linear-gradient(90deg, transparent 0%, transparent 8%,rgba(90, 90, 90,0.05) 8%, rgba(90, 90, 90,0.05) 21%,transparent 21%, transparent 100%),linear-gradient(45deg, transparent 0%, transparent 23%,rgba(90, 90, 90,0.05) 23%, rgba(90, 90, 90,0.05) 37%,transparent 37%, transparent 100%),linear-gradient(0deg, transparent 0%, transparent 37%,rgba(90, 90, 90,0.05) 37%, rgba(90, 90, 90,0.05) 49%,transparent 49%, transparent 100%),linear-gradient(90deg, rgb(255,255,255),rgb(255,255,255))' }}>
             <table style={{ margin:'auto' }} >
                 <tr>
                     <th>Name</th>
                     <th>Result</th>
-                    <th>Time Lest</th>
+                    <th>Time Left</th>
                 </tr>
+                <tbody>
                 {testRecords && testRecords.map((test, j) => {
                     return (
-                        <tr>
-                            <td>{test.displayName}</td>
-                            <td>{test.result}</td>
-                            <td>{test.time}</td>
+                        <tr key={j}>
+                            <td key={"name"+j}>{test.displayName}</td>
+                            <td key={"result"+j}>{test.result}</td>
+                            <td key={"time"+j}>{test.time}</td>
                         </tr>
 
                     )
                 })}
+                </tbody>
             </table>
         </div>
     )

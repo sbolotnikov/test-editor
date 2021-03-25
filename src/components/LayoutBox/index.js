@@ -35,11 +35,11 @@ const LayoutBox = props => {
 
                 {props.answers.map((answerOption, j) => {
                     return (
-                        <label className="option_item">
-                            <input type="checkbox" className="checkOut" id={"answer_" + j} value={j} onChange={e => checkingMulti(e)} />
+                        <label className="option_item" key={"labelBox"+j}>
+                            <input type="checkbox" className="checkOut" key={"inputBox"+j} id={"answer_" + j} value={j} onChange={e => checkingMulti(e)} />
                             <div className="option_inner" style={{ backgroundImage: `url(${answerOption.img})`, backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }}>
-                                <div className="tickmark"> </div>
-                                <div className="name">{answerOption.text}</div>
+                                <div className="tickmark" key={"divBox"+j}> </div>
+                                <div className="name" key={"div2Box"+j}>{answerOption.text}</div>
                             </div>
                         </label>
                     )
