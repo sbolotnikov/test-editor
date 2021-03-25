@@ -1,30 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"
 
 function Nav(props) {
     const [isNavCollapsed, setIsNavCollpased] = useState(true);
-    const { currentUser, logout } = useAuth();
+    const { currentUser } = useAuth();
     const [imgDisplay, setImgDisplay] = useState('');
-    const [toLogin, setToLogin] = useState(false);
-    async function logoutHandle(e) {
-        try {
-            await logout();
-            setToLogin(true);
-            // history.push("/test-editor/login")
-        } catch {
-            console.log("Failed to log out");
-        }
-    }
+    
     function handleNavCollpase() {
         setIsNavCollpased(!isNavCollapsed)
     }
     useEffect(() => {
-        let imgLink = process.env.PUBLIC_URL + "./images/defaultIcon.png";
+        let imgLink =  "https://res.cloudinary.com/sergeyb/image/upload/v1616530982/quizzes/defaultIcon_w0obug.png";
         if (currentUser) {currentUser.photoURL>"" ? setImgDisplay(currentUser.photoURL) : setImgDisplay(imgLink);}
+        else{
+            document.querySelector('#imgMember').setAttribute('src',imgLink)
+            setImgDisplay(imgLink)
+        }
+        
 
     }, [currentUser]);
-    if (toLogin===true){return <Redirect to="/login" />}
     return (
         <nav className="navbar navbar-expand-lg" >
             <Link to="/" className="navHeader">
@@ -50,36 +45,36 @@ function Nav(props) {
                 <ul className="navbar-nav">
 
 
-                    <li className="nav-item">
-                        <Link to="/login" className="nav-link">
+                   {!currentUser && <li className="nav-item">
+                        <Link to="/login" className="nav-link" onClick={event => handleNavCollpase()}>
                             Login
                         </Link>
 
-                    </li>
-                    <li className="nav-item">
-                        <Link to="/signup" className="nav-link">
+                    </li>}
+                    {!currentUser && <li className="nav-item">
+                        <Link to="/signup" className="nav-link" onClick={event => handleNavCollpase()}>
                             Signup
                     </Link>
 
-                    </li>
+                    </li>}
 
                     <li className="nav-item">
-                        <Link to="/test" className="nav-link">
+                        <Link to="/test" className="nav-link" onClick={event => handleNavCollpase()}>
                             Take Tests
                     </Link>
                     </li>
                    {  currentUser ? <li className="nav-item">
-                        <Link to="/create" className="nav-link">
+                        <Link to="/create" className="nav-link" onClick={event => handleNavCollpase()}>
                             Create tests
                     </Link>
                     </li>:""}
                     <li className="nav-item">
-                        <Link to="/" className="nav-link">
+                        <Link to="/" className="nav-link" onClick={event => handleNavCollpase()}>
                             About
                     </Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="#" className="nav-link" onClick={event => logoutHandle(event)} >
+                        <Link to="/logout" className="nav-link" onClick={event =>  handleNavCollpase()} >
                             Logout
                     </Link>
                     </li>
@@ -87,7 +82,7 @@ function Nav(props) {
             </div>
 
             <Link to="/" className="nav-link">
-               <img className="member-photo" src={imgDisplay>"" ? imgDisplay : process.env.PUBLIC_URL + "./images/defaultIcon.png"} alt="profile pic"/>
+               <img className="member-photo" id='imgMember' src={imgDisplay>"" ? imgDisplay : process.env.PUBLIC_URL + "./images/defaultIcon.png"} alt="member avatar"/>
             </Link>
         </nav>
     );

@@ -70,7 +70,11 @@ const [moveVis, setMoveVis]=useState(false);
                 <button className="testNav"
                     onClick={e => { props.onNew(''); document.querySelector("#questionPage").value = (props.qNumber + 1).toString() }}>&#10133;Add</button>
                 <button className="testNav"
-                    onClick={e => { deleteRec() }}>&#10060;Delete</button>
+                    onClick={e => { deleteRec() }}>&#128465;Delete</button>
+                <button className="testNav"
+                    onClick={e => { props.onCopy('') }}>&#128209;Copy</button> 
+                <button className="testNav"
+                    onClick={e => { props.onPaste('');document.querySelector("#questionPage").value =(parseInt(document.querySelector("#questionPage").value) + 1).toString() }}>&#128203;Paste</button>          
                 <button className="testNav"
                     onClick={e => { props.onShow('') }}>&#128240;Preview</button>
                 {(props.qNumber>1) && <button className="testNav"

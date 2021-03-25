@@ -13,27 +13,6 @@ export function AuthProvider({ children }) {
 
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password)
-    // console.log(name, email,password, url)
-    // return auth.createUser({
-    //    email: email,
-    //    password: password, 
-    //    displayName:name,
-    //    photoURL:url})
-
-    // try {
-    //   const userNewAuth = await firebase.auth().createUserWithEmailAndPassword(email, password);
-    //   var user = {
-    //     name: "Raja",
-    //     phone: "779797329",
-    //     address: "474 Mercer Drive",
-    //     uid: userNewAuth.uid,
-    //     email: userNewAuth.email
-    //   }
-    //   writeUserData(user)
-
-    // } catch (error) {
-    //   console.log(error.message)
-    // }
   }
   function login(email, password) {
     return auth.signInWithEmailAndPassword(email, password)

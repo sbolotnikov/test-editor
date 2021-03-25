@@ -30,7 +30,7 @@ const customStyles = {
 function CustomSelect({style,label,options,onChange,value,isMulti}){
     return <div style={style}>
         {label}
-        <Select styles={customStyles} isMulti={isMulti} closeMenuOnSelect={false} isSearchable  options={options} onChange={onChange} value={value}/>
+        <Select styles={customStyles} isMulti={isMulti} closeMenuOnSelect={true} isSearchable  options={options} onChange={onChange} value={value}/>
     </div>
 }
 

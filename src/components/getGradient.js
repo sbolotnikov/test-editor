@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import firebase from "../firebase";
 import { Button } from 'react-bootstrap';
 import AlertMenu from './alertMenu';
-import CustomSelect from './CustomSelect';
 function GetGradient(props) {
     const db = firebase.firestore();
     const [revealAlert, setRevealAlert] = useState(false);
@@ -71,7 +70,7 @@ function GetGradient(props) {
     }, []);
 
     return (
-        <div style={{ width: '100%', paddingLeft:'10px' }}> Pre-set gradients:
+        <div style={{ width: '100%', paddingLeft:'10px' }}> Pre-set gradients: for more visit <a className="btn" href="https://www.gradientmagic.com/" target="_blank" rel="noopener noreferrer">Gradient Magic</a>  
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
             {gradients && gradients.map((item, j) => {
                 return (
@@ -85,7 +84,7 @@ function GetGradient(props) {
             )}
             <label className='headerStyle'>
                 <input type="checkbox" id="checkNewGradientAdd" onChange={e => setAddNewGradientVisible(document.querySelector("#checkNewGradientAdd").checked)} /> 
-                Add new background gradient CSS to our database
+                Add new background gradient CSS to our database of pre-set styles
             </label>
             <div style={{ display: addNewGradientVisible ? "block" : "none", width: '48%' }}>
                 <label className='headerStyle'>Enter gradient CSS</label>

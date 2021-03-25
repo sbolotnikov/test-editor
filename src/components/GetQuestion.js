@@ -2,11 +2,13 @@ import React, { Fragment, useState, useEffect } from 'react';
 import QuestionDisplay from './QuestionDisplay';
 import GetAnswers from './GetAnswers.js';
 import Cloudinary from './Cloudinary';
+import { useCopy } from "../contexts/CopyContext";
 import { Row, Col, Button } from 'react-bootstrap';
-var demoArr=[];
+
 
 function GetQuestion(props) {
     var questionObj={}
+    const { getCopy } = useCopy();
     const [question, setQuestion] = useState('');
     const [positions, setPositions] = useState(0);
     const [correct, setCorrect] = useState(0);
@@ -46,15 +48,20 @@ function GetQuestion(props) {
         }
         props.onChange(questionObj)
     }
+    function handleCopyData(n, corr){
+        (corr)?questionObj=props.q.rights[n]:questionObj=props.q.wrongs[n];
+        console.log(questionObj.text)
+        getCopy(questionObj,"answerOption")
+    }
     function newRecord(e, corr) {
         if (corr){
             questionObj=props.q.rights;
             console.log(questionObj)
-            questionObj.push({ text: '', img: '', choice: true });
+            questionObj.push({ text: e.text, img: e.img, choice: true });
             // setRights(questionObj);
          }else{
             questionObj=props.q.wrongs;
-            questionObj.push({ text: '', img: '', choice: false });
+            questionObj.push({ text: e.text, img: e.img, choice: false });
             // setWrongs(questionObj);
          }
         props.onChange(questionObj) 
@@ -101,11 +108,11 @@ function GetQuestion(props) {
                     <Row>
                         <Col xs={12} md={6}>
                             <h3 className='headerStyle'>Enter text of the correct answers:</h3>
-                           {rights && <GetAnswers answers={rights} correct={true} onDelete={(n) => delRecord(n, 1)} onNew={(e) => newRecord(e, 1)} onChange={(t) => handleReturnData(t, 1)} />}
+                           {rights && <GetAnswers answers={rights} correct={true} onDelete={(n) => delRecord(n, 1)} onNew={(e) => newRecord(e, 1)} onChange={(t) => handleReturnData(t, 1)} onCopy={(t) => handleCopyData(t, 1)} />}
                         </Col>
                         <Col xs={12} md={6}>
                             <h3 className='headerStyle'>Enter text of the wrong answers:</h3>
-                            {wrongs && <GetAnswers answers={wrongs} correct={false} onDelete={(n) => delRecord(n, 0)} onNew={(e) => newRecord(e, 0)} onChange={(t) => handleReturnData(t, 0)} />}
+                            {wrongs && <GetAnswers answers={wrongs} correct={false} onDelete={(n) => delRecord(n, 0)} onNew={(e) => newRecord(e, 0)} onChange={(t) => handleReturnData(t, 0)} onCopy={(t) => handleCopyData(t, 0)} />}
                         </Col>
                     </Row>        
         </Fragment >

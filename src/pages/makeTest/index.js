@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import GetQuestion from '../../components/GetQuestion.js';
 import TestCreateNav from '../../components/testCreateNav';
-import { useAuth } from "../../contexts/AuthContext"
+import { useAuth } from "../../contexts/AuthContext";
+import { useCopy } from "../../contexts/CopyContext";
 import firebase from "../../firebase";
 import "./style.css";
 import { Button } from 'react-bootstrap';
@@ -26,7 +27,8 @@ var emptyQ = {
 }
 function ToRenderEverything() {
     var defOptionArray = [];
-    const { currentUser } = useAuth()
+    const { currentUser } = useAuth();
+    const { getCopy, pasteCopy } = useCopy();
     const [testName, setTestName] = useState('');
     const [testAuthor, setTestAuthor] = useState({ authorId: "", name: "", testId: "" });
     const [visibility, setVisibility] = useState('');
@@ -157,6 +159,20 @@ function ToRenderEverything() {
         if (Object.getOwnPropertyNames(t)[0] === "wrongs") arr[displayQ].wrongs = t.wrongs;
         setTestArray(arr);
         console.log(arr);
+    }
+    function handleCopyQuestion(e){
+        let questionCopy=testArray[displayQ];
+        getCopy(questionCopy,"question")
+    }
+    function handlePasteQuestion(e){
+        let arr=[];
+        for (let i=0;i<testArray.length;i++){
+            if (i===displayQ+1) arr.push(pasteCopy("question"))
+            arr.push(testArray[i])
+        }
+        if (displayQ===testArray.length-1) arr.push(pasteCopy("question"))
+        setTestArray(arr)
+        setDisplayQ(displayQ+1)
     }
     function handleAdd(e) {
         // e.preventDefault()
@@ -425,9 +441,8 @@ function ToRenderEverything() {
                 <textarea id="backgroundGradient" style={{ width: '100%' }} onChange={e => setTestGradient(e.target.value)} />
                 <GetGradient reloadNeeded={reloadNeeded} onChange={n => getGradientCSS(n)} />
             </div>
-
-
-            <TestCreateNav qNumber={testArray.length ? testArray.length : 0} onNew={(e) => handleAdd(e)} onDel={(t) => handleDelete(t)} onMove={(t) => handleMove(t)} onShow={(e) => handleShow(e)} onChange={(q) => { handleUpdateQuestion(q) }} />
+            <TestCreateNav qNumber={testArray.length ? testArray.length : 0} onNew={(e) => handleAdd(e)} onDel={(t) => handleDelete(t)} onMove={(t) => handleMove(t)} 
+            onShow={(e) => handleShow(e)} onChange={(q) => { handleUpdateQuestion(q)}} onCopy={(q) => {handleCopyQuestion(q)}} onPaste={(q) => {handlePasteQuestion(q)}}/>
             {show &&
                 <div className="modalContainer" >
                     <div className="closeTag" onClick={(e) => setShow(false)}>&#10060;Close</div>

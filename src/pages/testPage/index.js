@@ -32,7 +32,7 @@ function ToRenderEverything() {
   return (
     <>
       {!testLoad && <GetTests user={currentUser ? currentUser.uid : ""} forPage={'test'} onChange={n => getTestfromDB(n)} />}
-      {currentUser && <label className='headerStyle'> Load saved locally test
+      {currentUser && !testLoad && <label className='headerStyle'> Load saved locally test
                 <input type="file" id="fileinput" onChange={e => readSingleFile(e)} />
       </label>}
       {testLoad && <TestRun test={testLoad} local={localTest} />}
