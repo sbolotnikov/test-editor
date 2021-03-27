@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import GetText from './GetText.js';
-import { useCopy } from "../contexts/CopyContext";
 import { Button } from 'react-bootstrap';
 
 function GetAnswers(props) {
-    const { pasteCopy } = useCopy();
     function handleNewText() {
         let emptyNew = { text: '', img: '', choice: props.correct };
         props.onNew(emptyNew);
     }
     function handlePasteText(){
-        let pasteItem=pasteCopy();
+        let pasteItem=JSON.parse(localStorage.getItem('answerCopy'));
+        if (pasteItem===null) return
         pasteItem.choice=props.correct;
         props.onNew(pasteItem);
     }

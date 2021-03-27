@@ -1,13 +1,11 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import GetAnswers from './GetAnswers.js';
 import Cloudinary from './Cloudinary';
-import { useCopy } from "../contexts/CopyContext";
 import { Row, Col } from 'react-bootstrap';
 
 
 function GetQuestion(props) {
     var questionObj={}
-    const { getCopy } = useCopy();
 
     const [rights, setRights] = useState([]);
     const [wrongs, setWrongs] = useState([]);
@@ -39,7 +37,7 @@ function GetQuestion(props) {
     }
     function handleCopyData(n, corr){
         (corr)?questionObj=props.q.rights[n]:questionObj=props.q.wrongs[n];
-        getCopy(questionObj,"answerOption")
+        localStorage.setItem('answerCopy',JSON.stringify(questionObj));
     }
     function newRecord(e, corr) {
         if (corr){

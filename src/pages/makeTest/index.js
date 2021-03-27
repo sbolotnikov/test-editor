@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import GetQuestion from '../../components/GetQuestion.js';
 import TestCreateNav from '../../components/testCreateNav';
 import { useAuth } from "../../contexts/AuthContext";
-import { useCopy } from "../../contexts/CopyContext";
 import firebase from "../../firebase";
 import "./style.css";
 import { Button } from 'react-bootstrap';
@@ -28,7 +27,6 @@ var emptyQ = {
 function ToRenderEverything() {
     var defOptionArray = [];
     const { currentUser } = useAuth();
-    const { getCopy, pasteCopy } = useCopy();
     const [testName, setTestName] = useState('');
     const [testAuthor, setTestAuthor] = useState({ authorId: "", name: "", testId: "" });
     const [visibility, setVisibility] = useState('');
@@ -157,19 +155,20 @@ function ToRenderEverything() {
         if (Object.getOwnPropertyNames(t)[0] === "wrongs") arr[displayQ].wrongs = t.wrongs;
         setTestArray(arr);
     }
-    function handleCopyQuestion(e){
-        let questionCopy=testArray[displayQ];
-        getCopy(questionCopy,"question")
+    function handleCopyQuestion(e) {
+        localStorage.setItem('questionCopy',JSON.stringify(testArray[displayQ]));
     }
-    function handlePasteQuestion(e){
-        let arr=[];
-        for (let i=0;i<testArray.length;i++){
-            if (i===displayQ+1) arr.push(pasteCopy("question"))
-            arr.push(testArray[i])
-        }
-        if (displayQ===testArray.length-1) arr.push(pasteCopy("question"))
-        setTestArray(arr)
-        setDisplayQ(displayQ+1)
+    function handleInsertQuestion(e) {
+        let arr = [];
+        let questCopy=JSON.parse(localStorage.getItem('questionCopy'));
+        if (questCopy===null) return
+            for (let i = 0; i < testArray.length; i++) {
+                if (i === displayQ + 1) arr.push(questCopy)
+                arr.push(testArray[i])
+            }
+            if (displayQ === testArray.length - 1) arr.push(questCopy)
+            setTestArray(arr)
+            setDisplayQ(displayQ + 1)
     }
     function handleAdd(e) {
         // e.preventDefault()
@@ -227,7 +226,7 @@ function ToRenderEverything() {
         let newTest = n[0];
         setTestArray(newTest.test);
         setDisplayQ(0);
-        document.querySelector("#questionPage").value=1;
+        document.querySelector("#questionPage").value = 1;
         setTestAuthor({ authorId: newTest.main.author, name: newTest.main.authorName, testId: newTest.id });
         defOptionArray = newTest.main.categories
         setSelectedOption(defOptionArray);
@@ -258,7 +257,7 @@ function ToRenderEverything() {
                 console.log(newTest)
                 setTestArray(newTest.test);
                 setDisplayQ(0);
-                document.querySelector("#questionPage").value=1;
+                document.querySelector("#questionPage").value = 1;
                 setTestAuthor({ authorId: "", name: "", testId: "" });
                 setSelectedOption(newTest.main.categories);
                 document.querySelector("#testName").value = newTest.main.name;
@@ -337,8 +336,6 @@ function ToRenderEverything() {
     function update(e) {
         setRevealAlert(true);
         setAlertStyle({
-            left: "0",
-            top: "0",
             variantHead: "warning",
             heading: "Warning",
             text: `You about to overwrite data in the test ${testName} by ${(testAuthor.name > "") ? testAuthor.name : "You"}. Update?`,
@@ -351,8 +348,6 @@ function ToRenderEverything() {
     function handleNewCategory(e) {
         setRevealAlert(true);
         setAlertStyle({
-            left: "0",
-            top: "0",
             variantHead: "warning",
             heading: "Alert",
             text: `Please enter new unique Category name more then 5 symbols long and click Add`,
@@ -368,8 +363,6 @@ function ToRenderEverything() {
         if (testName > "") {
             setRevealAlert(true);
             setAlertStyle({
-                left: "0",
-                top: "0",
                 variantHead: "warning",
                 heading: "Warning",
                 text: `Did you safe your changes? Your present changes to the test ${testName} by ${(testAuthor.name > "") ? testAuthor.name : "You"} will be lost. Proceed?`,
@@ -390,14 +383,14 @@ function ToRenderEverything() {
             </label>
             <GetTests user={currentUser.uid} forPage={'create'} reloadNeeded={reloadNeeded} onChange={n => getTestfromDB(n)} />
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
-            <div className='navContainer' style={{ width: '97%', margin: '40px auto', padding:"10px"}}>
-                <h3 style={{ width: '100%', textAlign: "center", fontSize:'4vw', color:'#b30059' }}><strong>Test editing panel</strong></h3>
-               
+            <div className='navContainer' style={{ width: '97%', margin: '40px auto', padding: "10px" }}>
+                <h3 style={{ width: '100%', textAlign: "center", fontSize: '4vw', color: '#b30059' }}><strong>Test editing panel</strong></h3>
+
                 <button className="testNav" onClick={e => startNewTest(e)}>New &#10133;</button>
                 <button className="testNav" onClick={e => download(e)}>Download &#128190;</button>
                 <button className="testNav" onClick={e => upload(e)}>Upload as New &#128228;</button>
-                {testAuthor.testId > "" && <button className="testNav"   onClick={e => update(e)}>Update in DB &#128257;</button>}
-                
+                {testAuthor.testId > "" && <button className="testNav" onClick={e => update(e)}>Update in DB &#128257;</button>}
+
             </div>
             <label className='headerStyle' style={{ width: '100%' }} >Enter your test Name
                     <input id="testName" style={{ width: '100%' }} onChange={e => setTestName(e.target.value)} />
@@ -442,8 +435,8 @@ function ToRenderEverything() {
                 <textarea id="backgroundGradient" style={{ width: '100%' }} onChange={e => setTestGradient(e.target.value)} />
                 <GetGradient reloadNeeded={reloadNeeded} onChange={n => getGradientCSS(n)} />
             </div>
-            <TestCreateNav qNumber={testArray.length ? testArray.length : 0} onNew={(e) => handleAdd(e)} onDel={(t) => handleDelete(t)} onMove={(t) => handleMove(t)} 
-            onShow={(e) => handleShow(e)} onChange={(q) => { handleUpdateQuestion(q)}} onCopy={(q) => {handleCopyQuestion(q)}} onPaste={(q) => {handlePasteQuestion(q)}}/>
+            <TestCreateNav qNumber={testArray.length ? testArray.length : 0} onNew={(e) => handleAdd(e)} onDel={(t) => handleDelete(t)} onMove={(t) => handleMove(t)}
+                onShow={(e) => handleShow(e)} onChange={(q) => { handleUpdateQuestion(q) }} onCopy={(q) => { handleCopyQuestion(q) }} onPaste={(q) => { handleInsertQuestion(q) }} />
             {show &&
                 <div className="modalContainer" >
                     <div className="closeTag" onClick={(e) => setShow(false)}>&#10060;Close</div>

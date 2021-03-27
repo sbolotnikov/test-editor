@@ -12,6 +12,7 @@ function GetTests(props) {
     const [deleteRecId, setDeleteRecId] = useState(false);
     const [selectedOption, setSelectedOption] = useState(null);
     const [categories, setCategories] = useState([]);
+    const [testFromDB, setTestFromDB] = useState({})
     const onReturn = (decision1) => {
         setRevealAlert(false);
         if (decision1 === "Delete") {
@@ -24,13 +25,14 @@ function GetTests(props) {
                     console.log("can not delete a record");
                 })
         }
+        if (decision1 === "Proceed") {
+            props.onChange(testFromDB);
+        }
     }
     function handleLink(e) {
         let recId = e.target.getAttribute("value");
         console.log(recId)
         setAlertStyle({
-            left: "0",
-            top: "0",
             variantHead: "success",
             heading: "Direct link to Test",
             text: `https://sbolotnikov.github.io/test-editor/#/taketest/${recId}`,
@@ -47,8 +49,6 @@ function GetTests(props) {
         let elementPos = testRecords.map(function (x) { return x.id; }).indexOf(recId);
         let objFound = testRecords[elementPos];
         setAlertStyle({
-            left: "0",
-            top: "0",
             variantHead: "danger",
             heading: "Warning",
             text: `Do you really want to delete \n ${objFound.main.name} \n by  \n ${objFound.main.authorName}`,
@@ -61,7 +61,19 @@ function GetTests(props) {
     }
     function handleClick(test) {
         console.log(test.target.getAttribute("value"))
-        props.onChange(testRecords.filter(item => item.id === test.target.getAttribute("value")));
+        if (props.forPage === 'create'){
+        setAlertStyle({
+            variantHead: "danger",
+            heading: "Warning",
+            text: `Did you safe your changes? Your current changes will be lost. Proceed?`,
+            color1: "danger",
+            button1: "Proceed",
+            color2: "secondary",
+            button2: "Cancel"
+        });
+        setRevealAlert(true);
+        setTestFromDB(testRecords.filter(item => item.id === test.target.getAttribute("value")))
+    }else{props.onChange(testRecords.filter(item => item.id === test.target.getAttribute("value")))}
     }
     const fetchData = async () => {
         let arrTemp = [];

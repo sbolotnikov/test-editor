@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // Components
 import Signup from "./components/Signup"
 import { AuthProvider } from "./contexts/AuthContext"
-import { CopyProvider } from "./contexts/CopyContext"
 import Dashboard from "./components/Dashboard"
 import Login from "./components/Login"
 import Logout from "./components/Logout"
@@ -24,7 +23,6 @@ function App() {
 
     <Router>
       <AuthProvider>
-        <CopyProvider>
           <Nav />
           <Switch>
             <PrivateRoute exact path="/" component={Dashboard} />
@@ -37,7 +35,6 @@ function App() {
             <Route exact path="/test" component={testPage} />
             <Route path="/taketest/:id"><DirectTestPage /></Route>
           </Switch>
-        </CopyProvider>
       </AuthProvider>
     </Router>
   )
