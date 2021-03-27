@@ -15,9 +15,6 @@
 .container .option_item {
   display: block;
   position: relative;
-  width: 175px;
-  height: 175px;
-  margin: 10px;
 }
 
 .container .option_item .checkOut {

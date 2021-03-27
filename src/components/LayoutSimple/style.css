@@ -15,8 +15,8 @@
 .option_simple {
   display: block;
   position: relative;
-  width: 49%;
-  height: 5vh;
+  min-width: 100%;
+  height: 10vh;
 }
 
 .option_simple .checkOut {
@@ -57,3 +57,8 @@
 .option_simple .checkOut:checked ~ .option_inner .name {
     color: blue;
   }
+  @media screen and (min-width: 700px) {
+    .option_simple{
+        min-width: 50%;
+        }
+      }

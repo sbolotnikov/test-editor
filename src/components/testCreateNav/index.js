@@ -2,14 +2,14 @@ import React, { Fragment, useEffect, useState } from 'react';
 import "./style.css";
 function TestCreateNav(props) {
 
-const [qArr, setqArr]=useState('');
-const [moveVis, setMoveVis]=useState(false);
+    const [qArr, setqArr] = useState('');
+    const [moveVis, setMoveVis] = useState(false);
     useEffect(() => {
         document.getElementById('questionPage').value = 1;
     }, []);
     useEffect(() => {
-        let arr=[];
-        for (let i=0;i<props.qNumber;i++) {arr.push(i+1)};
+        let arr = [];
+        for (let i = 0; i < props.qNumber; i++) { arr.push(i + 1) };
         setqArr(arr);
     }, [props.qNumber]);
     function questionNumberSet(n) {
@@ -50,45 +50,46 @@ const [moveVis, setMoveVis]=useState(false);
             n.value = (parseInt(k) - 1).toString();
         }
     }
-    function visibilityMoveTo(){
-       moveVis ? document.querySelector("#moveSelect").classList.remove('invisible'): document.querySelector("#moveSelect").classList.add('invisible'); 
-       setMoveVis(!moveVis)
+    function visibilityMoveTo() {
+        moveVis ? document.querySelector("#moveSelect").classList.remove('invisible') : document.querySelector("#moveSelect").classList.add('invisible');
+        setMoveVis(!moveVis)
     }
     return (
-        <Fragment>
-            <div className="navContainer" >
-            <h3 style={{ width: '100%', textAlign: "center", fontSize:'4vw', color:'#b30059' }}><strong>Question editing panel</strong></h3>
-                <button className="testNav"
-                    onClick={e => { questionNumberSet('1') }}>&#9198;First</button>
-                <button className="testNav"
-                    onClick={e => { questionNumberSet(-1) }}>&#9194;Back</button>
-                <input className="testNavLight text-center" type="number" id="questionPage" min="1" max={props.qNumber.toString()} onClick={e => questionNumberSet(e.target.value)}></input>
-                <button className="testNav"
-                    onClick={e => { questionNumberSet(1) }}>&#9193;Next</button>
-                <button className="testNav"
-                    onClick={e => { questionNumberSet(props.qNumber.toString()) }}>&#9197;Last</button>
-                <button className="testNav"
-                    onClick={e => { props.onNew(''); document.querySelector("#questionPage").value = (props.qNumber + 1).toString() }}>&#10133;Add</button>
-                <button className="testNav"
-                    onClick={e => { deleteRec() }}>&#128465;Delete</button>
-                <button className="testNav"
-                    onClick={e => {e.preventDefault(); props.onCopy('') }}>&#128209;Copy</button> 
-                <button className="testNav"
-                    onClick={e => {e.preventDefault(); props.onPaste('');document.querySelector("#questionPage").value =(parseInt(document.querySelector("#questionPage").value) + 1).toString() }}>&#128203;Paste</button>          
-                <button className="testNav"
-                    onClick={e => { props.onShow('') }}>&#128240;Preview</button>
-                {(props.qNumber>1) && <button className="testNav"
-                    onClick={e => { visibilityMoveTo() }}>&#128242;Move to</button>}
-                {(props.qNumber>1) && qArr &&<select id="moveSelect" className="testNavLight text-center invisible" onChange={e => 
-                    {props.onMove([parseInt(document.querySelector("#questionPage").value)-1,parseInt(e.target.value)]);
-                     document.querySelector("#questionPage").value=(parseInt(e.target.value)+1).toString()}}>
-                   {qArr.map((option, i) => {
-                            return ( <option key={i} value={i}>{qArr[i]}</option>)
-                        }
-                        )}
-  </select> } 
-            </div>
-        </Fragment>
+
+        <div className="navContainer" style={{ position: 'relative' }} >
+            <h3 style={{ width: '100%', textAlign: "center", fontSize: '4vw', color: '#b30059' }}><strong>Question editing panel</strong></h3>
+            <button className="testNav"
+                onClick={e => { questionNumberSet('1') }}>&#9198;First</button>
+            <button className="testNav"
+                onClick={e => { questionNumberSet(-1) }}>&#9194;Back</button>
+            <input className="testNavLight text-center" type="number" id="questionPage" min="1" max={props.qNumber.toString()} onClick={e => questionNumberSet(e.target.value)}></input>
+            <button className="testNav"
+                onClick={e => { questionNumberSet(1) }}>&#9193;Next</button>
+            <button className="testNav"
+                onClick={e => { questionNumberSet(props.qNumber.toString()) }}>&#9197;Last</button>
+            <button className="testNav"
+                onClick={e => { props.onNew(''); document.querySelector("#questionPage").value = (props.qNumber + 1).toString() }}>&#10133;Add</button>
+            <button className="testNav"
+                onClick={e => { deleteRec() }}>&#128465;Delete</button>
+            <button className="testNav"
+                onClick={e => { e.preventDefault(); props.onCopy('') }}>&#128209;Copy</button>
+            <button className="testNav"
+                onClick={e => { e.preventDefault(); props.onPaste(''); document.querySelector("#questionPage").value = (parseInt(document.querySelector("#questionPage").value) + 1).toString() }}>&#128203;Paste</button>
+            <button className="testNav"
+                onClick={e => { props.onShow('') }}>&#128240;Preview</button>
+            {(props.qNumber > 1) && <button className="testNav"
+                onClick={e => { visibilityMoveTo() }}>&#128242;Move to</button>}
+            {(props.qNumber > 1) && qArr && <select id="moveSelect" className="testNavLight text-center invisible" onChange={e => {
+                props.onMove([parseInt(document.querySelector("#questionPage").value) - 1, parseInt(e.target.value)]);
+                document.querySelector("#questionPage").value = (parseInt(e.target.value) + 1).toString()
+            }}>
+                {qArr.map((option, i) => {
+                    return (<option key={i} value={i}>{qArr[i]}</option>)
+                }
+                )}
+            </select>}
+        </div>
+
     );
 }
 export default TestCreateNav;
