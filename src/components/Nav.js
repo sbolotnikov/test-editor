@@ -60,7 +60,7 @@ function Nav(props) {
 
                     <li className="nav-item">
                         <Link to="/test" className="nav-link" onClick={event => handleNavCollpase()}>
-                            Take Tests
+                            Take tests
                     </Link>
                     </li>
                    {  currentUser ? <li className="nav-item">

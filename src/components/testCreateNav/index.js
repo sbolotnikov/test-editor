@@ -59,14 +59,14 @@ function TestCreateNav(props) {
         <div className="navContainer" style={{ position: 'relative' }} >
             <h3 style={{ width: '100%', textAlign: "center", fontSize: '4vw', color: '#b30059' }}><strong>Question editing panel</strong></h3>
             <button className="testNav"
-                onClick={e => { questionNumberSet('1') }}>&#9198;First</button>
+                onClick={e => { questionNumberSet('1') }}>&#9198;</button>
             <button className="testNav"
                 onClick={e => { questionNumberSet(-1) }}>&#9194;Back</button>
             <input className="testNavLight text-center" type="number" id="questionPage" min="1" max={props.qNumber.toString()} onClick={e => questionNumberSet(e.target.value)}></input>
             <button className="testNav"
                 onClick={e => { questionNumberSet(1) }}>&#9193;Next</button>
             <button className="testNav"
-                onClick={e => { questionNumberSet(props.qNumber.toString()) }}>&#9197;Last</button>
+                onClick={e => { questionNumberSet(props.qNumber.toString()) }}>&#9197;</button>
             <button className="testNav"
                 onClick={e => { props.onNew(''); document.querySelector("#questionPage").value = (props.qNumber + 1).toString() }}>&#10133;Add</button>
             <button className="testNav"

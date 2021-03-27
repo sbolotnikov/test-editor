@@ -85,7 +85,7 @@ function GetGradient(props) {
                 <input type="checkbox" id="checkNewGradientAdd" onChange={e => setAddNewGradientVisible(document.querySelector("#checkNewGradientAdd").checked)} /> 
                 Add new background gradient CSS to our database of pre-set styles
             </label>
-            <div style={{ display: addNewGradientVisible ? "block" : "none", width: '48%' }}>
+            <div style={{ display: addNewGradientVisible ? "block" : "none", width: '100%' }}>
                 <label className='headerStyle'>Enter gradient CSS</label>
                 <textarea id="newBackgroundGradient" style={{ width: '100%' }} onChange={e => setNewGradient(e.target.value)} />
                 <label className='headerStyle'>Enter gradient name</label>

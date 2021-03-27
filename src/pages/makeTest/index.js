@@ -89,6 +89,7 @@ function ToRenderEverything() {
                 },
                 test: testArray
             };
+            localStorage.setItem('testCopy', JSON.stringify(text));
             db.collection('tests').doc(testAuthor.testId).set(text)
                 .then(result => {
                     console.log("file updated");
@@ -156,19 +157,19 @@ function ToRenderEverything() {
         setTestArray(arr);
     }
     function handleCopyQuestion(e) {
-        localStorage.setItem('questionCopy',JSON.stringify(testArray[displayQ]));
+        localStorage.setItem('questionCopy', JSON.stringify(testArray[displayQ]));
     }
     function handleInsertQuestion(e) {
         let arr = [];
-        let questCopy=JSON.parse(localStorage.getItem('questionCopy'));
-        if (questCopy===null) return
-            for (let i = 0; i < testArray.length; i++) {
-                if (i === displayQ + 1) arr.push(questCopy)
-                arr.push(testArray[i])
-            }
-            if (displayQ === testArray.length - 1) arr.push(questCopy)
-            setTestArray(arr)
-            setDisplayQ(displayQ + 1)
+        let questCopy = JSON.parse(localStorage.getItem('questionCopy'));
+        if (questCopy === null) return
+        for (let i = 0; i < testArray.length; i++) {
+            if (i === displayQ + 1) arr.push(questCopy)
+            arr.push(testArray[i])
+        }
+        if (displayQ === testArray.length - 1) arr.push(questCopy)
+        setTestArray(arr)
+        setDisplayQ(displayQ + 1)
     }
     function handleAdd(e) {
         // e.preventDefault()
@@ -299,6 +300,7 @@ function ToRenderEverything() {
             },
             test: testArray
         };
+        localStorage.setItem('testCopy', JSON.stringify(text));
         db.collection("tests").add(text)
             .then(result => {
                 console.log("file created in DB");
@@ -373,8 +375,33 @@ function ToRenderEverything() {
             });
         }
     }
+    const saveReload = (a) => {
+        if (a) {
+            let text = {
+                main: {
+                    author: currentUser.uid,
+                    authorName: currentUser.displayName,
+                    categories: selectedOption,
+                    name: testName,
+                    visibility: visibility,
+                    editability: editability,
+                    background: testBackground,
+                    gradient: testGradient,
+                    hours: testHH,
+                    minutes: testMM,
+                    seconds: testSS
+                },
+                test: testArray
+            };
+            localStorage.setItem('testCopy', JSON.stringify(text));
+            reloadNeeded();
+        }
+    }
     useEffect(() => {
         fetchCategories();
+        let pasteItem = JSON.parse(localStorage.getItem('testCopy'));
+        if ((pasteItem !== null)) getTestfromDB([pasteItem])
+        localStorage.removeItem('testCopy');
     }, []);
     return (
         <div style={{ maxWidth: "1440px", overflow: "hidden" }}>
@@ -388,8 +415,8 @@ function ToRenderEverything() {
 
                 <button className="testNav" onClick={e => startNewTest(e)}>New &#10133;</button>
                 <button className="testNav" onClick={e => download(e)}>Download &#128190;</button>
-                <button className="testNav" onClick={e => upload(e)}>Upload as New &#128228;</button>
-                {testAuthor.testId > "" && <button className="testNav" onClick={e => update(e)}>Update in DB &#128257;</button>}
+                <button className="testNav" onClick={e => upload(e)}>Upload to web &#128228;</button>
+                {testAuthor.testId > "" && <button className="testNav" onClick={e => update(e)}>Update on web &#128257;</button>}
 
             </div>
             <label className='headerStyle' style={{ width: '100%' }} >Enter your test Name
@@ -416,24 +443,30 @@ function ToRenderEverything() {
                     <input id="mm" type="number" min={0} max={59} size={2} style={{ width: '9%' }} onChange={e => setTestMM(e.target.value)} /> mm
                     <input id="ss" type="number" min={0} max={59} size={2} style={{ width: '9%' }} onChange={e => setTestSS(e.target.value)} /> ss
             </h4>
-            <label className='headerStyle'>
-                <input type="checkbox" id="checkAddTestBackground" onChange={e => setAddBackgroundVisible(document.querySelector("#checkAddTestBackground").checked)} />
-                Add/change BACKGROUND to your test
-            </label>
-            <div style={{ display: addBackgroundVisible ? "block" : "none", width: '50%' }}>
+            <div id="containerGrid">
+                <section id='backgroundPanel' style={{ width: '100%' }}>
+                    <label className='headerStyle'>
+                        <input type="checkbox" id="checkAddTestBackground" onChange={e => setAddBackgroundVisible(document.querySelector("#checkAddTestBackground").checked)} />
+                 Add/change BACKGROUND to your test
+                </label>
+                    <div style={{ display: addBackgroundVisible ? "block" : "none", width: '98%' }}>
 
-                <h4 className='headerStyle' style={{ width: '100%' }} >Enter test background image link or upload your image from computer</h4>
-                <input id="background" style={{ width: '100%' }} onChange={e => setTestBackground(e.target.value)} />
-                <Cloudinary style={{ width: "40%", objectFit: "cover", margin: "10px" }} getImgUrl={getImgUrl} />
-            </div>
-            <label className='headerStyle'>
-                <input type="checkbox" id="checkAddTestGradient" onChange={e => setAddTestGradientVisible(document.querySelector("#checkAddTestGradient").checked)} />
-                Add/change background GRADIENT to your test
-            </label>
-            <div style={{ display: addTestGradientVisible ? "block" : "none", width: '50%' }}>
-                <h4 className='headerStyle' style={{ width: '100%' }} >Enter test background gradient CSS here</h4>
-                <textarea id="backgroundGradient" style={{ width: '100%' }} onChange={e => setTestGradient(e.target.value)} />
-                <GetGradient reloadNeeded={reloadNeeded} onChange={n => getGradientCSS(n)} />
+                        <h4 className='headerStyle' style={{ width: '100%' }} >Enter test background image link or upload your image from computer</h4>
+                        <input id="background" style={{ width: '100%' }} onChange={e => setTestBackground(e.target.value)} />
+                        <Cloudinary style={{ width: "90%", objectFit: "cover", margin: "10px" }} getImgUrl={getImgUrl} />
+                    </div>
+                </section>
+                <section id='gragientPanel' style={{ width: '100%' }}>
+                    <label className='headerStyle'>
+                        <input type="checkbox" id="checkAddTestGradient" onChange={e => setAddTestGradientVisible(document.querySelector("#checkAddTestGradient").checked)} />
+                    Add/change background GRADIENT to your test
+               </label>
+                    <div style={{ display: addTestGradientVisible ? "block" : "none", width: '98%' }}>
+                        <h4 className='headerStyle' style={{ width: '100%' }} >Enter test background gradient CSS here</h4>
+                        <textarea id="backgroundGradient" style={{ width: '100%' }} onChange={e => setTestGradient(e.target.value)} />
+                        <GetGradient reloadNeeded={saveReload} onChange={n => getGradientCSS(n)} />
+                    </div>
+                </section>
             </div>
             <TestCreateNav qNumber={testArray.length ? testArray.length : 0} onNew={(e) => handleAdd(e)} onDel={(t) => handleDelete(t)} onMove={(t) => handleMove(t)}
                 onShow={(e) => handleShow(e)} onChange={(q) => { handleUpdateQuestion(q) }} onCopy={(q) => { handleCopyQuestion(q) }} onPaste={(q) => { handleInsertQuestion(q) }} />
