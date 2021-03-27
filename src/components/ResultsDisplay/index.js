@@ -39,7 +39,7 @@ const ResultsDisplay = props => {
     }
     return (
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%', height: '100vh', alignContent: 'center', justifyContent: 'center', color: 'black', textShadow: '2px 2px #ff0000', backgroundImage: `url(${props.background})`, backgroundSize: '100% 100%' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%', height: '100vh', alignContent: 'center', justifyContent: 'center', color: 'black', textShadow: '1px 1px red', backgroundImage: `url(${props.background})`, backgroundSize: '100% 100%' }}>
            {props.testId.length > 0 &&  <h3 style={{ width: '100%', textAlign: 'center' }}>Top results</h3>}
            {props.testId.length > 0 && <GetResults testId={props.testId} />}
 

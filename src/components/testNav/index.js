@@ -81,15 +81,12 @@ function TestNav(props) {
             <div className="navContainer" >
                <Button id="startNav" style={{position:'absolute', top:'50vh', zIndex:'200', transformOrigin: 'center',margin:'10px 0 0 0'}}
                 onClick={timerDraw}>Start</Button>          
-                <button  className="testNav  invisible"
-                    onClick={e => { questionNumberSet('1') }}>&#9198;First</button>
                 <button className="testNav invisible"
                     onClick={e => { questionNumberSet(-1) }}>&#9194;Back</button>
                 <input  className="testNavLight text-center invisible" type="number" id="questionPage" min="1" max={props.qNumber.toString()} onClick={e => questionNumberSet(e.target.value)}></input>
                 <button className="testNav invisible "
                     onClick={e => { questionNumberSet(1) }}>&#9193;Next</button>
-                <button className="testNav invisible"
-                    onClick={e => { questionNumberSet(props.qNumber.toString()) }}>&#9197;Last</button>
+                
                 <input  className="testNavLight text-center invisible" type="text" value={displayTime} style={{width:'8ch'}} />
                 <button className="testNav invisible"
                     onClick={stopTest}>&#128721;Stop</button>  

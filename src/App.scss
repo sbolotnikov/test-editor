@@ -125,14 +125,16 @@ div.cloudinary-button {
     color: $primary-color;
     border: $tertiary-color;
 	border-radius: 15px;
-    font-size: 3.3vw;
+    // font-size: 3.3vw;
+	font-size:calc(12px + 1.5vw);
 	background-color: $secondary-color;
 }
   .testNavLight{
 	background: white;
 	border-radius: 15px;
 	color: $primary-color;
-	font-size: 3.3vw;
+	// font-size: 3.3vw;
+	font-size:calc(12px + 1.5vw);
 	margin:auto 0
 }
 @media screen and (min-width: 900px) {
