@@ -1,6 +1,4 @@
 import React, { Fragment, useState } from 'react';
-import { Button } from 'react-bootstrap';
-import "./style.css";
 function TestNav(props) {
     var timerInterval
     const [displayTime, setDisplayTime] = useState(stringTime(props.hours, props.minutes, props.seconds));
@@ -78,19 +76,23 @@ function TestNav(props) {
     }
     return (
         <Fragment>
-            <div className="navContainer" >
-               <Button id="startNav" style={{position:'absolute', top:'50vh', zIndex:'200', transformOrigin: 'center',margin:'10px 0 0 0'}}
-                onClick={timerDraw}>Start</Button>          
-                <button className="testNav invisible"
+               <button className="testNav" id="startNav" style={{position:'absolute', top:'44vh',left:"43vw", zIndex:'200'}}
+                onClick={timerDraw}>Start</button>          
+                <button className="testNav invisible" style={{position:"absolute", top:'48vh',left:0, background:"transparent", zIndex:1500}}
                     onClick={e => { questionNumberSet(-1) }}>&#9194;Back</button>
-                <input  className="testNavLight text-center invisible" type="number" id="questionPage" min="1" max={props.qNumber.toString()} onClick={e => questionNumberSet(e.target.value)}></input>
-                <button className="testNav invisible "
+                <label className="testNav invisible"style={{margin:0, fontSize:'calc(10px + 1vw)' }} >
+                <input  className="testNavLight text-center invisible" style={{width:'3ch',fontSize:'calc(10px + 1vw)'}} type="number" id="questionPage" min="1" max={props.qNumber.toString()} onClick={e => questionNumberSet(e.target.value)}></input>
+                of {props.qNumber}</label>
+                <button className="testNav invisible " style={{position:"absolute", top:'48vh',right:0, background:"transparent", zIndex:1500}}
                     onClick={e => { questionNumberSet(1) }}>&#9193;Next</button>
                 
-                <input  className="testNavLight text-center invisible" type="text" value={displayTime} style={{width:'8ch'}} />
-                <button className="testNav invisible"
-                    onClick={stopTest}>&#128721;Stop</button>  
-            </div>
+                <input  className="testNav text-right invisible" type="text" value={displayTime} style={{position:"absolute", background:"transparent", top:'5vh',right:0,padding:0,borderWidth:0, width:'8ch'}} />
+                <button className="testNav invisible" style={{position:"absolute", top:0,right:0,width:"4vh",height:"4vh", background:"transparent",borderWidth:'0px', zIndex:1500}}
+                    onClick={stopTest}> <svg viewBox="0 0 23 23"  stroke="black" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.06069 1.06066C1.64647 0.474877 2.59622 0.474877 3.18201 1.06066L21.5668 19.4454C22.1526 20.0312 22.1526 20.981 21.5668 21.5668C20.981 22.1525 20.0312 22.1525 19.4455 21.5668L1.06069 3.18198C0.474901 2.5962 0.474901 1.64645 1.06069 1.06066Z" fill="#f5d142" />
+                    <path d="M1.06062 21.5668C0.47483 20.981 0.47483 20.0312 1.06062 19.4454L19.4454 1.06066C20.0312 0.474876 20.9809 0.474876 21.5667 1.06066C22.1525 1.64645 22.1525 2.5962 21.5667 3.18198L3.18194 21.5668C2.59615 22.1525 1.6464 22.1525 1.06062 21.5668Z" fill="#f5d142" />
+                </svg></button>  
+            
         </Fragment>
     );
 }

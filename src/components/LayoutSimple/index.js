@@ -30,7 +30,7 @@ function LayoutSimple(props) {
     return (
         <div style={{ opacity: props.vis, width: '100%', height: '100%', flexWrap: 'wrap', maxWidth: "1300px" }}>
             <div className="d-flex align-middle justify-content-center" style={{ width: '100%', height: window.innerWidth < 700 ? '20%' : '40%' }}>
-                <img src={props.info.img} style={{ width: "auto", maxWidth: '350px' }} alt={props.info.img} />
+                <img src={props.info.img} style={{ width: "auto", maxWidth: '350px',marginTop:"5px" }} alt={props.info.img} />
             </div>
             <div className="d-flex align-middle justify-content-center " style={{ position: "relative", color: "white", width: "100%", height: "20%" }} >
                 <Textfit max={256}
