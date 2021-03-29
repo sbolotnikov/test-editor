@@ -24,7 +24,6 @@ export default function Signup() {
       setError("")
       setLoading(true)
       signup(emailRef.current.value, passwordRef.current.value);
-        // history.push("/test-editor/");
       setToRoot(true);
      
     } catch {

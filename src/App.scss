@@ -132,36 +132,32 @@ div.cloudinary-button {
 }
   .testNavLight{
 	background: white;
-	border-radius: 15px;
+	border-radius: 8px;
 	color: $primary-color;
 	// font-size: 3.3vw;
 	font-size:calc(12px + 1.5vw);
 	margin:auto 0
 }
-div#containerGrid{
+div.containerGrid{
    display:block;
 }
-section#backgroundPanel{
+section.panel1{
 	grid-column-start: 2;
 	grid-column-end: 2;
     grid-row-start: 1;
     grid-row-end: 1;
-	// grid-area: backGr;
 }
-section#gragientPanel{
+section.panel2{
 	grid-column-start: 1;
 	grid-column-end: 1;
     grid-row-start: 1;
     grid-row-end: 1;
-	// grid-area: grad;
 }
 @media screen and (min-width: 700px) {
-div#containerGrid {
+div.containerGrid {
 	width: 100%;
 	display: grid;
 	grid-template-columns:50%,50%;
-	// grid-template-rows: 1fr, 1fr;
-	// grid-template-areas: "backGr, grad";
 }
 }
 @media screen and (min-width: 900px) {

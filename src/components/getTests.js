@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import firebase from "../firebase";
-import { Button } from 'react-bootstrap';
 import AlertMenu from './alertMenu';
 import CustomSelect from './CustomSelect';
+import { useAuth } from "../contexts/AuthContext"
 function GetTests(props) {
     const db = firebase.firestore();
+    const { currentUser } = useAuth();
     const [testRecords, setTestsRecords] = useState([]);
     const [testRecordsDisplay, setTestsRecordsDisplay] = useState([]);
     const [revealAlert, setRevealAlert] = useState(false);
@@ -13,6 +14,7 @@ function GetTests(props) {
     const [selectedOption, setSelectedOption] = useState(null);
     const [categories, setCategories] = useState([]);
     const [testFromDB, setTestFromDB] = useState({})
+    const [checkEditLocalTestVisible, setCheckEditLocalTestVisible] = useState(false);
     const onReturn = (decision1) => {
         setRevealAlert(false);
         if (decision1 === "Delete") {
@@ -27,6 +29,7 @@ function GetTests(props) {
         }
         if (decision1 === "Proceed") {
             props.onChange(testFromDB);
+            props.onLocal(false);
         }
     }
     function handleLink(e) {
@@ -61,19 +64,19 @@ function GetTests(props) {
     }
     function handleClick(test) {
         console.log(test.target.getAttribute("value"))
-        if (props.forPage === 'create'){
-        setAlertStyle({
-            variantHead: "danger",
-            heading: "Warning",
-            text: `Did you safe your changes? Your current changes will be lost. Proceed?`,
-            color1: "danger",
-            button1: "Proceed",
-            color2: "secondary",
-            button2: "Cancel"
-        });
-        setRevealAlert(true);
-        setTestFromDB(testRecords.filter(item => item.id === test.target.getAttribute("value")))
-    }else{props.onChange(testRecords.filter(item => item.id === test.target.getAttribute("value")))}
+        if (props.forPage === 'create') {
+            setAlertStyle({
+                variantHead: "danger",
+                heading: "Warning",
+                text: `Did you safe your changes? Your current changes will be lost. Proceed?`,
+                color1: "danger",
+                button1: "Proceed",
+                color2: "secondary",
+                button2: "Cancel"
+            });
+            setRevealAlert(true);
+            setTestFromDB(testRecords.filter(item => item.id === test.target.getAttribute("value"))[0])
+        } else { props.onChange(testRecords.filter(item => item.id === test.target.getAttribute("value"))[0]) }
     }
     const fetchData = async () => {
         let arrTemp = [];
@@ -101,7 +104,7 @@ function GetTests(props) {
     const fetchCategories = async () => {
 
         const data = await db.collection("categories").get();
-        let arrTemp=data.docs.map(doc => ({ ...doc.data() }));
+        let arrTemp = data.docs.map(doc => ({ ...doc.data() }));
         arrTemp.sort(function (a, b) {
             var nameA = a.label.toUpperCase(); // ignore upper and lowercase
             var nameB = b.label.toUpperCase(); // ignore upper and lowercase
@@ -118,6 +121,35 @@ function GetTests(props) {
         });
         setCategories(arrTemp);
     };
+    function readSingleFile(evt) {
+        var f = evt.target.files[0];
+        if (f) {
+            var r = new FileReader();
+            r.onload = function (e) {
+                setTestFromDB(JSON.parse(e.target.result));
+                if (props.forPage === 'create') {
+                    setAlertStyle({
+                        variantHead: "danger",
+                        heading: "Warning",
+                        text: `Did you safe your changes? Your current changes will be lost. Proceed?`,
+                        color1: "danger",
+                        button1: "Proceed",
+                        color2: "secondary",
+                        button2: "Cancel"
+                    });
+                    setRevealAlert(true);
+                } else {
+                    props.onChange(JSON.parse(e.target.result));
+                    props.onLocal(true);
+                }
+                // setLocalTest(true)
+            }
+            r.readAsText(f);
+
+        } else {
+            alert("Failed to load file");
+        }
+    }
     useEffect(() => {
         fetchCategories();
         fetchData();
@@ -137,22 +169,27 @@ function GetTests(props) {
         setTestsRecordsDisplay(recordSet);
     }, [selectedOption])
     return (
-        <div style={{ width: '100%' }}>
+        <div style={{ width: '100%', maxWidth:"600px", height:"100%", maxHeight:"400px" }}>
             {categories &&
-                <CustomSelect isMulti={true} style={{ width: '300px', menuColor: 'red' }} value={selectedOption} onChange={setSelectedOption} options={categories} label="Choose categories" />
+                <CustomSelect isMulti={true} style={{ width: '100%', menuColor: 'red' }} value={selectedOption} onChange={setSelectedOption} options={categories} label="Choose categories" />
             }
             {testRecordsDisplay && testRecordsDisplay.map((test, j) => {
                 return (
-                    <div key={"divTests"+j} style={{ display: "flex", margin: '5px' }} >
-                        <Button key={"linkBtnTests"+j} style={{ fontSize: '12px', whiteSpace: 'nowrap' }} variant='success' value={test.id} onClick={e => handleLink(e)}>Link &#128279;</Button>
+                    <div key={"divTests" + j} style={{ display: "flex", margin: '5px' }} >
+                        <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', margin: 0, whiteSpace: 'nowrap' }} key={"linkBtnTests" + j} value={test.id} onClick={e => handleLink(e)}>Link &#128279;</button>
                         {(props.forPage === 'create') &&
-                            <Button key={"eraseBtnTests"+j} style={{ fontSize: '12px', whiteSpace: 'nowrap' }} variant='danger' value={test.id} onClick={e => handleDelete(e)}>Del &#10008;</Button>
+                            <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', margin: 0, whiteSpace: 'nowrap' }} key={"eraseBtnTests" + j} value={test.id} onClick={e => handleDelete(e)}>Del <img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(.9vw,10px)', height: 'max(.9vw,10px)' }} /></button>
                         }
-                        <div key={"textTests"+j} style={{ cursor: "pointer", whiteSpace: 'nowrap', width: "auto", overflow: 'hidden', textOverflow: 'ellipsis' }} value={test.id} onClick={e => handleClick(e)} >{test.main.name} by {test.main.authorName} </div>
+                        <div key={"textTests" + j} style={{ cursor: "pointer", whiteSpace: 'nowrap', width: "auto", overflow: 'hidden', textOverflow: 'ellipsis' }} value={test.id} onClick={e => handleClick(e)} >{test.main.name} by {test.main.authorName} </div>
                     </div>
                 )
             }
             )}
+            {currentUser && <label className='headerStyle'>
+                <input type="checkbox" id="checkEditLocalTest" onChange={e => setCheckEditLocalTestVisible(document.querySelector("#checkEditLocalTest").checked)} />
+              Load local test from your disk
+              </label>}
+            {currentUser && checkEditLocalTestVisible && <input type="file" id="fileinput" onChange={e => readSingleFile(e)} />}
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
         </div>
     );

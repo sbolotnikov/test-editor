@@ -4,7 +4,6 @@ import TestCreateNav from '../../components/testCreateNav';
 import { useAuth } from "../../contexts/AuthContext";
 import firebase from "../../firebase";
 import "./style.css";
-import { Button } from 'react-bootstrap';
 import GetTests from '../../components/getTests.js';
 import GetGradient from '../../components/getGradient.js';
 import AlertMenu from '../../components/alertMenu';
@@ -45,7 +44,6 @@ function ToRenderEverything() {
     const [categories, setCategories] = useState([]);
     const [addTestGradientVisible, setAddTestGradientVisible] = useState(false);
     const [addBackgroundVisible, setAddBackgroundVisible] = useState(false);
-
     const db = firebase.firestore();
     const fetchCategories = async () => {
 
@@ -224,7 +222,7 @@ function ToRenderEverything() {
     }
     function getTestfromDB(n) {
         console.log(n)
-        let newTest = n[0];
+        let newTest = n;
         setTestArray(newTest.test);
         setDisplayQ(0);
         document.querySelector("#questionPage").value = 1;
@@ -247,41 +245,6 @@ function ToRenderEverything() {
         setTestMM(newTest.main.minutes);
         document.querySelector("#ss").value = newTest.main.seconds;
         setTestSS(newTest.main.seconds);
-    }
-    function readSingleFile(evt) {
-        //Retrieve the first (and only!) File from the FileList object
-        var f = evt.target.files[0];
-        if (f) {
-            var r = new FileReader();
-            r.onload = function (e) {
-                let newTest = JSON.parse(e.target.result);
-                console.log(newTest)
-                setTestArray(newTest.test);
-                setDisplayQ(0);
-                document.querySelector("#questionPage").value = 1;
-                setTestAuthor({ authorId: "", name: "", testId: "" });
-                setSelectedOption(newTest.main.categories);
-                document.querySelector("#testName").value = newTest.main.name;
-                setTestName(newTest.main.name);
-                document.querySelector("#visibility").value = newTest.main.visibility;
-                setVisibility(newTest.main.visibility);
-                document.querySelector("#editability").value = newTest.main.editability;
-                setEditability(newTest.main.editability);
-                document.querySelector("#background").value = newTest.main.background;
-                setTestBackground(newTest.main.background);
-                document.querySelector("#backgroundGradient").value = newTest.main.gradient;
-                setTestGradient(newTest.main.gradient);
-                document.querySelector("#hh").value = newTest.main.hours;
-                setTestHH(newTest.main.hours);
-                document.querySelector("#mm").value = newTest.main.minutes;
-                setTestMM(newTest.main.minutes);
-                document.querySelector("#ss").value = newTest.main.seconds;
-                setTestSS(newTest.main.seconds);
-            }
-            r.readAsText(f);
-        } else {
-            alert("Failed to load file");
-        }
     }
     function upload(e) {
         let text = {
@@ -405,13 +368,10 @@ function ToRenderEverything() {
     }, []);
     return (
         <div style={{ maxWidth: "1440px", overflow: "hidden" }}>
-            <label className='headerStyle'> Load locally saved tests
-                <input type="file" id="fileinput" onChange={e => readSingleFile(e)} />
-            </label>
-            <GetTests user={currentUser.uid} forPage={'create'} reloadNeeded={reloadNeeded} onChange={n => getTestfromDB(n)} />
+            <GetTests user={currentUser.uid} forPage={'create'} reloadNeeded={reloadNeeded} onLocal={n=>{console.log("test loaded")} } onChange={n => getTestfromDB(n)} />
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
             <div className='navContainer' style={{ width: '97%', margin: '40px auto', padding: "10px" }}>
-                <h3 style={{ width: '100%', textAlign: "center", fontSize: '4vw', color: '#b30059' }}><strong>Test editing panel</strong></h3>
+                <h3 style={{ width: '100%', textAlign: "center", fontSize: '4vw', color: '#f5d142' }}><strong>Test editing panel</strong></h3>
 
                 <button className="testNav" onClick={e => startNewTest(e)}>New &#10133;</button>
                 <button className="testNav" onClick={e => download(e)}>Download &#128190;</button>
@@ -437,14 +397,14 @@ function ToRenderEverything() {
             {selectedOption &&
                 <CustomSelect isMulti={true} style={{ width: '300px', menuColor: 'red' }} value={selectedOption} onChange={setSelectedOption} options={categories} label="Choose a test categories" />
             }
-            <Button onClick={e => handleNewCategory(e)}>Add New Category</Button>
+            <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', margin: 0 }} onClick={e => handleNewCategory(e)}>Add New Category</button>
             <h4 className='headerStyle' style={{ width: '100%' }} >Enter Time limits (if there are no time limit enter 0 0 0) :
                     <input id="hh" type="number" min={0} max={10} size={2} style={{ width: '9%' }} onChange={e => setTestHH(e.target.value)} /> hh
                     <input id="mm" type="number" min={0} max={59} size={2} style={{ width: '9%' }} onChange={e => setTestMM(e.target.value)} /> mm
                     <input id="ss" type="number" min={0} max={59} size={2} style={{ width: '9%' }} onChange={e => setTestSS(e.target.value)} /> ss
             </h4>
-            <div id="containerGrid">
-                <section id='backgroundPanel' style={{ width: '100%' }}>
+            <div className="containerGrid">
+                <section className='panel1' style={{ width: '100%' }}>
                     <label className='headerStyle'>
                         <input type="checkbox" id="checkAddTestBackground" onChange={e => setAddBackgroundVisible(document.querySelector("#checkAddTestBackground").checked)} />
                  Add/change BACKGROUND to your test
@@ -456,7 +416,7 @@ function ToRenderEverything() {
                         <Cloudinary style={{ width: "90%", objectFit: "cover", margin: "10px" }} getImgUrl={getImgUrl} />
                     </div>
                 </section>
-                <section id='gragientPanel' style={{ width: '100%' }}>
+                <section className='panel2' style={{ width: '100%' }}>
                     <label className='headerStyle'>
                         <input type="checkbox" id="checkAddTestGradient" onChange={e => setAddTestGradientVisible(document.querySelector("#checkAddTestGradient").checked)} />
                     Add/change background GRADIENT to your test
@@ -472,7 +432,7 @@ function ToRenderEverything() {
                 onShow={(e) => handleShow(e)} onChange={(q) => { handleUpdateQuestion(q) }} onCopy={(q) => { handleCopyQuestion(q) }} onPaste={(q) => { handleInsertQuestion(q) }} />
             {show &&
                 <div className="modalContainer" >
-                    <div className="closeTag" onClick={(e) => setShow(false)}>&#10060;Close</div>
+                    <div className="closeTag" onClick={(e) => setShow(false)}><img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(1.2vw,12px)', height: 'max(1.2vw,12px)' }} /></div>
                     <QuestionDisplay style={{ pointerEvents: 'none' }} background={testBackground} gradient={testGradient} info={{ positions: testArray[displayQ].info.positions, correct: testArray[displayQ].info.correct, layout: testArray[displayQ].info.layout, img: testArray[displayQ].info.img }} vis={1} question={testArray[displayQ].question} answers={demoArr} checkedMarks={[]} onChange={(ch) => { }} />
                 </div>
             }

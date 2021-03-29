@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./style.css";
 function TestCreateNav(props) {
 
@@ -57,12 +57,12 @@ function TestCreateNav(props) {
     return (
 
         <div className="navContainer" style={{ position: 'relative' }} >
-            <h3 style={{ width: '100%', textAlign: "center", fontSize: '4vw', color: '#b30059' }}><strong>Question editing panel</strong></h3>
+            <h3 style={{ width: '100%', textAlign: "center", fontSize: '4vw', color: '#f5d142' }}><strong>Question editing panel</strong></h3>
             <button className="testNav"
                 onClick={e => { questionNumberSet('1') }}>&#9198;</button>
             <button className="testNav"
                 onClick={e => { questionNumberSet(-1) }}>&#9194;Back</button>
-            <input className="testNavLight text-center" type="number" id="questionPage" min="1" max={props.qNumber.toString()} onClick={e => questionNumberSet(e.target.value)}></input>
+            <input className="testNavLight text-center" style={{width:'3ch'}} type="number" id="questionPage"  min="1" max={props.qNumber.toString()} onClick={e => questionNumberSet(e.target.value)}></input>
             <button className="testNav"
                 onClick={e => { questionNumberSet(1) }}>&#9193;Next</button>
             <button className="testNav"
@@ -70,7 +70,7 @@ function TestCreateNav(props) {
             <button className="testNav"
                 onClick={e => { props.onNew(''); document.querySelector("#questionPage").value = (props.qNumber + 1).toString() }}>&#10133;Add</button>
             <button className="testNav"
-                onClick={e => { deleteRec() }}>&#128465;Delete</button>
+                onClick={e => { deleteRec() }}><img src={ process.env.PUBLIC_URL+"/icons/close.svg"} alt="close" style={{width:'max(1.2vw,12px)',height:'max(1.2vw,12px)'}}/>Delete</button>
             <button className="testNav"
                 onClick={e => { e.preventDefault(); props.onCopy('') }}>&#128209;Copy</button>
             <button className="testNav"

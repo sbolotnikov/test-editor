@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import firebase from "../firebase";
-import { Button } from 'react-bootstrap';
 import AlertMenu from './alertMenu';
 function GetGradient(props) {
     const db = firebase.firestore();
@@ -74,9 +73,9 @@ function GetGradient(props) {
             {gradients && gradients.map((item, j) => {
                 return (
                     <div style={{ display: "flex", margin: '5px' }} key={"gradient_"+j} >
-                        <div key={"gradient_name"+j}  style={{ cursor: "pointer", width: '50%', height: '50px', textShadow: "4px 4px 16px white", backgroundImage: item.value, backgroundSize: 'cover' }}
+                        <div key={"gradient_name"+j}  style={{ cursor: "pointer", width: '50%', height: '50px', borderRadius:'10px', textShadow: "4px 4px 16px white", backgroundImage: item.value, backgroundSize: 'cover' }}
                          value={item.id} onClick={e => handleClick(e)} >{item.name} </div>
-                        <Button key={"gradient_del_button"+j}  style={{ fontSize: '12px', whiteSpace: 'nowrap' }} variant='danger' value={item.id} onClick={e => handleDelete(e)}>Del &#10008;</Button>
+                        <button className="testNav" style={{fontSize:'max(1.2vw,12px)', margin:0, whiteSpace: 'nowrap' }}  key={"gradient_del_button"+j} value={item.id} onClick={e => handleDelete(e)}>Del<img src={ process.env.PUBLIC_URL+"/icons/close.svg"} alt="close" style={{width:'max(.9vw,10px)',height:'max(.9vw,10px)'}}/></button>
                     </div>
                 )
             }
@@ -90,7 +89,7 @@ function GetGradient(props) {
                 <textarea id="newBackgroundGradient" style={{ width: '100%' }} onChange={e => setNewGradient(e.target.value)} />
                 <label className='headerStyle'>Enter gradient name</label>
                 <input id="newBackgroundGradient" style={{ width: '100%' }} onChange={e => setNewGradientName(e.target.value)} />
-                <Button style={{ fontSize: '12px', whiteSpace: 'nowrap' }} variant='success' onClick={e => handleAdd(e)}>Add &#128504;</Button>
+                <button className="testNav" style={{fontSize:'max(1.2vw,12px)', margin:0, whiteSpace: 'nowrap' }}  onClick={e => handleAdd(e)}>Add &#128504;</button>
             </div>
         </div>
     );
