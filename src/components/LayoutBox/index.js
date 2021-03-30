@@ -30,23 +30,27 @@ const LayoutBox = props => {
 
     return (
         <Fragment>
-            <div className='container' style={{ opacity: props.vis }}>
-                <div className="d-flex align-middle justify-content-center " style={{ position: "relative", color: "white", width: "100%", marginTop: '7%', height: window.innerWidth < 700 ? '8vh' : '30vh', }} >
+            <div id='questionContainerBox' style={{ opacity: props.vis }}>
+                <section className="questionSection">
                     <Textfit max={256}
                         min={24}
                         style={{
-                            minHeight: "80%",
-                            maxHeight: "80%",
-                            minWidth: "80%",
-                            maxWidth: "80%",
+                            color:'white',
+                            minHeight: "90%",
+                            maxHeight: "90%",
+                            minWidth: "90%",
+                            maxWidth: "90%",
                             lineHeight: 1,
+                            margin:'auto',
+                            textAlign:"center",
                             textShadow: '1px 1px 2px black'
                         }}>{props.question}</Textfit>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', flexWrap: 'wrap', width: '100%', overflow:'visible', height: window.innerWidth < 700 ? '87vh' : '40vh', }}>
+              
+                </section>
+                <section className="answerSection" style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', flexWrap: 'wrap', width: '100%', overflow:'visible' }}>
                     {props.answers.map((answerOption, j) => {
                         return (
-                            <label className="option_item" key={"labelBox" + j} style={{ width: '44%',height: 'auto',margin: '1px', maxWidth:'200px'}}>
+                            <label className="option_item" key={"labelBox" + j} style={{ width: '44%',maxHeight: '200px',margin: '1px', maxWidth:'200px'}}>
                                 <input type="checkbox" className="checkOut" key={"inputBox" + j} id={"answer_" + j} value={j} onChange={e => checkingMulti(e)} />
                                 <div className="option_inner" style={{ backgroundImage: `url(${answerOption.img})`, backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }}>
                                     <div className="tickmark" key={"divBox" + j}> </div>
@@ -55,7 +59,7 @@ const LayoutBox = props => {
                             </label>
                         )
                     })}
-                </div>
+                </section>
             </div>
         </Fragment>
     );

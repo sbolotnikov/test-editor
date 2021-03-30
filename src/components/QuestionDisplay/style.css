@@ -72,8 +72,8 @@
 
 
 .option_item .checkOut:checked ~ .option_inner {
-  border-color: #b92b27;
-  color: #b92b27;
+  border-color: blue;
+  color: blue;
 }
 
 .option_item .option_inner .tickmark {

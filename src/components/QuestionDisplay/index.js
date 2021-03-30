@@ -1,7 +1,6 @@
 import React,{ useEffect, useState } from 'react';
 import LayoutBox from '../../components/LayoutBox';
 import LayoutSimple from '../../components/LayoutSimple';
-import "./style.css";
 const QuestionDisplay = props => {
     const [backgroundVal,setBackgroundVal]= useState('')
     useEffect(() => {

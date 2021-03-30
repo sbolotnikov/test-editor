@@ -7,10 +7,13 @@
   font-family: "Montserrat", sans-serif;
 }
 
-/* .container {
-  display: flex;
-  flex-wrap: wrap;
-} */
+#questionContainerSimple {
+  width: 100%;
+  height:100%;
+  display: grid;
+  grid-template-rows:7% 32% 60% 1%;
+  grid-template-columns: max(2%, 10px) auto max(2%, 10px);
+}
 
 .option_simple {
   display: block;
@@ -61,4 +64,14 @@
     .option_simple{
         min-width: 50%;
         }
+        #questionContainerSimple {
+          width: 100%;
+          height:100%;
+          max-width: 1300px;
+          display: grid;
+          grid-template-rows:7% 52% 40% 1%;
+          grid-template-columns: max(2%, 10px) auto max(2%, 10px);
+        }
+
+
       }

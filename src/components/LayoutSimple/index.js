@@ -28,23 +28,28 @@ function LayoutSimple(props) {
     }
 
     return (
-        <div style={{ opacity: props.vis, width: '100%', height: '100%', flexWrap: 'wrap', maxWidth: "1300px" }}>
-            <div className="d-flex align-middle justify-content-center" style={{ width: '100%', height: window.innerWidth < 700 ? '20%' : '40%' }}>
-                <img src={props.info.img} style={{ width: "auto", maxWidth: '350px',marginTop:"5px" }} alt={props.info.img} />
-            </div>
-            <div className="d-flex align-middle justify-content-center " style={{ position: "relative", color: "white", width: "100%", height: "20%" }} >
-                <Textfit max={256}
-                    min={24}
-                    style={{
-                        minHeight: "80%",
-                        maxHeight: "80%",
-                        minWidth: "80%",
-                        maxWidth: "80%",
-                        lineHeight: 1,
-                        textShadow: '1px 1px 2px black'
-                    }}>{props.question}</Textfit>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', flexWrap: 'wrap', width: '100%', overflow: 'hidden', height: window.innerWidth < 700 ? '60%' : '40%', }}>
+        <div id='questionContainerSimple' style={{ opacity: props.vis }}>
+            <section className="questionSection" style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', flexWrap: 'wrap', width: '98%', overflow: 'hidden' }}>
+                <div style={{width:'100%',display: 'flex',justifyContent:'center', alignItems: 'center', height: window.innerWidth < 700 ? '30%' : '70%' }}>
+                    <img src={props.info.img} style={{ height:'100%', alignSelf:'center'}} alt={props.info.img} />
+                </div>
+                <div style={{width:'100%', height: window.innerWidth < 700 ? '70%' : '30%' }}>
+                    <Textfit max={256}
+                        min={24}
+                        style={{
+                            color: 'white',
+                            minHeight: "90%",
+                            maxHeight: "90%",
+                            minWidth: "90%",
+                            maxWidth: "90%",
+                            lineHeight: 1,
+                            margin: 'auto',
+                            textAlign: "center",
+                            textShadow: '1px 1px 2px black'
+                        }}>{props.question}</Textfit>
+                </div>
+            </section>
+            <section className="answerSection" style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', flexWrap: 'wrap', width: '98%', overflow: 'hidden' }}>
                 {props.answers.map((answerOption, j) => {
                     return (
                         <label className="option_simple" key={"labelSimple" + j} style={{ height: `${93 / props.answers.length}%` }}>
@@ -53,18 +58,19 @@ function LayoutSimple(props) {
                                 <Textfit className="name" key={"spanSimple" + j} max={256}
                                     min={24}
                                     style={{
-                                        minHeight: "80%",
-                                        maxHeight: "80%",
-                                        minWidth: "80%",
-                                        maxWidth: "80%",
+                                        minHeight: "90%",
+                                        maxHeight: "90%",
+                                        minWidth: "90%",
+                                        maxWidth: "90%",
                                         lineHeight: 1,
+                                        textAlign: "center",
                                         textShadow: '1px 1px 2px black'
                                     }}>{answerOption.text}</Textfit>
                             </div>
                         </label>
                     )
                 })}
-            </div>
+            </section>
         </div>
     );
 }
