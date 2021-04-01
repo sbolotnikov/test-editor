@@ -3,7 +3,8 @@ $background-color: #e2ebf3;
 $header-background-color: #ffb84d;
 
 $primary-color: #f5d142;
-$secondary-color: #3d0099;
+$secondary-color: #342D6F;
+// #3d0099;
 $tertiary-color: #b30059;
 $project-colors: #a9ffb9, #79cdcd, #958cd9;
 
@@ -18,7 +19,10 @@ $menu-color-dark: #ddd;
 $menu-color-active: #fff;
 
 $card-shadow: 0px 10px 46px -24px rgba(255, 255, 255, 0.75);
-
+:export {
+	primarycolor:$primary-color;
+	secondarycolor:$secondary-color;
+}
 @mixin iconClick {
 	&:active {
 		transform: translateY(calc(100% / 2 + 2px));

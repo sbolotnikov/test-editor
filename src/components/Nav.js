@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../contexts/AuthContext";
+import  "./Nav.scss";
+
 
 function Nav(props) {
     const [isNavCollapsed, setIsNavCollpased] = useState(true);
@@ -11,7 +13,7 @@ function Nav(props) {
         setIsNavCollpased(!isNavCollapsed)
     }
     useEffect(() => {
-        let imgLink =  "https://res.cloudinary.com/sergeyb/image/upload/v1616530982/quizzes/defaultIcon_w0obug.png";
+        let imgLink =  process.env.PUBLIC_URL + "/icons/defaultUser.svg"
         if (currentUser) {currentUser.photoURL>"" ? setImgDisplay(currentUser.photoURL) : setImgDisplay(imgLink);}
         else{
             document.querySelector('#imgMember').setAttribute('src',imgLink)
@@ -22,13 +24,14 @@ function Nav(props) {
     }, [currentUser]);
     return (
         <nav className="navbar navbar-expand-lg" >
-            <Link to="/" className="navHeader">
-                Quiz Land
-			</Link>
-            <button className="navbar-toggler" type="button" data-toggle="collapse"
+            
+            {window.innerWidth<1000 ? <Link to="/"><img className="member-photo" id='imgMember' src={imgDisplay} alt="member avatar"/></Link>
+             :<Link to="/"> <img src={ process.env.PUBLIC_URL+"/icons/logoName.svg"} alt="close" style={{width:'3.2em',height:'4em'}}/></Link> }
+			{window.innerWidth<1000 ? <Link to="/login" className="navHeader" style={{marginRight:0}}>Quiz Land</Link> : null}
+            <button className="navbar-toggler" type="button" data-toggle="collapse" 
                 data-target="#navbarNav" aria-controls="navbarNav" aria-expanded={!isNavCollapsed ? true : false} aria-label="Toggle navigation"
                 onClick={handleNavCollpase}>
-                <div style={{ width: '1em', height: '1em',color:"white" }}>
+                <div style={{ width: '1em', height: '1em' }}>
                    {isNavCollapsed ? 
                      <img src={ process.env.PUBLIC_URL+"/icons/burger.svg"} alt="close" style={{width:'1em',height:'1em'}}/> :
                     <img src={ process.env.PUBLIC_URL+"/icons/close.svg"} alt="close" style={{width:'1em',height:'1em'}}/>}
@@ -74,9 +77,9 @@ function Nav(props) {
                 </ul>
             </div>
 
-            <Link to="/" className="nav-link">
-               <img className="member-photo" id='imgMember' src={imgDisplay>"" ? imgDisplay : process.env.PUBLIC_URL + "./images/defaultIcon.png"} alt="member avatar"/>
-            </Link>
+            {window.innerWidth<1000 ? null: <Link to="/" className="nav-link">
+               <img className="member-photo" id='imgMember' src={imgDisplay} alt="member avatar"/>
+            </Link>}
         </nav>
     );
 }
