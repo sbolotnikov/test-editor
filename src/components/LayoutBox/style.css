@@ -46,7 +46,7 @@ section.answerSection{
   background: #fff;
   border-radius: 5px;
   text-align: center;
-  padding: 58px 40px;
+  padding: auto auto;
   cursor: pointer;
   color: #585c68;
   display: block;

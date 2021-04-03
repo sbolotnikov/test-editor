@@ -26,8 +26,9 @@ function Nav(props) {
         <nav className="navbar navbar-expand-lg" >
             
             {window.innerWidth<1000 ? <Link to="/"><img className="member-photo" id='imgMember' src={imgDisplay} alt="member avatar"/></Link>
-             :<Link to="/"> <img src={ process.env.PUBLIC_URL+"/icons/logoName.svg"} alt="close" style={{width:'3.2em',height:'4em'}}/></Link> }
-			{window.innerWidth<1000 ? <Link to="/login" className="navHeader" style={{marginRight:0}}>Quiz Land</Link> : null}
+             :<Link to="/" className="navHeader"> <img src={ process.env.PUBLIC_URL+"/icons/logoName.svg"} alt="close" style={{width:'2.67em',height:'4em'}}/></Link> }
+			{window.innerWidth<1000 ? <Link to="/login" className="navHeader" style={{marginRight:0}}> 
+            <img src={ process.env.PUBLIC_URL+"/icons/QuizLogo.svg"} alt="close" style={{width:'1.3em',height:'1.3em'}}/> Quiz Land</Link> : null}
             <button className="navbar-toggler" type="button" data-toggle="collapse" 
                 data-target="#navbarNav" aria-controls="navbarNav" aria-expanded={!isNavCollapsed ? true : false} aria-label="Toggle navigation"
                 onClick={handleNavCollpase}>

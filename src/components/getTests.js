@@ -169,7 +169,7 @@ function GetTests(props) {
         setTestsRecordsDisplay(recordSet);
     }, [selectedOption])
     return (
-        <div style={{ width: '100%', maxWidth:"600px", height:"100%", maxHeight:"400px" }}>
+        <div style={{ width: '100%', maxWidth:"600px", height:"100%", maxHeight:"400px", marginTop:'30%' }}>
             {categories &&
                 <CustomSelect isMulti={true} style={{ width: '100%', menuColor: 'red' }} value={selectedOption} onChange={setSelectedOption} options={categories} label="Choose categories" />
             }

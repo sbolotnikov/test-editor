@@ -109,7 +109,7 @@ function TestNav(props) {
             <button className="testNav invisible " style={{ position: "absolute", top: '48vh', right: 0, background: "transparent", zIndex: 1500 }}
                 onClick={e => { questionNumberSet(1) }}>&#9193;Next</button>
 
-            <input className="testNav text-right invisible" type="text" value={displayTime} style={{ position: "absolute", background: "transparent", top: 0, left: '38vw', padding: 0, borderWidth: 0, width: '8ch' }} />
+            <input className="testNav text-right invisible" type="text" value={displayTime} style={{ position: "absolute", background: "transparent", top: 0, left: '38vw', padding: 0, borderWidth: 0, width: '8ch' }} readOnly />
             <button className="testNav invisible" id="finishBtn"  style={{ position: "absolute", top: 0, right: 0,marginTop:'1.25vh', backgroundImage:`url(${process.env.PUBLIC_URL + "/icons/finish.svg"})`,width: "9vh", height: "3vh", borderWidth: '0px',borderRadius:'5px', zIndex: 1500 }}
                 onClick={stopTest}></button>
 

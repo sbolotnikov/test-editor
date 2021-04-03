@@ -47,14 +47,14 @@ const LayoutBox = props => {
                         }}>{props.question}</Textfit>
               
                 </section>
-                <section className="answerSection" style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', flexWrap: 'wrap', width: '100%', overflow:'visible' }}>
+                <section className="answerSection" style={{ display: 'flex', justifyContent: 'space-between',alignContent:'center', flexWrap: 'wrap', width: '99%', overflow:'visible' }}>
                     {props.answers.map((answerOption, j) => {
                         return (
-                            <label className="option_item" key={"labelBox" + j} style={{ width: '44%',maxHeight: '200px',margin: '1px', maxWidth:'200px'}}>
+                            <label className="option_item" key={"labelBox" + j} style={{width:'49%',minHeight:'22%', maxHeight: '200px', maxWidth:'200px'}}>
                                 <input type="checkbox" className="checkOut" key={"inputBox" + j} id={"answer_" + j} value={j} onChange={e => checkingMulti(e)} />
                                 <div className="option_inner" style={{ backgroundImage: `url(${answerOption.img})`, backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }}>
                                     <div className="tickmark" key={"divBox" + j}> </div>
-                                    <div className="name" key={"div2Box" + j}>{answerOption.text}</div>
+                                    <div className="name" key={"div2Box" + j} style={{width:"13ch"}}>{answerOption.text}</div>
                                 </div>
                             </label>
                         )
