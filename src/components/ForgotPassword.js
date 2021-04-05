@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link } from "react-router-dom"
-
+import "./Login.scss";
 export default function ForgotPassword() {
   const emailRef = useRef()
   const { resetPassword } = useAuth()
@@ -27,31 +26,29 @@ export default function ForgotPassword() {
   }
 
   return (
-    <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
-      <div className="w-100" style={{ maxWidth: "400px" }}>
-        <Card>
-          <Card.Body>
-            <h2 className="text-center mb-4">Password Reset</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            {message && <Alert variant="success">{message}</Alert>}
-            <Form onSubmit={handleSubmit}>
-              <Form.Group id="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" ref={emailRef} required />
-              </Form.Group>
-              <Button disabled={loading} className="w-100" type="submit">
-                Reset Password
-            </Button>
-            </Form>
-            <div className="w-100 text-center mt-3">
-              <Link to="/login">Login</Link>
-            </div>
-          </Card.Body>
-        </Card>
-        <div className="w-100 text-center mt-2">
-          Need an account? <Link to="/signup">Sign Up</Link>
+    <div className='mainContainer'>
+      <div style={{ width: '98%', maxWidth: "400px" }}>
+        <div className='registeCard'>
+          <h2 className="header1">Password Reset
+            <img src={process.env.PUBLIC_URL + "/icons/QuizLogo.svg"} alt="logo simple" className='logo' /></h2>
+          {error && <label className='alertStyle'>{error}</label>}
+          {message &&<label className='successStyle'>{message}</label> }
+          <form onSubmit={handleSubmit}>
+            <label className='headerStyle'  >Email
+                    <input id="email" type="email" ref={emailRef} required />
+            </label>
+            <button disabled={loading} className="btnNav" type="submit">
+              Reset Password
+            </button>
+          </form>
+          <div className="divStyle">
+            <Link to="/login" className="links" >Login</Link>
+          </div>
+        </div>
+        <div className="divStyle">
+          Need an account? <Link to="/signup"className="links" >Sign Up</Link>
         </div>
       </div>
-    </Container>
+    </div>
   )
 }

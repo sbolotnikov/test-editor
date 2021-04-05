@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, Redirect } from "react-router-dom"
-
+import "./Login.scss";
 export default function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
@@ -10,7 +9,7 @@ export default function Login() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [toRoot, setToRoot] = useState(false);
-  if (toRoot===true){return <Redirect to="/" />}
+  if (toRoot === true) { return <Redirect to="/" /> }
   async function handleSubmit(e) {
     e.preventDefault()
 
@@ -28,33 +27,29 @@ export default function Login() {
   }
 
   return (
-    <div style={{display:'flex',alignItems:'center',justifyContent:'center', minHeight: "100vh", margin:0, backgroundImage:
-    'repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 2px,transparent 2px, transparent 4px),linear-gradient(90deg, rgb(250, 170, 211),rgb(80, 78, 169))' }}>
-      <div className="w-100" style={{ maxWidth: "400px" }}>
-        <Card>
-          <Card.Body>
-            <h2 className="text-center mb-4">Log In</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleSubmit}>
-              <Form.Group id="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" ref={emailRef} required />
-              </Form.Group>
-              <Form.Group id="password">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" ref={passwordRef} required />
-              </Form.Group>
-              <Button disabled={loading} className="w-100" type="submit">
-                Log In
-            </Button>
-            </Form>
-            <div className="w-100 text-center mt-3">
-              <Link to="/forgot-password">Forgot Password?</Link>
-            </div>
-          </Card.Body>
-        </Card>
-        <div className="w-100 text-center mt-2">
-          Need an account? <Link to="/signup">Sign Up</Link>
+    <div className='mainContainer'>
+      <div style={{ width: '98%', maxWidth: "400px" }}>
+        <div className='registeCard'>
+          <h2 className="header1">Log In
+            <img src={process.env.PUBLIC_URL + "/icons/QuizLogo.svg"} alt="logo simple" className='logo' /> </h2>
+          {error && <label className='alertStyle'>{error}</label>}
+          <form onSubmit={handleSubmit}>
+            <label className='headerStyle'  >Email
+                    <input id="email" type="email" ref={emailRef} required />
+            </label>
+            <label className='headerStyle'  >Password
+                    <input id="password" type="password" ref={passwordRef} required />
+            </label>
+            <button disabled={loading} className="btnNav" type="submit">
+              Log In
+            </button>
+          </form>
+          <div className="divStyle">
+            <Link className="links" to="/forgot-password">Forgot Password?</Link>
+          </div>
+        </div>
+        <div className="divStyle">
+          Need an account? <Link className="links" to="/signup">Sign Up</Link>
         </div>
       </div>
     </div>

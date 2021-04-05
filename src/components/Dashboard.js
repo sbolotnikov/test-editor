@@ -1,12 +1,12 @@
 import React, { useState } from "react"
-import { Card, Button, Alert, Container} from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, Redirect } from "react-router-dom"
+import "./Login.scss";
 export default function Dashboard() {
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
   const [toLogin, setToLogin] = useState(false);
-  if (toLogin===true){return <Redirect to="/login" />}
+  if (toLogin === true) { return <Redirect to="/login" /> }
   async function handleLogout() {
     setError("")
 
@@ -19,26 +19,27 @@ export default function Dashboard() {
   }
 
   return (
-    <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh", width:"100%" }}>
-      <div className="w-100" style={{ maxWidth: "400px" }}>
-        <Card>
-          <Card.Body>
-            <h2 className="text-center mb-4">Profile</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <h6 className="text-center mb-4"> <strong>Display Name:</strong> {currentUser.displayName}</h6>
-            <h6 className="text-center mb-4">  <strong>Email:</strong> {currentUser.email} </h6>
-            <img style={{width:'70%', marginLeft:"15%",marginRight:"15%"}} src={currentUser.photoURL>"" ? currentUser.photoURL : process.env.PUBLIC_URL + "./images/defaultIcon.png"} alt="profile pic"/>
-            <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
+    <div className='mainContainer'>
+      <div style={{ width: '98%', maxWidth: "400px" }}>
+        <div className='registeCard'>
+          <h2 className="header1">Profile
+          <img src={process.env.PUBLIC_URL + "/icons/QuizLogo.svg"} alt="logo simple" className='logo' /></h2>
+          {error && <label className='alertStyle'>{error}</label>}
+          <h6 className="divStyle"> <strong>Display Name:</strong> {currentUser.displayName}</h6>
+          <h6 className="divStyle">  <strong>Email:</strong> {currentUser.email} </h6>
+          <img style={{ width: '70%', margin:'3% 15%' }} src={currentUser.photoURL > "" ? currentUser.photoURL : process.env.PUBLIC_URL + "/icons/defaultUser.svg"} alt="profile pic" />
+          <Link to="/update-profile">
+            <button className="btnNav">
               Update Profile
+              </button>
           </Link>
-          </Card.Body>
-        </Card>
-        <div className="w-100 text-center mt-2">
-          <Button variant="link" onClick={handleLogout}>
+        </div>
+        <div className="divStyle">
+          <div className='linkText' onClick={handleLogout}>
             Log Out
-        </Button>
+        </div>
         </div>
       </div>
-    </Container>
+    </div>
   )
 }

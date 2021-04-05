@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Rubik:wght@700&display=swap');
-@import '~bootstrap/scss/bootstrap.scss';
 @import './styles/config';
 @import './components/Nav.scss';
 
@@ -14,77 +13,11 @@ header {
 	background-color: $header-background-color;
 }
 
-h1 {
-	color: $primary-color;
-}
-nav {
-	background-color: $secondary-color;
-}
-// Class for login and signup cards for centering on screen
-.card-container {
-	margin-left: auto;
-	margin-right: auto;
-	width: 320px;
-	text-align: center;
-}
 
-// Customize bootstrap card styles
-.card {
-	border-radius: 10px;
-	border: none;
-	box-shadow: $card-shadow;
-
-	.form-heading {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		height: 80px;
-		background-color: $tertiary-color;
-		color: $primary-color;
-		border-top-left-radius: 10px;
-		border-top-right-radius: 10px;
-		border: none;
-		font-size: 2rem;
-	}
-
-	.form-group {
-		padding: 10px 10px 0px 10px;
-	}
-
-	// Big buttons for login and signup cards
-	.big-btn {
-		width: 100%;
-		height: 80px;
-		background-color: $secondary-color;
-		color: $primary-color;
-		border-bottom-left-radius: 10px;
-		border-bottom-right-radius: 10px;
-		border: none;
-		font-size: 2rem;
-	}
-}
-nav.navbar{
-	position:absolute;
-	left:0;
-	top:0;
-	width:100vw;
-	z-index: 1000;
-}
-button.navbar-toggler{
-	margin-right: 3%;
-}
-a.nav-link, a.navHeader{
-    font: 400 25px/1.3 'Berkshire Swash', Helvetica, sans-serif;
-    background-color: $secondary-color;
-    color: $primary-color;
-    padding: 8px;
-	margin-right: 40px;
-}
 .member-photo {
     border-radius: 50%;
-    width: 2.3em;
-    height: 2.3em;
+    width: 5vh;
+    height: auto;
   }
 div.cloudinary-button {
 	background-color: $secondary-color;
@@ -98,9 +31,10 @@ div.cloudinary-button {
   .navContainer{
 	display: flex;
 	flex-wrap: wrap;
-	width: 100%;
+	width: 97%;
 	max-width:1000px;
-	margin:auto;
+	margin:40px auto;
+	padding:10px;
 	border-radius:0 0 15px 15px;
 	justify-content: center;
 	background-color: $secondary-color;
@@ -134,6 +68,64 @@ div.cloudinary-button {
 	font-size:calc(12px + 1.5vw);
 	background-color: $secondary-color;
 }
+.headerStyle{
+    color: black;
+    padding:5px;
+    width: 100%;
+	input{
+		width: 100%;
+		padding:.4em;
+		border: 1px solid transparent;
+        border-radius: .25rem;
+		border-color:lightgray;
+		margin-top:.5em;
+	}
+}
+.alertContainer{
+	position:relative;
+	z-index:1000;
+	transform-origin: 50% 50%;
+	transform: translate(center, center);
+	margin:auto;
+	max-width: 400px;
+	background-color: white; 
+	border: 1px solid gray;
+    border-radius: .25rem;
+	width:97%;
+	padding: 2%;
+}
+.alertItemStyle{
+    padding: .75rem 1.25rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    width: 100%;
+    margin:.2em;
+    text-align: center;
+}
+.alertStyle{
+    width: 100%;
+	border-radius: 6px;
+	color: #721c24;
+	background-color: #f8d7da;
+    border-color: #f5c6cb;
+	position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+.successStyle{
+    width: 100%;
+	border-radius: 6px;
+	color: #155724;
+	background-color: #d4edda;
+    border-color: #c3e6cb;
+	position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
   .testNavLight{
 	background: white;
 	border-radius: 8px;
@@ -144,6 +136,7 @@ div.cloudinary-button {
 }
 div.containerGrid{
    display:block;
+   margin: 2% auto;
 }
 section.panel1{
 	grid-column-start: 2;
@@ -172,6 +165,7 @@ section.answerSection{
 		  grid-row-start: 3;
 		  grid-row-end: 3;
 	  }
+
 @media screen and (min-width: 700px) {
 div.containerGrid {
 	width: 100%;

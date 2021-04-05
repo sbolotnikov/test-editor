@@ -328,7 +328,7 @@ function ToRenderEverything() {
         if (testName > "") {
             setRevealAlert(true);
             setAlertStyle({
-                variantHead: "warning",
+                variantHead: "info",
                 heading: "Warning",
                 text: `Did you safe your changes? Your present changes to the test ${testName} by ${(testAuthor.name > "") ? testAuthor.name : "You"} will be lost. Proceed?`,
                 color1: "danger",
@@ -368,13 +368,13 @@ function ToRenderEverything() {
     }, []);
     return (
         <div style={{ maxWidth: "1440px", overflow: "hidden" }}>
-            <GetTests user={currentUser.uid} forPage={'create'} reloadNeeded={reloadNeeded} onLocal={n=>{console.log("test loaded")} } onChange={n => getTestfromDB(n)} />
+            <GetTests user={currentUser.uid} forPage={'create'} reloadNeeded={reloadNeeded} onLocal={n => { console.log("test loaded") }} onChange={n => getTestfromDB(n)} />
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
-            <div className='navContainer' style={{ width: '97%', margin: '40px auto', padding: "10px" }}>
+            <div className='navContainer' >
                 <h3 style={{ width: '100%', textAlign: "center", fontSize: '4vw', color: '#f5d142' }}><strong>Test editing panel</strong></h3>
 
                 <button className="testNav" onClick={e => startNewTest(e)}>New &#10133;</button>
-                <button className="testNav" onClick={e => download(e)}>Download &#128190;</button>
+                <button className="testNav" onClick={e => download(e)}>Download &#128187;</button>
                 <button className="testNav" onClick={e => upload(e)}>Upload to web &#128228;</button>
                 {testAuthor.testId > "" && <button className="testNav" onClick={e => update(e)}>Update on web &#128257;</button>}
 
@@ -382,18 +382,26 @@ function ToRenderEverything() {
             <label className='headerStyle' style={{ width: '100%' }} >Enter your test Name
                     <input id="testName" style={{ width: '100%' }} onChange={e => setTestName(e.target.value)} />
             </label>
-            <label className='headerStyle' style={{ width: '43%' }} >Is this test Private or Public?
-                    <select id="visibility" type="" style={{ width: '50%', float: 'right' }} onChange={e => setVisibility(e.target.value)} >
-                    <option value="Private">Private</option>
-                    <option value="Public">Public</option>
-                </select>
-            </label>
-            <label className='headerStyle' style={{ width: '55%' }} >Would you allow others to edit content of test?
-                    <select id="editability" style={{ width: '30%', float: 'right' }} onChange={e => setEditability(e.target.value)}>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
-            </label>
+            <div className="containerGrid">
+                <section className='panel1' style={{ width: '100%' }}>
+                    <label className='headerStyle' >
+                    <select id="visibility" onChange={e => setVisibility(e.target.value)} >
+                            <option value="Private">Private</option>
+                            <option value="Public">Public</option>
+                        </select>
+                        Is this test Private or Public?
+                    </label>
+                </section>
+                <section className='panel2' style={{ width: '100%' }}>
+                    <label className='headerStyle' >
+                    <select id="editability" onChange={e => setEditability(e.target.value)}>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        Would you allow others to edit content of test?
+                    </label>
+                </section>
+            </div>
             {selectedOption &&
                 <CustomSelect isMulti={true} style={{ width: '300px', menuColor: 'red' }} value={selectedOption} onChange={setSelectedOption} options={categories} label="Choose a test categories" />
             }
@@ -405,7 +413,7 @@ function ToRenderEverything() {
             </h4>
             <div className="containerGrid">
                 <section className='panel1' style={{ width: '100%' }}>
-                    <label className='headerStyle'>
+                    <label >
                         <input type="checkbox" id="checkAddTestBackground" onChange={e => setAddBackgroundVisible(document.querySelector("#checkAddTestBackground").checked)} />
                  Add/change BACKGROUND to your test
                 </label>
@@ -417,7 +425,7 @@ function ToRenderEverything() {
                     </div>
                 </section>
                 <section className='panel2' style={{ width: '100%' }}>
-                    <label className='headerStyle'>
+                    <label >
                         <input type="checkbox" id="checkAddTestGradient" onChange={e => setAddTestGradientVisible(document.querySelector("#checkAddTestGradient").checked)} />
                     Add/change background GRADIENT to your test
                </label>

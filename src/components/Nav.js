@@ -16,30 +16,50 @@ function Nav(props) {
         let imgLink =  process.env.PUBLIC_URL + "/icons/defaultUser.svg"
         if (currentUser) {currentUser.photoURL>"" ? setImgDisplay(currentUser.photoURL) : setImgDisplay(imgLink);}
         else{
-            document.querySelector('#imgMember').setAttribute('src',imgLink)
             setImgDisplay(imgLink)
         }
         
-
     }, [currentUser]);
+    useEffect(()=>{
+        if(window.innerWidth<1000){
+        if (isNavCollapsed){
+            document.querySelector("#navbarNav").style.display="none";
+        }
+        else{
+            document.querySelector("#navbarNav").style.display="block";
+        }
+    }
+
+    },[isNavCollapsed]);
+    useEffect(()=>{
+        if (window.innerWidth>=1000){
+            document.querySelector("#navbarNav").style.display="flex";
+            document.querySelector("#navbarNav").style.justifyContent="center";
+            document.querySelector("#navbarNav").style.width="83%";
+        }
+        else{
+            document.querySelector("#navbarNav").style.display="none";
+        }
+       
+
+    },[window.innerWidth]);
+
     return (
-        <nav className="navbar navbar-expand-lg" >
+        <nav className="navbar" >
             
-            {window.innerWidth<1000 ? <Link to="/"><img className="member-photo" id='imgMember' src={imgDisplay} alt="member avatar"/></Link>
-             :<Link to="/" className="navHeader"> <img src={ process.env.PUBLIC_URL+"/icons/logoName.svg"} alt="close" style={{width:'2.67em',height:'4em'}}/></Link> }
-			{window.innerWidth<1000 ? <Link to="/login" className="navHeader" style={{marginRight:0}}> 
-            <img src={ process.env.PUBLIC_URL+"/icons/QuizLogo.svg"} alt="close" style={{width:'1.3em',height:'1.3em'}}/> Quiz Land</Link> : null}
-            <button className="navbar-toggler" type="button" data-toggle="collapse" 
-                data-target="#navbarNav" aria-controls="navbarNav" aria-expanded={!isNavCollapsed ? true : false} aria-label="Toggle navigation"
-                onClick={handleNavCollpase}>
-                <div style={{ width: '1em', height: '1em' }}>
+            {window.innerWidth<1000 ? <Link to="/"><img className="member-photo" src={imgDisplay} alt="avatar"/></Link>
+             :<Link to="/" className="navHeader"> <img src={ process.env.PUBLIC_URL+"/icons/logoName.svg"} alt="close" style={{width:'1.5em',height:'2em'}}/></Link> }
+			{window.innerWidth<1000 ? <Link to="/login" className="navHeader"> 
+            <img src={ process.env.PUBLIC_URL+"/icons/QuizLogo.svg"} alt="logo" style={{width:'4vw',height:'4vw'}}/>Quiz Land</Link> : null}
+            {window.innerWidth<1000 ? <span id="navbar-toggler"  onClick={handleNavCollpase}>
+                <div style={{ width: '1em', height: '1em',float:'center' }}>
                    {isNavCollapsed ? 
-                     <img src={ process.env.PUBLIC_URL+"/icons/burger.svg"} alt="close" style={{width:'1em',height:'1em'}}/> :
-                    <img src={ process.env.PUBLIC_URL+"/icons/close.svg"} alt="close" style={{width:'1em',height:'1em'}}/>}
+                     <img src={ process.env.PUBLIC_URL+"/icons/burger.svg"} alt="open" /> :
+                    <img src={ process.env.PUBLIC_URL+"/icons/close.svg"} alt="close" />}
                 </div>
-            </button>
-            <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse`} id="navbarNav">
-                <ul className="navbar-nav">
+            </span>: null}
+            
+                <ul id="navbarNav">
 
 
                    {!currentUser && <li className="nav-item">
@@ -76,10 +96,10 @@ function Nav(props) {
                     </Link>
                     </li>
                 </ul>
-            </div>
+            
 
-            {window.innerWidth<1000 ? null: <Link to="/" className="nav-link">
-               <img className="member-photo" id='imgMember' src={imgDisplay} alt="member avatar"/>
+            {window.innerWidth<1000 ? null: <Link to="/">
+               <img className="member-photo"  src={imgDisplay} alt="member avatar"/>
             </Link>}
         </nav>
     );

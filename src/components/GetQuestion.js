@@ -77,14 +77,20 @@ function GetQuestion(props) {
                 </select>
                         Choose question layout
                     </label>
-            <label style={{ width: '50%', color: 'black' }}>
-                <input id="positionsCount" type="number" min={0} max={rights.length + wrongs.length} style={{ width: '20%', marginRight: '5px', marginTop: '5px' }} onChange={e => { props.onChange({ "positionsCount": e.target.value }) }} />
+            <div className="containerGrid">
+                <section className='panel1' style={{ width: '100%' }}>
+                    <label>
+                        <input id="positionsCount" type="number" min={0} max={rights.length + wrongs.length} style={{ width: '20%', marginRight: '5px', marginTop: '5px' }} onChange={e => { props.onChange({ "positionsCount": e.target.value }) }} />
                         How many positions would be displayed?(Maximum should be less then answers options)
                     </label>
-            <label style={{ width: '50%', color: 'black' }}>
-                <input id="correctCount" type="number" min={0} max={rights.length} style={{ width: '20%', marginRight: '5px', marginTop: '5px' }} onChange={e => { props.onChange({ "correctCount": e.target.value }) }} />
+                </section>
+                <section className='panel2' style={{ width: '100%' }}>
+                    <label >
+                        <input id="correctCount" type="number" min={0} max={rights.length} style={{ width: '20%', marginRight: '5px', marginTop: '5px' }} onChange={e => { props.onChange({ "correctCount": e.target.value }) }} />
                         How many correct options should be selected?(Maximum should be less then correct answers options)
                     </label>
+                </section>
+            </div>
             <div className="containerGrid">
                 <section className='panel1' style={{ width: '100%' }}>
                     <h3 className='headerStyle'>Enter text of the correct answers:</h3>

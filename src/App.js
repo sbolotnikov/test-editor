@@ -1,7 +1,6 @@
 import React from "react"
 import { HashRouter as Router, Switch, Route } from "react-router-dom"
 import './App.scss';
-import 'bootstrap/dist/css/bootstrap.min.css';
 // Components
 import Signup from "./components/Signup"
 import { AuthProvider } from "./contexts/AuthContext"
@@ -20,7 +19,6 @@ import makeTest from './pages/makeTest';
 function App() {
 
   return (
-
     <Router>
       <AuthProvider>
           <Nav />

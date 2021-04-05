@@ -1,0 +1,43 @@
+@import '../styles/config';
+div.mainContainer{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height: 100vh;
+    margin:0;
+    background-image:
+    repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 2px,transparent 2px, transparent 4px),linear-gradient(90deg, rgb(250, 170, 211),rgb(80, 78, 169));  
+}
+div.registeCard{
+    background-color:white;
+    border-radius:6px;
+    padding:1.25rem;
+}
+a.links{
+    color:$primary-color;
+}
+button.btnNav{
+    width:100%;
+    background-color:black;
+    color:$primary-color;
+    border-radius: 8px;
+    padding: .4em;
+}
+h2.header1{
+    text-align:left;
+    margin:1em .35em .45em .35em;
+
+}
+img.logo{
+    float:right;
+    width: 1.75em;
+    height:1.75em;
+}
+div.divStyle{
+    width:100%;
+    text-align: center;
+    margin-top: .35em;
+}
+div.linkText{
+    color:$primary-color;
+}

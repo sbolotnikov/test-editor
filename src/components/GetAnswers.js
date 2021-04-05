@@ -33,8 +33,8 @@ function GetAnswers(props) {
         setAnswers(props.answers);
     }, [props.answers]);
     return (
-        <div className="d-flex align-items-start justify-content-center">
-            <div className="w-100" style={{ maxWidth: "400px" }}>
+        <div style={{display:"flex", alignItems:"start", justifyContent:"center"}}>
+            <div style={{width:'85%' }}>
                 <div style={{ width: '100%' }}>
                     {answers && answers.map((answerOption, j) => {
                         return (

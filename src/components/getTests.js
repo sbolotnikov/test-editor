@@ -169,7 +169,7 @@ function GetTests(props) {
         setTestsRecordsDisplay(recordSet);
     }, [selectedOption])
     return (
-        <div style={{ width: '100%', maxWidth:"600px", height:"100%", maxHeight:"400px", marginTop:'30%' }}>
+        <div style={{ width: '100%', maxWidth:"600px", height:"100%", maxHeight:"400px", margin:'15% 1%' }}>
             {categories &&
                 <CustomSelect isMulti={true} style={{ width: '100%', menuColor: 'red' }} value={selectedOption} onChange={setSelectedOption} options={categories} label="Choose categories" />
             }
@@ -185,8 +185,8 @@ function GetTests(props) {
                 )
             }
             )}
-            {currentUser && <label className='headerStyle'>
-                <input type="checkbox" id="checkEditLocalTest" onChange={e => setCheckEditLocalTestVisible(document.querySelector("#checkEditLocalTest").checked)} />
+            {currentUser && <label >
+                <input type="checkbox" id="checkEditLocalTest" style={{marginRight:'1em'}} onChange={e => setCheckEditLocalTestVisible(document.querySelector("#checkEditLocalTest").checked)} />
               Load local test from your disk
               </label>}
             {currentUser && checkEditLocalTestVisible && <input type="file" id="fileinput" onChange={e => readSingleFile(e)} />}
