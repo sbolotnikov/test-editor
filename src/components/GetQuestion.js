@@ -61,13 +61,16 @@ function GetQuestion(props) {
 
     return (
         <Fragment>
-            <h3 className='headerStyle'>Enter your question</h3>
-            <textarea id="question" style={{ width: '100%' }} onChange={e => { props.onChange({ "question": e.target.value }) }} />
-            <h4 className='headerStyle'>Add your question main picture link (if you have one)</h4>
-            <input id="mainImg" style={{ width: '100%' }} onChange={e => { props.onChange({ "mainImg": e.target.value }) }} />
-            <Cloudinary style={{ width: "200px", objectFit: "cover", margin: "10px" }} getImgUrl={getImgUrl} />
-            <label style={{ width: '100%', color: 'black' }}>
-                <select id="layout1" style={{ width: '40%', marginRight: '5px', marginTop: '5px' }} onChange={e => { props.onChange({ "layout1": e.target.value }) }} >
+            <label className='headerStyle'>Enter your question
+            <textarea id="question" onChange={e => { props.onChange({ "question": e.target.value }) }} />
+            </label>
+            <br/>
+            <label className='headerStyle'>Add your question main picture link (if you have one)
+            <input id="mainImg" onChange={e => { props.onChange({ "mainImg": e.target.value }) }} />
+            </label>
+            <Cloudinary getImgUrl={getImgUrl} />
+            <label className='headerStyle'>Choose question layout
+                <select id="layout1" onChange={e => { props.onChange({ "layout1": e.target.value }) }} >
                     {layouts.map((option, i) => {
                         return (
                             <option value={option} key={'layout_option' + i}>{option}</option>
@@ -75,29 +78,28 @@ function GetQuestion(props) {
                     }
                     )}
                 </select>
-                        Choose question layout
-                    </label>
+             </label>
             <div className="containerGrid">
-                <section className='panel1' style={{ width: '100%' }}>
+                <section className='panel1'>
                     <label>
-                        <input id="positionsCount" type="number" min={0} max={rights.length + wrongs.length} style={{ width: '20%', marginRight: '5px', marginTop: '5px' }} onChange={e => { props.onChange({ "positionsCount": e.target.value }) }} />
+                        <input id="positionsCount" type="number" min={0} max={rights.length + wrongs.length}  onChange={e => { props.onChange({ "positionsCount": e.target.value }) }} />            
                         How many positions would be displayed?(Maximum should be less then answers options)
                     </label>
                 </section>
-                <section className='panel2' style={{ width: '100%' }}>
-                    <label >
-                        <input id="correctCount" type="number" min={0} max={rights.length} style={{ width: '20%', marginRight: '5px', marginTop: '5px' }} onChange={e => { props.onChange({ "correctCount": e.target.value }) }} />
+                <section className='panel2'>
+                    <label>
+                        <input id="correctCount" type="number" min={0} max={rights.length}  onChange={e => { props.onChange({ "correctCount": e.target.value }) }} />           
                         How many correct options should be selected?(Maximum should be less then correct answers options)
                     </label>
                 </section>
             </div>
             <div className="containerGrid">
-                <section className='panel1' style={{ width: '100%' }}>
-                    <h3 className='headerStyle'>Enter text of the correct answers:</h3>
+                <section className='panel2'>
+                    <label className='headerStyle'>Enter text of the correct answers:</label>
                     {rights && <GetAnswers answers={rights} correct={true} onDelete={(n) => delRecord(n, 1)} onNew={(e) => newRecord(e, 1)} onChange={(t) => handleReturnData(t, 1)} onCopy={(t) => handleCopyData(t, 1)} />}
                 </section>
-                <section className='panel2' style={{ width: '100%' }}>
-                    <h3 className='headerStyle'>Enter text of the wrong answers:</h3>
+                <section className='panel1'>
+                    <label className='headerStyle'>Enter text of the wrong answers:</label>
                     {wrongs && <GetAnswers answers={wrongs} correct={false} onDelete={(n) => delRecord(n, 0)} onNew={(e) => newRecord(e, 0)} onChange={(t) => handleReturnData(t, 0)} onCopy={(t) => handleCopyData(t, 0)} />}
                 </section>
             </div>

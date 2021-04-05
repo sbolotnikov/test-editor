@@ -80,8 +80,8 @@ function GetGradient(props) {
                 )
             }
             )}
-            <label className='headerStyle'>
-                <input type="checkbox" id="checkNewGradientAdd" onChange={e => setAddNewGradientVisible(document.querySelector("#checkNewGradientAdd").checked)} /> 
+            <label>
+                <input type="checkbox" id="checkNewGradientAdd" onChange={e => setAddNewGradientVisible(document.querySelector("#checkNewGradientAdd").checked)} />
                 Add new background gradient CSS to our database of pre-set styles
             </label>
             <div style={{ display: addNewGradientVisible ? "block" : "none", width: '100%' }}>

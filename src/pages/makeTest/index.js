@@ -367,7 +367,7 @@ function ToRenderEverything() {
         localStorage.removeItem('testCopy');
     }, []);
     return (
-        <div style={{ maxWidth: "1440px", overflow: "hidden" }}>
+        <div className="makerContainer">
             <GetTests user={currentUser.uid} forPage={'create'} reloadNeeded={reloadNeeded} onLocal={n => { console.log("test loaded") }} onChange={n => getTestfromDB(n)} />
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
             <div className='navContainer' >
@@ -379,12 +379,12 @@ function ToRenderEverything() {
                 {testAuthor.testId > "" && <button className="testNav" onClick={e => update(e)}>Update on web &#128257;</button>}
 
             </div>
-            <label className='headerStyle' style={{ width: '100%' }} >Enter your test Name
-                    <input id="testName" style={{ width: '100%' }} onChange={e => setTestName(e.target.value)} />
+            <label className='headerStyle' >Enter your test Name
+                    <input id="testName"  onChange={e => setTestName(e.target.value)} />
             </label>
             <div className="containerGrid">
-                <section className='panel1' style={{ width: '100%' }}>
-                    <label className='headerStyle' >
+                <section className='panel1'>
+                    <label >
                     <select id="visibility" onChange={e => setVisibility(e.target.value)} >
                             <option value="Private">Private</option>
                             <option value="Public">Public</option>
@@ -392,8 +392,8 @@ function ToRenderEverything() {
                         Is this test Private or Public?
                     </label>
                 </section>
-                <section className='panel2' style={{ width: '100%' }}>
-                    <label className='headerStyle' >
+                <section className='panel2'>
+                    <label >
                     <select id="editability" onChange={e => setEditability(e.target.value)}>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
@@ -403,35 +403,40 @@ function ToRenderEverything() {
                 </section>
             </div>
             {selectedOption &&
-                <CustomSelect isMulti={true} style={{ width: '300px', menuColor: 'red' }} value={selectedOption} onChange={setSelectedOption} options={categories} label="Choose a test categories" />
+                <CustomSelect isMulti={true} style={{ width: '300px', menuColor: 'red',marginLeft:'1.5%' }} value={selectedOption} onChange={setSelectedOption} options={categories} label="Choose a test categories" />
             }
-            <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', margin: 0 }} onClick={e => handleNewCategory(e)}>Add New Category</button>
-            <h4 className='headerStyle' style={{ width: '100%' }} >Enter Time limits (if there are no time limit enter 0 0 0) :
-                    <input id="hh" type="number" min={0} max={10} size={2} style={{ width: '9%' }} onChange={e => setTestHH(e.target.value)} /> hh
-                    <input id="mm" type="number" min={0} max={59} size={2} style={{ width: '9%' }} onChange={e => setTestMM(e.target.value)} /> mm
-                    <input id="ss" type="number" min={0} max={59} size={2} style={{ width: '9%' }} onChange={e => setTestSS(e.target.value)} /> ss
-            </h4>
+            <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', margin: "1% 0 0 1.5%" }} onClick={e => handleNewCategory(e)}>Add New Category</button>
+            <div className="panel2 containerGrid">
+            <section className='headerStyle' >Enter time (if there are no time limit enter 0 0 0):</section>
+            <section className='panel1 headerStyle' style={{  float:'left' }}>
+                    <input id="hh" type="number" min={0} max={10} size={2} style={{ width: '5ch' }} onChange={e => setTestHH(e.target.value)} /> hh
+                    <input id="mm" type="number" min={0} max={59} size={2} style={{ width: '5ch' }} onChange={e => setTestMM(e.target.value)} /> mm
+                    <input id="ss" type="number" min={0} max={59} size={2} style={{ width: '5ch' }} onChange={e => setTestSS(e.target.value)} /> ss
+            </section>
+            </div>
             <div className="containerGrid">
-                <section className='panel1' style={{ width: '100%' }}>
+                <section className='panel1'>
                     <label >
-                        <input type="checkbox" id="checkAddTestBackground" onChange={e => setAddBackgroundVisible(document.querySelector("#checkAddTestBackground").checked)} />
-                 Add/change BACKGROUND to your test
+                        <input type="checkbox" id="checkAddTestBackground" onChange={e => setAddBackgroundVisible(document.querySelector("#checkAddTestBackground").checked)} />           
+                        Add/change BACKGROUND to your test
                 </label>
                     <div style={{ display: addBackgroundVisible ? "block" : "none", width: '98%' }}>
 
-                        <h4 className='headerStyle' style={{ width: '100%' }} >Enter test background image link or upload your image from computer</h4>
-                        <input id="background" style={{ width: '100%' }} onChange={e => setTestBackground(e.target.value)} />
-                        <Cloudinary style={{ width: "90%", objectFit: "cover", margin: "10px" }} getImgUrl={getImgUrl} />
+                        <label className='headerStyle'>Enter test background image link or upload your image from computer
+                        <input id="background"  onChange={e => setTestBackground(e.target.value)} />
+                        </label>
+                        <Cloudinary getImgUrl={getImgUrl} />
                     </div>
                 </section>
-                <section className='panel2' style={{ width: '100%' }}>
+                <section className='panel2'>
                     <label >
                         <input type="checkbox" id="checkAddTestGradient" onChange={e => setAddTestGradientVisible(document.querySelector("#checkAddTestGradient").checked)} />
                     Add/change background GRADIENT to your test
                </label>
                     <div style={{ display: addTestGradientVisible ? "block" : "none", width: '98%' }}>
-                        <h4 className='headerStyle' style={{ width: '100%' }} >Enter test background gradient CSS here</h4>
-                        <textarea id="backgroundGradient" style={{ width: '100%' }} onChange={e => setTestGradient(e.target.value)} />
+                        <label className='headerStyle' >Enter test background gradient CSS here
+                        <textarea id="backgroundGradient" onChange={e => setTestGradient(e.target.value)} />
+                        </label>
                         <GetGradient reloadNeeded={saveReload} onChange={n => getGradientCSS(n)} />
                     </div>
                 </section>

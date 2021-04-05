@@ -24,9 +24,9 @@ function Cloudinary(props) {
     }
 
     return(
-        <div>
-            <input type='file' onChange={(event)=>setImageSelected(event.target.files[0])}/>
-            <div className="cloudinary-button" onClick={(e)=>{pictureUpload(e)}}><h5 style={{cursor: "pointer", textAlign:"center"}}>Upload Image</h5></div>
+        <div style={{display:'flex', alignItems:'center', justifyContent:'start', marginLeft:'2%', maxWidth:'600px'}}>
+            <input type='file' style={{width:'48%'}} onChange={(event)=>setImageSelected(event.target.files[0])}/>
+            <div className="cloudinary-button testNav" onClick={(e)=>{pictureUpload(e)}}>Upload Image</div>
         </div>
     )
 }

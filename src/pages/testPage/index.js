@@ -16,7 +16,7 @@ function ToRenderEverything() {
     setTestLoad(n);
   }
   return (
-    <div style={{ display: "flex",alignItems:"center",justifyContent:"center", height: "100vh" }}>
+    <div className="testContainer">
         {!testLoad && <GetTests user={currentUser ? currentUser.uid : ""} forPage={'test'} onLocal={l => setLocalTest(l)} onChange={n => getTestfromDB(n)} />}
         {testLoad && <TestRun test={testLoad} local={localTest} />}
     </div>
