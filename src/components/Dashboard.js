@@ -27,7 +27,7 @@ export default function Dashboard() {
           {error && <label className='alertStyle'>{error}</label>}
           <h6 className="divStyle"> <strong>Welcome,</strong> {currentUser.displayName}</h6>
           <h6 className="divStyle">  <strong>Email:</strong> {currentUser.email} </h6>
-          <img style={{ width: '70%', margin:'3% 15%' }} src={currentUser.photoURL > "" ? currentUser.photoURL : process.env.PUBLIC_URL + "/icons/defaultUser.svg"} alt="profile pic" />
+          <img style={{ width: '60%', margin:'3% 15%' }} src={currentUser.photoURL > "" ? currentUser.photoURL : process.env.PUBLIC_URL + "/icons/defaultUser.svg"} alt="profile pic" />
           <Link to="/update-profile">
             <button className="btnNav">
               Update Profile

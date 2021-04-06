@@ -41,7 +41,7 @@ div.cloudinary-button {
 }
 .testContainer{
 	display: flex;
-	align-items:center;
+	align-items:start;
 	justify-Content:center;
 	background-image:
     repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 2px,transparent 2px, transparent 4px),linear-gradient(90deg, rgb(250, 170, 211),rgb(80, 78, 169));
@@ -175,7 +175,7 @@ div.cloudinary-button {
 }
 div.containerGrid{
    display:block;
-   margin: 2% 0 2% 1%;
+   margin: 2% 2vh 2% 1%;
 
 }
 section.panel1{

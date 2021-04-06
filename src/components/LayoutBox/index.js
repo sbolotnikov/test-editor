@@ -5,12 +5,11 @@ const LayoutBox = props => {
 
 
     useEffect(() => {
-        for (let i = 0; i < props.answers.length.length; i++) {
+        for (let i = 0; i < props.answers.length; i++) {
             document.querySelector("#answer_" + i).checked = false;
             if (props.checkedMarks.indexOf(i) >= 0) document.querySelector("#answer_" + i).checked = true;
         }
-
-    });
+    },[props.answers]);
     function checkingMulti(e) {
         if (props.type === 1) {
             for (let i = 0; i < props.answers.length; i++) {

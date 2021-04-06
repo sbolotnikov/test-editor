@@ -95,11 +95,11 @@ function GetQuestion(props) {
             </div>
             <div className="containerGrid">
                 <section className='panel2'>
-                    <label className='headerStyle'>Enter text of the correct answers:</label>
+                    <label className='headerStyle' style={{color:'green'}} ><strong>Enter text of the correct answers:</strong></label>
                     {rights && <GetAnswers answers={rights} correct={true} onDelete={(n) => delRecord(n, 1)} onNew={(e) => newRecord(e, 1)} onChange={(t) => handleReturnData(t, 1)} onCopy={(t) => handleCopyData(t, 1)} />}
                 </section>
                 <section className='panel1'>
-                    <label className='headerStyle'>Enter text of the wrong answers:</label>
+                    <label className='headerStyle' style={{ color:'red'}} ><strong>Enter text of the wrong answers:</strong></label>
                     {wrongs && <GetAnswers answers={wrongs} correct={false} onDelete={(n) => delRecord(n, 0)} onNew={(e) => newRecord(e, 0)} onChange={(t) => handleReturnData(t, 0)} onCopy={(t) => handleCopyData(t, 0)} />}
                 </section>
             </div>

@@ -107,9 +107,9 @@ div.cloudinary-button:hover :active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
   justify-Content: center;
   background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 2px, transparent 2px, transparent 4px), -webkit-gradient(linear, left top, right top, from(#faaad3), to(#504ea9));
   background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 2px, transparent 2px, transparent 4px), linear-gradient(90deg, #faaad3, #504ea9);
@@ -272,7 +272,7 @@ div.cloudinary-button:hover :active {
 
 div.containerGrid {
   display: block;
-  margin: 2% 0 2% 1%;
+  margin: 2% 2vh 2% 1%;
 }
 
 section.panel1 {

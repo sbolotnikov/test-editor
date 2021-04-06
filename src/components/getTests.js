@@ -193,14 +193,14 @@ function GetTests(props) {
                             {(props.forPage === 'create') &&
                                 <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', margin: 0, whiteSpace: 'nowrap' }} key={"eraseBtnTests" + j} value={test.id} onClick={e => handleDelete(e)}>Del <img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(.9vw,10px)', height: 'max(.9vw,10px)' }} /></button>
                             }
-                            <div key={"textTests" + j} className='testText' style={{ cursor: "pointer", whiteSpace: 'nowrap', width: "auto" }} value={test.id} onClick={e => handleClick(e)} >{test.main.name} by {test.main.authorName} </div>
+                            <div key={"textTests" + j} className='testText' style={{margin:'10px', cursor: "pointer", whiteSpace: 'nowrap', width: "auto" }} value={test.id} onClick={e => handleClick(e)} >{test.main.name} by {test.main.authorName} </div>
                         </div>
                     )
                 }
                 )}
             </div>
             {currentUser && <label >
-                <input type="checkbox" id="checkEditLocalTest" style={{ marginLeft: '2%' }} onChange={e => setCheckEditLocalTestVisible(document.querySelector("#checkEditLocalTest").checked)} />
+                <input type="checkbox" id="checkEditLocalTest" style={{ margin: '5% 2%' }} onChange={e => setCheckEditLocalTestVisible(document.querySelector("#checkEditLocalTest").checked)} />
               Load local test from your disk
               </label>}
             {currentUser && checkEditLocalTestVisible && <input type="file" id="fileinput" onChange={e => readSingleFile(e)} />}

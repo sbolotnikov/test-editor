@@ -33,7 +33,7 @@ function GetAnswers(props) {
         setAnswers(props.answers);
     }, [props.answers]);
     return (
-        <div style={{display:"flex", alignItems:"start", justifyContent:"start"}}>
+        <div style={{display:"flex", alignItems:"start", justifyContent:"start", marginBottom:'4vh'}}>
             <div style={{width:'85%' }}>
                 <div>
                     {answers && answers.map((answerOption, j) => {

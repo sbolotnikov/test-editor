@@ -47,7 +47,7 @@ function Nav(props) {
     return (
         <nav className="navbar" >
             
-            {window.innerWidth<1000 ? <Link to="/"><img className="member-photo" src={imgDisplay} alt="avatar"/></Link>
+            {window.innerWidth<1000 ? <Link to="/update-profile"><img className="member-photo" src={imgDisplay} alt="avatar"/></Link>
              :<Link to="/" className="navHeader"> <img src={ process.env.PUBLIC_URL+"/icons/logoName.svg"} alt="close" style={{width:'1.5em',height:'2em'}}/></Link> }
 			{window.innerWidth<1000 ? <Link to="/" className="navHeader"> 
             <img src={ process.env.PUBLIC_URL+"/icons/QuizLogo.svg"} alt="logo" style={{width:'4vw',height:'4vw'}}/>Quiz Land</Link> : null}
@@ -98,7 +98,7 @@ function Nav(props) {
                 </ul>
             
 
-            {window.innerWidth<1000 ? null: <Link to="/">
+            {window.innerWidth<1000 ? null: <Link to="/update-profile">
                <img className="member-photo"  src={imgDisplay} alt="member avatar"/>
             </Link>}
         </nav>
