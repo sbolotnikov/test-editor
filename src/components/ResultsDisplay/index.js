@@ -19,7 +19,7 @@ const ResultsDisplay = props => {
         
     }
     function handleDont() {
-        window.location.assign(process.env.PUBLIC_URL + '/#/test');
+        window.location.assign(process.env.PUBLIC_URL + '/#/');
         console.log("redirect to /test")
         // setToTest([true]);
     }
