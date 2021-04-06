@@ -263,7 +263,6 @@ function ToRenderEverything() {
             },
             test: testArray
         };
-        localStorage.setItem('testCopy', JSON.stringify(text));
         db.collection("tests").add(text)
             .then(result => {
                 console.log("file created in DB");
@@ -363,7 +362,7 @@ function ToRenderEverything() {
     useEffect(() => {
         fetchCategories();
         let pasteItem = JSON.parse(localStorage.getItem('testCopy'));
-        if ((pasteItem !== null)) getTestfromDB([pasteItem])
+        if ((pasteItem !== null)) getTestfromDB(pasteItem)
         localStorage.removeItem('testCopy');
     }, []);
     return (

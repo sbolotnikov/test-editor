@@ -4,6 +4,7 @@ var variant = {
     'color': '#721c24',
     'backgroundColor': '#f8d7da',
     'borderColor': '#f5c6cb'
+    
   },
   'success': {
     'color': '#155724',
@@ -39,7 +40,7 @@ export default function AlertMenu(props) {
     <div style={{ width: '100vw', height: '100vh', position: "absolute" }} >
       <div className='alertContainer'>
         <label className='alertItemStyle' style={Object.values(variant)[Object.keys(variant).indexOf(props.styling.variantHead)]}>{props.styling.heading}</label>
-        <h5 className="text-center mb-2">{props.styling.text}</h5>
+        <h5 className="alertItemStyle">{props.styling.text}</h5>
         {props.styling.inputField && <input id="inputField" style={{ width: "100%", marginBottom: "10px" }} defaultValue={props.inputValue} />}
         {(props.styling.color1!=="") && <button className='alertItemStyle' style={{backgroundColor:button1Color, color:'white'}} onClick={e => { props.onReturn(props.styling.button1, (props.styling.inputField ? document.querySelector("#inputField").value : null)); }}>
           {props.styling.button1}

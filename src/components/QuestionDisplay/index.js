@@ -11,7 +11,7 @@ const QuestionDisplay = props => {
         console.log(props.question)
     }, []);
     return (
-            <div style={{height:'100vh',width:'100%',backgroundImage:backgroundVal, backgroundRepeat: "no-repeat", backgroundSize: 'cover'}}>
+            <div style={{height:'100vh',width:'100%',backgroundImage:backgroundVal, backgroundRepeat: "no-repeat", backgroundSize: 'cover', overflowY: 'hidden', position: 'fixed'}}>
                 {props.info.layout === 'box' ? <LayoutBox type={props.info.correct} vis={props.vis} question={props.question} answers={props.answers} checkedMarks={props.checkedMarks} onChange={(ch) => { props.onChange(ch) }} />
                     : <div style={{ display: 'none' }}></div>}
                 {props.info.layout === 'simple' ? <LayoutSimple info={props.info} vis={props.vis} question={props.question} answers={props.answers} checkedMarks={props.checkedMarks} onChange={(ch) => { props.onChange(ch) }} />

@@ -30,7 +30,7 @@ const LayoutBox = props => {
 
     return (
         <Fragment>
-            <div id='questionContainerBox' style={{ opacity: props.vis }}>
+            <div id='questionContainerBox' style={{ opacity: props.vis}}>
                 <section className="questionSection">
                     <Textfit max={256}
                         min={24}

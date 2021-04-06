@@ -4,11 +4,12 @@ import "./style.css";
 function LayoutSimple(props) {
 
     useEffect(() => {
-        for (let i = 0; i < document.querySelectorAll(".checkOut").length; i++) {
+        console.log(props.answers)
+        for (let i = 0; i < props.answers.length; i++) {
             document.querySelector("#answer_" + i).checked = false;
             if (props.checkedMarks.indexOf(i) >= 0) document.querySelector("#answer_" + i).checked = true;
         }
-        console.log(props.answers)
+        
     }, []);
     function checkingMulti(e) {
         if (props.info.correct === 1) {
@@ -28,7 +29,7 @@ function LayoutSimple(props) {
     }
 
     return (
-        <div id='questionContainerSimple' style={{ opacity: props.vis }}>
+        <div id='questionContainerSimple' style={{ opacity: props.vis}}>
             <section className="questionSection" style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', flexWrap: 'wrap', width: '98%', overflow: 'hidden' }}>
                 <div style={{width:'100%',display: 'flex',justifyContent:'center', alignItems: 'center', height: window.innerWidth < 700 ? '30%' : '70%' }}>
                     <img src={props.info.img} style={{ height:'100%', alignSelf:'center'}} alt={props.info.img} />

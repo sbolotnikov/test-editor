@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import firebase from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import GetResults from "../getResults";
-// import { Redirect, Link } from "react-router-dom"
 const ResultsDisplay = props => {
     const { currentUser } = useAuth()
     const [testeeName, setTesteeName] = useState(currentUser ? currentUser.displayName : "");
@@ -27,8 +26,7 @@ const ResultsDisplay = props => {
         
     }
     function handleDont() {
-        // history.push("/test-editor/test")
-        window.location.reload();
+        window.location.assign(process.env.PUBLIC_URL + '/test');
         console.log("redirect to /test")
         // setToTest([true]);
     }

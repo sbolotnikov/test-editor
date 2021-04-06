@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import firebase from "../firebase";
 import AlertMenu from './alertMenu';
-import CustomSelect from './CustomSelect';
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../contexts/AuthContext";
+import ChooseCategory from "../components/ChooseCategory";
+import { Link } from "react-router-dom";
 function GetTests(props) {
     const db = firebase.firestore();
     const { currentUser } = useAuth();
@@ -13,6 +14,8 @@ function GetTests(props) {
     const [deleteRecId, setDeleteRecId] = useState(false);
     const [selectedOption, setSelectedOption] = useState(null);
     const [categories, setCategories] = useState([]);
+    const [categoriesLayout, setCategoriesLayout] = useState([]);
+    const [checked, setChecked] = useState([]);
     const [testFromDB, setTestFromDB] = useState({})
     const [checkEditLocalTestVisible, setCheckEditLocalTestVisible] = useState(false);
     const onReturn = (decision1) => {
@@ -99,7 +102,8 @@ function GetTests(props) {
             return 0;
 
         });
-        setTestsRecords(arrTemp)
+        setTestsRecords(arrTemp);
+        setTestsRecordsDisplay(arrTemp);
     };
     const fetchCategories = async () => {
 
@@ -120,7 +124,14 @@ function GetTests(props) {
 
         });
         setCategories(arrTemp);
+        arrTemp = arrTemp.map(option => { return ({ 'text': option.value, img: process.env.PUBLIC_URL + "/icons/QuizLogo.svg" }) });
+        console.log(arrTemp)
+        setCategoriesLayout(arrTemp);
     };
+    function getChoosenTests(ch) {
+        setChecked(ch);
+        (ch.length > 0) ? setSelectedOption(categories.filter((n, j) => ch.indexOf(j) > -1)) : setSelectedOption(categories)
+    }
     function readSingleFile(evt) {
         var f = evt.target.files[0];
         if (f) {
@@ -156,6 +167,7 @@ function GetTests(props) {
     }, []);
     useEffect(() => {
         let recordSet = testRecords;
+        let chosenRec = [];
         console.log(selectedOption);
         if (selectedOption) {
             for (let i = 0; i < selectedOption.length; i++) {
@@ -163,34 +175,41 @@ function GetTests(props) {
                 for (let j = 0; j < recordSet.length; j++) {
                     if (recordSet[j].main.categories.findIndex(function (n) { return n.value === selectedOption[i].value; }) > -1) tempArr.push(recordSet[j])
                 }
-                recordSet = tempArr;
+                chosenRec = chosenRec.concat(tempArr);
             }
         }
-        setTestsRecordsDisplay(recordSet);
+        setTestsRecordsDisplay(chosenRec);
     }, [selectedOption])
     return (
-        <div style={{ width: '100%', maxWidth:"600px", height:"100%", maxHeight:"400px", margin:'15% 1%' }}>
-            {categories &&
-                <CustomSelect isMulti={true} style={{ width: '100%', menuColor: 'red' }} value={selectedOption} onChange={setSelectedOption} options={categories} label="Choose categories" />
+        <div style={{ width: '100%', maxWidth: "600px", height: "40vh", margin: '10% 0%' }}>
+            {categoriesLayout &&
+                <ChooseCategory type={categoriesLayout.length} answers={categoriesLayout} checkedMarks={checked} onChange={(ch) => { getChoosenTests(ch) }} />
             }
-            {testRecordsDisplay && testRecordsDisplay.map((test, j) => {
-                return (
-                    <div key={"divTests" + j} style={{ display: "flex", margin: '5px' }} >
-                        <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', margin: 0, whiteSpace: 'nowrap' }} key={"linkBtnTests" + j} value={test.id} onClick={e => handleLink(e)}>Link &#128279;</button>
-                        {(props.forPage === 'create') &&
-                            <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', margin: 0, whiteSpace: 'nowrap' }} key={"eraseBtnTests" + j} value={test.id} onClick={e => handleDelete(e)}>Del <img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(.9vw,10px)', height: 'max(.9vw,10px)' }} /></button>
-                        }
-                        <div key={"textTests" + j} style={{ cursor: "pointer", whiteSpace: 'nowrap', width: "auto", overflow: 'hidden', textOverflow: 'ellipsis' }} value={test.id} onClick={e => handleClick(e)} >{test.main.name} by {test.main.authorName} </div>
-                    </div>
-                )
-            }
-            )}
+            <div style={{ backgroundColor: 'white', width: '97%', height: '45%', overflow: 'auto', margin: 'auto' }}>
+                {testRecordsDisplay && testRecordsDisplay.map((test, j) => {
+                    return (
+                        <div key={"divTests" + j} style={{ display: "flex", margin: '5px' }} >
+                            <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', margin: 0, whiteSpace: 'nowrap' }} key={"linkBtnTests" + j} value={test.id} onClick={e => handleLink(e)}>Link &#128279;</button>
+                            {(props.forPage === 'create') &&
+                                <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', margin: 0, whiteSpace: 'nowrap' }} key={"eraseBtnTests" + j} value={test.id} onClick={e => handleDelete(e)}>Del <img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(.9vw,10px)', height: 'max(.9vw,10px)' }} /></button>
+                            }
+                            <div key={"textTests" + j} className='testText' style={{ cursor: "pointer", whiteSpace: 'nowrap', width: "auto" }} value={test.id} onClick={e => handleClick(e)} >{test.main.name} by {test.main.authorName} </div>
+                        </div>
+                    )
+                }
+                )}
+            </div>
             {currentUser && <label >
-                <input type="checkbox" id="checkEditLocalTest" style={{marginRight:'1em'}} onChange={e => setCheckEditLocalTestVisible(document.querySelector("#checkEditLocalTest").checked)} />
+                <input type="checkbox" id="checkEditLocalTest" style={{ marginLeft: '2%' }} onChange={e => setCheckEditLocalTestVisible(document.querySelector("#checkEditLocalTest").checked)} />
               Load local test from your disk
               </label>}
             {currentUser && checkEditLocalTestVisible && <input type="file" id="fileinput" onChange={e => readSingleFile(e)} />}
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
+            {(props.forPage === 'test') && <Link to="/taketest/RtqxyubO57LToxbaOzpj">
+                <button className="btnNav">
+                    Take Demo Test
+              </button>
+            </Link>}
         </div>
     );
 }

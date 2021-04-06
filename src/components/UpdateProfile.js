@@ -56,8 +56,8 @@ export default function UpdateProfile() {
   if (toRoot===true){return <Redirect to="/" />}
   return (
     <div className='mainContainer'>
-      <div style={{ width: '98%', maxWidth: "400px" }}>
-        <div className='registeCard'>
+      <div style={{ width: '98%', maxWidth: "400px"}}>
+        <div className='registeCard' >
           <h2 className="header1">Update Profile
           <img src={process.env.PUBLIC_URL + "/icons/QuizLogo.svg"} alt="logo simple" className='logo' /></h2>
           {error && <label className='alertStyle'>{error}</label>}

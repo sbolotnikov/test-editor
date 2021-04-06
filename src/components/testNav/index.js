@@ -103,13 +103,13 @@ function TestNav(props) {
                 onClick={timerDraw}>Start</button>
             <button className="testNav invisible" style={{ position: "absolute", top: '48vh', left: 0, background: "transparent", zIndex: 1500 }}
                 onClick={e => { questionNumberSet(-1) }}>&#9194;Back</button>
-            <label className="testNav invisible" style={{ margin:'1.25vh 1vw', fontSize: 'calc(10px + 1vw)' }} >
-                <input className="testNavLight text-center invisible" style={{ width: '3ch', fontSize: 'calc(10px + 1vw)' }} type="number" id="questionPage" min="1" max={props.qNumber.toString()} onClick={e => questionNumberSet(e.target.value)}></input>
+            <label className="testNav invisible" style={{position: "absolute",top:'0',left:'0', margin:'1.25vh 1vw', fontSize: 'calc(10px + 1vw)', zIndex: 1500 }} >
+                <input className="testNavLight invisible" style={{ width: '3ch', fontSize: 'calc(10px + 1vw)' }} type="number" id="questionPage" min="1" max={props.qNumber.toString()} onClick={e => questionNumberSet(e.target.value)}></input>
                 of {props.qNumber}</label>
             <button className="testNav invisible " style={{ position: "absolute", top: '48vh', right: 0, background: "transparent", zIndex: 1500 }}
                 onClick={e => { questionNumberSet(1) }}>&#9193;Next</button>
 
-            <input className="testNav text-right invisible" type="text" value={displayTime} style={{ position: "absolute", background: "transparent", top: 0, left: '38vw', padding: 0, borderWidth: 0, width: '8ch' }} readOnly />
+            <label className="testNav invisible" style={{ position: "absolute", background: "transparent", top: 0, left: '38vw', width: '8ch', zIndex: 1500 }}>{displayTime}</label> 
             <button className="testNav invisible" id="finishBtn"  style={{ position: "absolute", top: 0, right: 0,marginTop:'1.25vh', backgroundImage:`url(${process.env.PUBLIC_URL + "/icons/finish.svg"})`,width: "9vh", height: "3vh", borderWidth: '0px',borderRadius:'5px', zIndex: 1500 }}
                 onClick={stopTest}></button>
 
