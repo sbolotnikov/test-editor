@@ -6,13 +6,6 @@ const ResultsDisplay = props => {
     const { currentUser } = useAuth()
     const [testeeName, setTesteeName] = useState(currentUser ? currentUser.displayName : "");
     const testeeId = useRef(currentUser ? currentUser.uid : "");
-    // const [toTest, setToTest] = useState([false]);
-
-
-    // useEffect(() => {
-    // if (toTest[0]===true){
-    //     return <Redirect to="/update-profile" />;}
-    // },[toTest]);
     function handleSave() {
         const db = firebase.firestore();
         db.collection("results").add({
@@ -26,7 +19,7 @@ const ResultsDisplay = props => {
         
     }
     function handleDont() {
-        window.location.assign(process.env.PUBLIC_URL + '/test');
+        window.location.assign(process.env.PUBLIC_URL + '/#/test');
         console.log("redirect to /test")
         // setToTest([true]);
     }

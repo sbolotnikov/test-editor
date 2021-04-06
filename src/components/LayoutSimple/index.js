@@ -50,7 +50,7 @@ function LayoutSimple(props) {
                         }}>{props.question}</Textfit>
                 </div>
             </section>
-            <section className="answerSection" style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', flexWrap: 'wrap', width: '98%', overflow: 'hidden' }}>
+            <section className="answerSection" style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', flexWrap: 'wrap', width: '98%', overflow: 'visible' }}>
                 {props.answers.map((answerOption, j) => {
                     return (
                         <label className="option_simple" key={"labelSimple" + j} style={{ height: `${93 / props.answers.length}%` }}>

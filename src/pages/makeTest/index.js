@@ -445,7 +445,7 @@ function ToRenderEverything() {
             {show &&
                 <div className="modalContainer" >
                     <div className="closeTag" onClick={(e) => setShow(false)}><img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(1.2vw,12px)', height: 'max(1.2vw,12px)' }} /></div>
-                    <QuestionDisplay style={{ pointerEvents: 'none' }} background={testBackground} gradient={testGradient} info={{ positions: testArray[displayQ].info.positions, correct: testArray[displayQ].info.correct, layout: testArray[displayQ].info.layout, img: testArray[displayQ].info.img }} vis={1} question={testArray[displayQ].question} answers={demoArr} checkedMarks={[]} onChange={(ch) => { }} />
+                    <QuestionDisplay style={{ pointerEvents: 'none' }} background={testBackground} gradient={testGradient} status={"create"} info={{ positions: testArray[displayQ].info.positions, correct: testArray[displayQ].info.correct, layout: testArray[displayQ].info.layout, img: testArray[displayQ].info.img }} vis={1} question={testArray[displayQ].question} answers={demoArr} checkedMarks={[]} onChange={(ch) => { }} />
                 </div>
             }
             {testArray[displayQ] &&

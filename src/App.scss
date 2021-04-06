@@ -103,6 +103,16 @@ div.cloudinary-button {
 #correctCount, #positionsCount{
 	margin-left:1%;
 }
+#questionDisplayContainer{
+	height:100vh;
+	width:100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.noScroll{
+	overflow-y: hidden;
+	position: fixed;
+}
 .alertContainer{
 	position:relative;
 	z-index:1600;

@@ -5,7 +5,7 @@ const LayoutBox = props => {
 
 
     useEffect(() => {
-        for (let i = 0; i < document.querySelectorAll(".checkOut").length; i++) {
+        for (let i = 0; i < props.answers.length.length; i++) {
             document.querySelector("#answer_" + i).checked = false;
             if (props.checkedMarks.indexOf(i) >= 0) document.querySelector("#answer_" + i).checked = true;
         }

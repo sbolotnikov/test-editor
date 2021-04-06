@@ -1,0 +1,61 @@
+:export {
+  primarycolor: #f5d142;
+  secondarycolor: #342D6F;
+}
+
+div.mainContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 2px, transparent 2px, transparent 4px), -webkit-gradient(linear, left top, right top, from(#faaad3), to(#504ea9));
+  background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 2px, transparent 2px, transparent 4px), linear-gradient(90deg, #faaad3, #504ea9);
+}
+
+div.registeCard {
+  background-color: white;
+  border-radius: 6px;
+  padding: 1.25rem;
+}
+
+a.links {
+  color: #f5d142;
+}
+
+button.btnNav {
+  width: 100%;
+  background-color: black;
+  color: #f5d142;
+  border-radius: 8px;
+  padding: 0.4em;
+  cursor: pointer;
+  margin-top: 1em;
+}
+
+h2.header1 {
+  text-align: left;
+  margin: 1em 0.35em 0.45em 0.35em;
+}
+
+img.logo {
+  float: right;
+  width: 1.75em;
+  height: 1.75em;
+}
+
+div.divStyle {
+  width: 100%;
+  text-align: center;
+  margin-top: 0.35em;
+}
+
+div.linkText {
+  color: #f5d142;
+}/*# sourceMappingURL=Login.css.map */
