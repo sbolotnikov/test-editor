@@ -56,13 +56,13 @@ export default function UpdateProfile() {
   if (toRoot===true){return <Redirect to="/" />}
   return (
     <div className='mainContainer'>
-      <div style={{ width: '98%', maxWidth: "400px"}}>
+      <div style={{ width: '98%', maxWidth: "400px", marginTop:'5%'}}>
         <div className='registeCard' >
           <h2 className="header1">Update Profile
           <img src={process.env.PUBLIC_URL + "/icons/QuizLogo.svg"} alt="logo simple" className='logo' /></h2>
           {error && <label className='alertStyle'>{error}</label>}
           <form onSubmit={handleSubmit}>
-              <label className='headerStyle'  >User's Name
+              <label className='headerStyle'  >User's Name (keep it shorter then 20 symbols please)
                 <input id="userName" type="text" ref={userNameRef} defaultValue={currentUser.displayName} placeholder="Leave blank to keep the same"  />
               </label>              
               <label className='headerStyle' id="userURL" >User's picture link
@@ -78,7 +78,7 @@ export default function UpdateProfile() {
             <label className='headerStyle'  >Password Confirmation
               <input id="password-confirm" type="password" ref={passwordConfirmRef} placeholder="Leave blank to keep the same" />
             </label>
-            <button disabled={loading} className="btnNav" type="submit">
+            <button disabled={loading} className="testNav" style={{width:'100%', margin:'2% auto'}} type="submit">
               Update
             </button>
           </form>

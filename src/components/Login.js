@@ -35,12 +35,12 @@ export default function Login() {
           {error && <label className='alertStyle'>{error}</label>}
           <form onSubmit={handleSubmit}>
             <label className='headerStyle'  >Email
-                    <input id="email" type="email" ref={emailRef} required />
+                    <input id="email" style={{width:'100%', margin:'4% auto'}} type="email" ref={emailRef} required />
             </label>
             <label className='headerStyle'  >Password
-                    <input id="password" type="password" ref={passwordRef} required />
+                    <input id="password" style={{width:'100%', margin:'4% auto'}} type="password" ref={passwordRef} required />
             </label>
-            <button disabled={loading} className="btnNav" type="submit">
+            <button disabled={loading} className="testNav" style={{width:'100%', margin:'4% auto'}} type="submit">
               Log In
             </button>
           </form>
@@ -50,6 +50,9 @@ export default function Login() {
         </div>
         <div className="divStyle">
           Need an account? <Link className="links" to="/signup">Sign Up</Link>
+        </div>
+        <div className="divStyle">
+          Want a demo? <Link className="links" to="/taketest/RtqxyubO57LToxbaOzpj">Take Demo Test</Link>
         </div>
       </div>
     </div>

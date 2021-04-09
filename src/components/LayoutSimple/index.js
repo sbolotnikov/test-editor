@@ -34,8 +34,8 @@ function LayoutSimple(props) {
                     <img src={props.info.img} style={{ height:'100%', alignSelf:'center'}} alt={props.info.img} />
                 </div>
                 <div style={{width:'100%', height: window.innerWidth < 700 ? '70%' : '30%' }}>
-                    <Textfit max={256}
-                        min={24}
+                    <Textfit max={256} mode='multi'
+                        min={12}
                         style={{
                             color: 'white',
                             minHeight: "90%",
@@ -55,13 +55,13 @@ function LayoutSimple(props) {
                         <label className="option_simple" key={"labelSimple" + j} style={{ height: `${93 / props.answers.length}%` }}>
                             <input type="checkbox" className="checkOut" key={"inputSimple" + j} id={"answer_" + j} value={j} onChange={e => checkingMulti(e)} />
                             <div className="option_inner" key={"divSimple" + j}>
-                                <Textfit className="name" key={"spanSimple" + j} max={256}
-                                    min={24}
+                                <Textfit className="name" key={"spanSimple" + j} max={256} mode='multi'
+                                    min={10}
                                     style={{
-                                        minHeight: "90%",
-                                        maxHeight: "90%",
-                                        minWidth: "90%",
-                                        maxWidth: "90%",
+                                        minHeight: "95%",
+                                        maxHeight: "95%",
+                                        minWidth: "95%",
+                                        maxWidth: "95%",
                                         lineHeight: 1,
                                         textAlign: "center",
                                         textShadow: '1px 1px 2px black'

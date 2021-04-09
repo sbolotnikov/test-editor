@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import Textfit from 'react-textfit';
-import "./style.css";
+import "./style.scss";
 const ChooseCategory = props => {
 
 
@@ -35,9 +34,9 @@ const ChooseCategory = props => {
                         return (
                             <label className="option_item" key={"labelCat" + j} style={{width:'47%',maxHeight:'180px', maxWidth:'180px', margin:'5px'}}>
                                 <input type="checkbox" className="checkOut" key={"inputCat" + j} id={"category_" + j} value={j} onChange={e => checkingMulti(e)} />
-                                <div className="option_inner" style={{ backgroundImage: `url(${answerOption.img})`, backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }}>
+                                <div className="option_inner" style={{ backgroundImage: `url(${answerOption.img})`, backgroundRepeat: 'no-repeat', backgroundSize: '25% 25%',backgroundPosition: 'right top' }}>
                                     <div className="tickmark" key={"divCat" + j}> </div>
-                                    <div className="name" key={"div2Cat" + j} style={{width:"13ch"}}>{answerOption.text}</div>
+                                    <div className="name2" key={"div2Cat" + j} style={{width:"13ch"}}>{answerOption.text}</div>
                                 </div>
                             </label>
                         )

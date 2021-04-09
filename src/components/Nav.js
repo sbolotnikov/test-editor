@@ -50,7 +50,8 @@ function Nav(props) {
             {window.innerWidth<1000 ? <Link to="/update-profile"><img className="member-photo" src={imgDisplay} alt="avatar"/></Link>
              :<Link to="/" className="navHeader"> <img src={ process.env.PUBLIC_URL+"/icons/logoName.svg"} alt="close" style={{width:'1.5em',height:'2em'}}/></Link> }
 			{window.innerWidth<1000 ? <Link to="/" className="navHeader"> 
-            <img src={ process.env.PUBLIC_URL+"/icons/QuizLogo.svg"} alt="logo" style={{width:'4vw',height:'4vw'}}/>Quiz Land</Link> : null}
+            {/* <img src={ process.env.PUBLIC_URL+"/icons/QuizLogo.svg"} alt="logo" style={{width:'4vw',height:'4vw'}}/> */}
+            Quiz Land</Link> : null}
             {window.innerWidth<1000 ? <span id="navbar-toggler"  onClick={handleNavCollpase}>
                 <div style={{ width: '1em', height: '1em',float:'center' }}>
                    {isNavCollapsed ? 
@@ -82,7 +83,7 @@ function Nav(props) {
                     </li>
                    {  currentUser ? <li className="nav-item">
                         <Link to="/create" className="nav-link" onClick={event => handleNavCollpase()}>
-                            Create tests
+                            Manage tests
                     </Link>
                     </li>:""}
                     <li className="nav-item">

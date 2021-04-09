@@ -57,7 +57,7 @@ function TestCreateNav(props) {
     return (
 
         <div className="navContainer" style={{ position: 'relative' }} >
-            <h3 style={{ width: '100%', textAlign: "center", fontSize: '4vw', color: '#f5d142' }}><strong>Question editing panel</strong></h3>
+            <h3 style={{ width: '100%', textAlign: "center", fontSize: '4vw', color: '#FFFFFF' }}><strong>Question editing panel</strong></h3>
             <button className="testNav"
                 onClick={e => { questionNumberSet('1') }}>&#9198;</button>
             <button className="testNav"

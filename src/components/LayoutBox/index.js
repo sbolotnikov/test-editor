@@ -31,8 +31,8 @@ const LayoutBox = props => {
         <Fragment>
             <div id='questionContainerBox' style={{ opacity: props.vis}}>
                 <section className="questionSection">
-                    <Textfit max={256}
-                        min={24}
+                    <Textfit max={256} mode='multi'
+                        min={12}
                         style={{
                             color:'white',
                             minHeight: "90%",

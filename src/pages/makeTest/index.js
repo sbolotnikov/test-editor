@@ -27,6 +27,7 @@ function ToRenderEverything() {
     var defOptionArray = [];
     const { currentUser } = useAuth();
     const [testName, setTestName] = useState('');
+    const [testDescription, setTestDescription] = useState('');
     const [testAuthor, setTestAuthor] = useState({ authorId: "", name: "", testId: "" });
     const [visibility, setVisibility] = useState('');
     const [editability, setEditability] = useState('');
@@ -77,6 +78,7 @@ function ToRenderEverything() {
                     authorName: testAuthor.name,
                     categories: selectedOption,
                     name: testName,
+                    description:testDescription,
                     visibility: visibility,
                     editability: editability,
                     background: testBackground,
@@ -231,6 +233,8 @@ function ToRenderEverything() {
         setSelectedOption(defOptionArray);
         document.querySelector("#testName").value = newTest.main.name;
         setTestName(newTest.main.name);
+        document.querySelector("#testDescription").value = newTest.main.description;
+        setTestDescription(newTest.main.description);
         document.querySelector("#visibility").value = newTest.main.visibility;
         setVisibility(newTest.main.visibility);
         document.querySelector("#editability").value = newTest.main.editability;
@@ -253,6 +257,7 @@ function ToRenderEverything() {
                 authorName: currentUser.displayName,
                 categories: selectedOption,
                 name: testName,
+                description:testDescription,
                 visibility: visibility,
                 editability: editability,
                 background: testBackground,
@@ -277,6 +282,7 @@ function ToRenderEverything() {
                 authorName: currentUser.displayName,
                 categories: selectedOption,
                 name: testName,
+                description:testDescription,
                 visibility: visibility,
                 editability: editability,
                 background: testBackground,
@@ -345,6 +351,7 @@ function ToRenderEverything() {
                     authorName: currentUser.displayName,
                     categories: selectedOption,
                     name: testName,
+                    description:testDescription,
                     visibility: visibility,
                     editability: editability,
                     background: testBackground,
@@ -370,7 +377,7 @@ function ToRenderEverything() {
             <GetTests user={currentUser.uid} forPage={'create'} reloadNeeded={reloadNeeded} onLocal={n => { console.log("test loaded") }} onChange={n => getTestfromDB(n)} />
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
             <div className='navContainer' >
-                <h3 style={{ width: '100%', textAlign: "center", fontSize: '4vw', color: '#f5d142' }}><strong>Test editing panel</strong></h3>
+                <h3 style={{ width: '100%', textAlign: "center", fontSize: '4vw', color: '#FFFFFF' }}><strong>Test editing panel</strong></h3>
 
                 <button className="testNav" onClick={e => startNewTest(e)}>New &#10133;</button>
                 <button className="testNav" onClick={e => download(e)}>Download &#128187;</button>
@@ -378,8 +385,12 @@ function ToRenderEverything() {
                 {testAuthor.testId > "" && <button className="testNav" onClick={e => update(e)}>Update on web &#128257;</button>}
 
             </div>
-            <label className='headerStyle' >Enter your test Name
+            <label className='headerStyle' >Enter test Name (keep it under 30 symbols)
                     <input id="testName"  onChange={e => setTestName(e.target.value)} />
+            </label>
+            <br/>
+            <label className='headerStyle' >Enter test description
+                    <textarea id="testDescription"  onChange={e => setTestDescription(e.target.value)} />
             </label>
             <div className="containerGrid">
                 <section className='panel1'>

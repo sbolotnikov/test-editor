@@ -1,14 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Rubik:wght@700&display=swap");
-:export {
-  primarycolor: #f5d142;
-  secondarycolor: #342D6F;
-}
-
-:export {
-  primarycolor: #f5d142;
-  secondarycolor: #342D6F;
-}
-
 nav.navbar {
   position: absolute;
   left: 0;

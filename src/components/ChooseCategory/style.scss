@@ -1,24 +1,18 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
+@import '../../styles/config';
 * {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
 }
-
-section.categoriesSection {
-  display: -webkit-box;
-  display: -ms-flexbox;
+section.categoriesSection{
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -ms-flex-line-pack: center;
-      align-content: center;
+  justify-content: space-between;
+  align-content:center;
   width: 97%;
   height: 50%;
-  margin: 15% auto 2% auto;
+  margin:15% auto 2% auto;
   padding: 1%;
   overflow: auto;
 }
@@ -48,21 +42,13 @@ section.categoriesSection {
   display: block;
   border: 5px solid transparent;
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-line-pack: center;
-      align-content: center;
+  display:flex;
+  justify-content: center;
+  align-content: center;
 }
 
 .option_item .option_inner .name2 {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  user-select: none;
   margin: auto;
   text-transform: uppercase;
   font-weight: bold;
@@ -70,8 +56,8 @@ section.categoriesSection {
 }
 
 .option_item .checkOut:checked ~ .option_inner {
-  border-color: #342D6F;
-  color: #342D6F;
+  border-color: $secondary-color;
+  color: $secondary-color;
 }
 
 .option_item .option_inner .tickmark {
@@ -79,7 +65,7 @@ section.categoriesSection {
   top: 0;
   left: 0;
   border: 20px solid;
-  border-color: #342D6F transparent transparent #342D6F;
+  border-color: $secondary-color transparent transparent $secondary-color;
   display: none;
 }
 
@@ -92,10 +78,9 @@ section.categoriesSection {
   height: 5px;
   border: 3px solid;
   border-color: transparent transparent #fff #fff;
-  -webkit-transform: rotate(-45deg);
-          transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }
 
 .option_item .checkOut:checked ~ .option_inner .tickmark {
   display: block;
-}/*# sourceMappingURL=style.css.map */
+}

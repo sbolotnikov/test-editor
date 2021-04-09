@@ -29,18 +29,18 @@ export default function Dashboard() {
           <h6 className="divStyle">  <strong>Email:</strong> {currentUser.email} </h6>
           <img style={{ width: '60%', margin:'3% 15%' }} src={currentUser.photoURL > "" ? currentUser.photoURL : process.env.PUBLIC_URL + "/icons/defaultUser.svg"} alt="profile pic" />
           <Link to="/update-profile">
-            <button className="btnNav">
+            <button className="testNav" style={{width:'100%', margin:'2% auto'}}>
               Update Profile
               </button>
           </Link>
           <Link to="/test">
-            <button className="btnNav">
+            <button className="testNav" style={{width:'100%', margin:'2% auto'}}>
               Take Tests
               </button>
           </Link>
           <Link to="/create">
-            <button className="btnNav">
-              Create Tests
+            <button className="testNav" style={{width:'100%', margin:'2% auto'}}>
+              Manage Tests
               </button>
           </Link>
         </div>

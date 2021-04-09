@@ -102,6 +102,7 @@ function GetTests(props) {
             return 0;
 
         });
+        console.log(arrTemp)
         setTestsRecords(arrTemp);
         setTestsRecordsDisplay(arrTemp);
     };
@@ -181,35 +182,46 @@ function GetTests(props) {
         setTestsRecordsDisplay(chosenRec);
     }, [selectedOption])
     return (
-        <div style={{ width: '100%', maxWidth: "600px", height: "40vh", margin: '10% 0%' }}>
+        <div style={{ width: '100%', maxWidth: "600px", height: "40vh",
+        background: 'radial-gradient(50% 50% at 50% 50%, #EEA2CD 0%, rgba(238, 162, 205, 0.286458) 91.15%, rgba(238, 162, 205, 0) 100%)', margin: '10% 0%' }}>
             {categoriesLayout &&
                 <ChooseCategory type={categoriesLayout.length} answers={categoriesLayout} checkedMarks={checked} onChange={(ch) => { getChoosenTests(ch) }} />
             }
-            <div style={{ backgroundColor: 'white', width: '97%', height: '45%', overflow: 'auto', margin: 'auto' }}>
-                {testRecordsDisplay && testRecordsDisplay.map((test, j) => {
+            {testRecordsDisplay &&<div style={{ width: '97%', height: '45%', overflow: 'auto', margin: '0' }}>
+                 <table style={{width:'100%' }} > 
+                    <tr>
+                        <th></th>
+                        <th style={{ backgroundColor: 'white',borderRadius:'5px'}} >DISCOVER TESTS</th>
+
+                    </tr>
+
+                 {testRecordsDisplay.map((test, j) => {
                     return (
-                        <div key={"divTests" + j} style={{ display: "flex", margin: '5px' }} >
-                            <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', margin: 0, whiteSpace: 'nowrap' }} key={"linkBtnTests" + j} value={test.id} onClick={e => handleLink(e)}>Link &#128279;</button>
+                        <tr key={"divTests" + j} >
+                            <td><button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', padding: '4%', margin: '4%' }} key={"linkBtnTests" + j} value={test.id} onClick={e => handleLink(e)}>Link&#128279;</button>
                             {(props.forPage === 'create') &&
-                                <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', margin: 0, whiteSpace: 'nowrap' }} key={"eraseBtnTests" + j} value={test.id} onClick={e => handleDelete(e)}>Del <img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(.9vw,10px)', height: 'max(.9vw,10px)' }} /></button>
-                            }
-                            <div key={"textTests" + j} className='testText' style={{margin:'10px', cursor: "pointer", whiteSpace: 'nowrap', width: "auto" }} value={test.id} onClick={e => handleClick(e)} >{test.main.name} by {test.main.authorName} </div>
-                        </div>
+                                <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', padding: '4%', backgroundColor:'#721c24', margin:'4%' }} key={"eraseBtnTests" + j} value={test.id} onClick={e => handleDelete(e)}>Del<img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(.9vw,10px)', height: 'max(.9vw,10px)' }} /></button>
+                            }  
+                             </td>
+                            <td style={{ backgroundColor: 'white',borderRadius:'5px'}}><div key={"textTests" + j} className='testText' style={{cursor: "pointer", whiteSpace: 'wrap',textAlign:'center',border:0, width: "100%" }} value={test.id} onClick={e => handleClick(e)} >{test.main.name} <span style={{fontStyle: 'oblique', color:'#554FA7'}}>@{test.main.authorName}</span></div></td>
+                            <td><div style={{ width:'4%',height:'4vw' }} key={"playBtnTests" + j} value={test.id} onClick={e => handleClick(e)}><img src={ (props.forPage === 'create') ?process.env.PUBLIC_URL +"/icons/EditIcon.svg":process.env.PUBLIC_URL +"/icons/Play.svg"} alt={(props.forPage === 'create') ?"edit":"play"} style={{ width: 'max(4vw,25px)', height: 'max(4vw,25px)' }} /></div></td>                 
+                        </tr>
                     )
                 }
                 )}
-            </div>
+            </table>
+            </div>}
             {currentUser && <label >
                 <input type="checkbox" id="checkEditLocalTest" style={{ margin: '5% 2%' }} onChange={e => setCheckEditLocalTestVisible(document.querySelector("#checkEditLocalTest").checked)} />
               Load local test from your disk
               </label>}
             {currentUser && checkEditLocalTestVisible && <input type="file" id="fileinput" onChange={e => readSingleFile(e)} />}
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
-            {(props.forPage === 'test') && <Link to="/taketest/RtqxyubO57LToxbaOzpj">
+            {/* {(props.forPage === 'test') && <Link to="/taketest/RtqxyubO57LToxbaOzpj">
                 <button className="btnNav">
                     Take Demo Test
               </button>
-            </Link>}
+            </Link>} */}
         </div>
     );
 }

@@ -1,8 +1,3 @@
-:export {
-  primarycolor: #f5d142;
-  secondarycolor: #342D6F;
-}
-
 nav.navbar {
   position: absolute;
   left: 0;
