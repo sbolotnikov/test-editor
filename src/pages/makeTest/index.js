@@ -78,7 +78,7 @@ function ToRenderEverything() {
                     authorName: testAuthor.name,
                     categories: selectedOption,
                     name: testName,
-                    description:testDescription,
+                    description: testDescription,
                     visibility: visibility,
                     editability: editability,
                     background: testBackground,
@@ -257,7 +257,7 @@ function ToRenderEverything() {
                 authorName: currentUser.displayName,
                 categories: selectedOption,
                 name: testName,
-                description:testDescription,
+                description: testDescription,
                 visibility: visibility,
                 editability: editability,
                 background: testBackground,
@@ -282,7 +282,7 @@ function ToRenderEverything() {
                 authorName: currentUser.displayName,
                 categories: selectedOption,
                 name: testName,
-                description:testDescription,
+                description: testDescription,
                 visibility: visibility,
                 editability: editability,
                 background: testBackground,
@@ -351,7 +351,7 @@ function ToRenderEverything() {
                     authorName: currentUser.displayName,
                     categories: selectedOption,
                     name: testName,
-                    description:testDescription,
+                    description: testDescription,
                     visibility: visibility,
                     editability: editability,
                     background: testBackground,
@@ -386,16 +386,16 @@ function ToRenderEverything() {
 
             </div>
             <label className='headerStyle' >Enter test Name (keep it under 30 symbols)
-                    <input id="testName"  onChange={e => setTestName(e.target.value)} />
+                    <input id="testName" onChange={e => setTestName(e.target.value)} />
             </label>
-            <br/>
+            <br />
             <label className='headerStyle' >Enter test description
-                    <textarea id="testDescription"  onChange={e => setTestDescription(e.target.value)} />
+                    <textarea id="testDescription" onChange={e => setTestDescription(e.target.value)} />
             </label>
             <div className="containerGrid">
                 <section className='panel1'>
                     <label >
-                    <select id="visibility" onChange={e => setVisibility(e.target.value)} >
+                        <select id="visibility" onChange={e => setVisibility(e.target.value)} >
                             <option value="Private">Private</option>
                             <option value="Public">Public</option>
                         </select>
@@ -404,7 +404,7 @@ function ToRenderEverything() {
                 </section>
                 <section className='panel2'>
                     <label >
-                    <select id="editability" onChange={e => setEditability(e.target.value)}>
+                        <select id="editability" onChange={e => setEditability(e.target.value)}>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
@@ -413,12 +413,12 @@ function ToRenderEverything() {
                 </section>
             </div>
             {selectedOption &&
-                <CustomSelect isMulti={true} style={{ width: '300px', menuColor: 'red',marginLeft:'1.5%' }} value={selectedOption} onChange={setSelectedOption} options={categories} label="Choose a test categories" />
+                <CustomSelect isMulti={true} style={{ width: '300px', menuColor: 'red', marginLeft: '1.5%' }} value={selectedOption} onChange={setSelectedOption} options={categories} label="Choose a test categories" />
             }
             <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', margin: "1% 0 0 1.5%" }} onClick={e => handleNewCategory(e)}>Add New Category</button>
             <div className="panel2 containerGrid">
-            <section className='headerStyle' >Enter time (if there are no time limit enter 0 0 0):</section>
-            <section className='panel1 headerStyle' style={{  float:'left' }}>
+                <section className='headerStyle' >Enter time (if there are no time limit enter 0 0 0):</section>
+                <section className='panel1 headerStyle' style={{ float: 'left' }}>
                     <input id="hh" type="number" min={0} max={10} size={2} style={{ width: '5ch' }} onChange={e => setTestHH(e.target.value)} /> hh
                     <input id="mm" type="number" min={0} max={59} size={2} style={{ width: '5ch' }} onChange={e => setTestMM(e.target.value)} /> mm
                     <input id="ss" type="number" min={0} max={59} size={2} style={{ width: '5ch' }} onChange={e => setTestSS(e.target.value)} /> ss
@@ -427,13 +427,13 @@ function ToRenderEverything() {
             <div className="containerGrid">
                 <section className='panel1'>
                     <label >
-                        <input type="checkbox" id="checkAddTestBackground" onChange={e => setAddBackgroundVisible(document.querySelector("#checkAddTestBackground").checked)} />           
+                        <input type="checkbox" id="checkAddTestBackground" onChange={e => setAddBackgroundVisible(document.querySelector("#checkAddTestBackground").checked)} />
                         Add/change BACKGROUND to your test
                 </label>
                     <div style={{ display: addBackgroundVisible ? "block" : "none", width: '98%' }}>
 
                         <label className='headerStyle'>Enter test background image link or upload your image from computer
-                        <input id="background"  onChange={e => setTestBackground(e.target.value)} />
+                        <input id="background" onChange={e => setTestBackground(e.target.value)} />
                         </label>
                         <Cloudinary getImgUrl={getImgUrl} />
                     </div>
@@ -454,8 +454,8 @@ function ToRenderEverything() {
             <TestCreateNav qNumber={testArray.length ? testArray.length : 0} onNew={(e) => handleAdd(e)} onDel={(t) => handleDelete(t)} onMove={(t) => handleMove(t)}
                 onShow={(e) => handleShow(e)} onChange={(q) => { handleUpdateQuestion(q) }} onCopy={(q) => { handleCopyQuestion(q) }} onPaste={(q) => { handleInsertQuestion(q) }} />
             {show &&
-                <div className="modalContainer" >
-                    <div className="closeTag" onClick={(e) => setShow(false)}><img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(1.2vw,12px)', height: 'max(1.2vw,12px)' }} /></div>
+                <div className="modalContainer" style={{top: window.pageYOffset}}>
+                    <div className="closeTag" style={{position:'absolute',top:'2%', right:'2%'}} onClick={(e) => setShow(false)}><img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(1.2vw,12px)', height: 'max(1.2vw,12px)' }} /></div>
                     <QuestionDisplay style={{ pointerEvents: 'none' }} background={testBackground} gradient={testGradient} status={"create"} info={{ positions: testArray[displayQ].info.positions, correct: testArray[displayQ].info.correct, layout: testArray[displayQ].info.layout, img: testArray[displayQ].info.img }} vis={1} question={testArray[displayQ].question} answers={demoArr} checkedMarks={[]} onChange={(ch) => { }} />
                 </div>
             }

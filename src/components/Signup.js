@@ -44,15 +44,15 @@ export default function Signup() {
           {error && <label className='alertStyle'>{error}</label>}
           <form onSubmit={handleSubmit}>
             <label className='headerStyle'  >Email
-                    <input id="email" type="email" ref={emailRef} required />
+                    <input id="email" style={{ width: '100%', margin: '4% auto' }} type="email" ref={emailRef} required />
             </label>
             <label className='headerStyle'  >Password
-                    <input id="password" type="password" ref={passwordRef} required />
+                    <input id="password" style={{ width: '100%', margin: '4% auto' }} type="password" ref={passwordRef} required />
             </label>
             <label className='headerStyle'  >Password Confirmation
-                    <input id="password-confirm" type="password" ref={passwordConfirmRef} required />
+                    <input id="password-confirm" style={{ width: '100%', margin: '4% auto' }} type="password" ref={passwordConfirmRef} required />
             </label>
-            <button disabled={loading} className="btnNav" type="submit">
+            <button disabled={loading} className="testNav" style={{ width: '100%', margin: '4% auto' }} type="submit">
               Sign Up
             </button>
           </form>

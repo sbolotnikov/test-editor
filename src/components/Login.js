@@ -27,34 +27,34 @@ export default function Login() {
   }
 
   return (
-    <div className='mainContainer'>
-      <div style={{ width: '98%', maxWidth: "400px" }}>
-        <div className='registeCard'>
-          <h2 className="header1">Log In
+      <div className='mainContainer'>
+        <div style={{ width: '98%', maxWidth: "400px" }}>
+          <div className='registeCard'>
+            <h2 className="header1">Log In
             <img src={process.env.PUBLIC_URL + "/icons/QuizLogo.svg"} alt="logo simple" className='logo' /> </h2>
-          {error && <label className='alertStyle'>{error}</label>}
-          <form onSubmit={handleSubmit}>
-            <label className='headerStyle'  >Email
-                    <input id="email" style={{width:'100%', margin:'4% auto'}} type="email" ref={emailRef} required />
-            </label>
-            <label className='headerStyle'  >Password
-                    <input id="password" style={{width:'100%', margin:'4% auto'}} type="password" ref={passwordRef} required />
-            </label>
-            <button disabled={loading} className="testNav" style={{width:'100%', margin:'4% auto'}} type="submit">
-              Log In
+            {error && <label className='alertStyle'>{error}</label>}
+            <form onSubmit={handleSubmit}>
+              <label className='headerStyle'  >Email
+                    <input id="email" style={{ width: '100%', margin: '4% auto' }} type="email" ref={emailRef} required />
+              </label>
+              <label className='headerStyle'  >Password
+                    <input id="password" style={{ width: '100%', margin: '4% auto' }} type="password" ref={passwordRef} required />
+              </label>
+              <button disabled={loading} className="testNav" style={{ width: '100%', margin: '4% auto' }} type="submit">
+                Log In
             </button>
-          </form>
+            </form>
+            <div className="divStyle">
+              <Link className="links" to="/forgot-password">Forgot Password?</Link>
+            </div>
+          </div>
           <div className="divStyle">
-            <Link className="links" to="/forgot-password">Forgot Password?</Link>
+            Need an account? <Link className="links" to="/signup">Sign Up</Link>
+          </div>
+          <div className="divStyle">
+            Want a demo? <Link className="links" to="/taketest/RtqxyubO57LToxbaOzpj">Take Demo Test</Link>
           </div>
         </div>
-        <div className="divStyle">
-          Need an account? <Link className="links" to="/signup">Sign Up</Link>
-        </div>
-        <div className="divStyle">
-          Want a demo? <Link className="links" to="/taketest/RtqxyubO57LToxbaOzpj">Take Demo Test</Link>
-        </div>
       </div>
-    </div>
   )
 }

@@ -12,6 +12,7 @@ import ForgotPassword from "./components/ForgotPassword"
 import UpdateProfile from "./components/UpdateProfile"
 import DirectTestPage from "./components/DirectTestPage"
 import Nav from "./components/Nav"
+import Footer from "./components/Footer"
 //Pages
 import testPage from './pages/testPage';
 import makeTest from './pages/makeTest';
@@ -22,6 +23,7 @@ function App() {
     <Router>
       <AuthProvider>
           <Nav />
+          <Footer />
           <Switch>
             <PrivateRoute exact path="/" component={Dashboard} />
             <PrivateRoute path="/update-profile" component={UpdateProfile} />

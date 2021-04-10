@@ -37,7 +37,7 @@ export default function AlertMenu(props) {
 }, []);
   return (
 
-    <div style={{ width: '100vw', height: '100vh', position: "absolute" }} >
+    <div style={{ width: '100vw', height: '100vh',position:'absolute',top: window.pageYOffset,left:0, display:'flex', justifyContent:'center', alignItems:'center' }} >
       <div className='alertContainer'>
         <label className='alertItemStyle' style={Object.values(variant)[Object.keys(variant).indexOf(props.styling.variantHead)]}>{props.styling.heading}</label>
         <h5 className="alertItemStyle">{props.styling.text}</h5>

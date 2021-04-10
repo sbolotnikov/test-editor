@@ -103,9 +103,10 @@ function TestRun(props) {
     }
     setChoices(choiceSet);
     setTestGenerated(test);
-    document.querySelector("nav.navbar").style.display = 'none';
   }, []);
-
+ useEffect(()=>{
+  (results.length > 0) ? document.querySelector("nav.navbar").style.display = 'flex' :document.querySelector("nav.navbar").style.display = 'none';
+ },[results]);
 
 
   return (

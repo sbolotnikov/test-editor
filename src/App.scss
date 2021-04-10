@@ -55,8 +55,7 @@ div.cloudinary-button {
     repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 2px,transparent 2px, transparent 4px),linear-gradient(90deg, rgb(250, 170, 211),rgb(80, 78, 169));
 }
 .modalContainer{
-	position:relative;
-	top:0;
+	position:absolute;
 	left:0;
 	display:flex;
 	justify-content: flex-end;
@@ -115,10 +114,10 @@ div.cloudinary-button {
 	position: fixed;
 }
 .alertContainer{
-	position:relative;
+	// position:relative;
 	z-index:1600;
-	transform-origin: 50% 50%;
-	transform: translate(center, center);
+	// transform-origin: 50% 50%;
+	// transform: translate(center, center);
 	margin:auto;
 	max-width: 400px;
 	background-color: white; 
