@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import GetQuestion from '../../components/GetQuestion.js';
 import TestCreateNav from '../../components/testCreateNav';
 import { useAuth } from "../../contexts/AuthContext";
+import { Link } from "react-router-dom";
 import firebase from "../../firebase";
 import "./style.css";
 import GetTests from '../../components/getTests.js';
@@ -374,6 +375,7 @@ function ToRenderEverything() {
     }, []);
     return (
         <div className="makerContainer">
+            
             <GetTests user={currentUser.uid} forPage={'create'} reloadNeeded={reloadNeeded} onLocal={n => { console.log("test loaded") }} onChange={n => getTestfromDB(n)} />
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
             <div className='navContainer' >
@@ -462,7 +464,7 @@ function ToRenderEverything() {
             {testArray[displayQ] &&
                 <GetQuestion q={testArray[displayQ]} onChange={(t) => handleReturnQuestion(t)} />
             }
-
+          <div style={{width:'100%', marginLeft:"10px",textShadow:"2px 2px white", pointerEvents:"cursor"}}>&copy; 2021 <Link to="/about">Sergey Bolotnikov</Link> </div>  
         </div >
     )
 }

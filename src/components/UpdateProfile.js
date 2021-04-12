@@ -1,7 +1,8 @@
-import React, { useRef, useState, useEffect } from "react"
+import React, { useRef, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, Redirect } from "react-router-dom"
 import Cloudinary from './Cloudinary';
+import Footer from "./Footer";
 
 export default function UpdateProfile() {
   const emailRef = useRef()
@@ -48,12 +49,8 @@ export default function UpdateProfile() {
         setLoading(false)
       })
   }
-  useEffect(() => {
-    console.log('Value: ' + process.env.REACT_APP_CLOUDNAME);
-    console.log('Value: ' + process.env.REACT_APP_CLOUD_PRESET);
-  }, [])
 
-  if (toRoot === true) { return <Redirect to="/" /> }
+  if (toRoot === true) { return <Redirect to="/dashboard" /> }
   return (
     <div className='mainContainer'>
       <div style={{ width: '98%', maxWidth: "400px", marginTop: '5%' }}>
@@ -84,9 +81,10 @@ export default function UpdateProfile() {
           </form>
         </div>
         <div className="divStyle">
-          <Link to="/" className="links" >Cancel</Link>
+          <Link to="/dashboard" className="links" >Cancel</Link>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

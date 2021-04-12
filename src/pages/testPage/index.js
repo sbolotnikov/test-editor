@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TestRun from '../../components/TestRun';
 import GetTests from '../../components/getTests';
 import { useAuth } from "../../contexts/AuthContext";
+import Footer from "../../components/Footer";
 import "./style.css";
 
 
@@ -16,10 +17,13 @@ function ToRenderEverything() {
     setTestLoad(n);
   }
   return (
+    <>
     <div className="testContainer">
-      {!testLoad && <GetTests user={currentUser ? currentUser.uid : ""} forPage={'test'} onLocal={l => setLocalTest(l)} onChange={n => getTestfromDB(n)} />}
+      {!testLoad && <GetTests user={currentUser ? currentUser.uid : ""} forPage={'test'} onLocal={l => setLocalTest(l)} onChange={n => getTestfromDB(n)} /> }
       {testLoad && <TestRun test={testLoad} local={localTest} />}
+      {!testLoad && <Footer />}
     </div>
+    </>
   )
 }
 

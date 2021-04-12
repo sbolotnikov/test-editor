@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import firebase from "../firebase";
-import { Link, Redirect } from "react-router-dom"
+import Footer from "./Footer";
 import "./Login.scss";
  function Dashboard() {
   const [error, setError] = useState("");
-  const { currentUser, logout } = useAuth();
-  const [toLogin, setToLogin] = useState(false);
+  const { currentUser} = useAuth();
   const [testsCreated, setTestsCreated] = useState(0);
   const [testsResultsOnRec, setTestsResultsOnRec] = useState(0); 
   const [testsAverageScore, setTestsAverageScore] = useState(0);
@@ -14,15 +13,9 @@ import "./Login.scss";
   const db = firebase.firestore();
 
   
-  async function handleLogout() {
+  async function handleUpdate() {
     setError("")
-
-    try {
-      await logout()
-      setToLogin(true);
-    } catch {
-      setError("Failed to log out")
-    }
+    window.location.assign(process.env.PUBLIC_URL + '/#/update-profile')
   }
   function fetchTestsCreatedData()  {
      db.collection("tests").where("main.author", "==", currentUser.uid).get()
@@ -54,7 +47,6 @@ import "./Login.scss";
 
  }
   useEffect(() => {
-    if (toLogin === true) { return <Redirect to="/login" /> }
     fetchTestsCreatedData();
     fetchTestsResultsData();
 }, []);
@@ -95,10 +87,11 @@ import "./Login.scss";
                             
                     </tbody>
                 </table>
-                <button className="testNav" style={{ width: '100%', margin: '4% auto' }} onClick={handleLogout}>
-                Log Out
+                <button className="testNav" style={{ width: '100%', margin: '4% auto' }} onClick={handleUpdate}>
+                Update Profile
             </button>        
       </div>
+      <Footer />
     </div>
   )
 }

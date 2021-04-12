@@ -4,7 +4,7 @@ import AlertMenu from './alertMenu';
 import { useAuth } from "../contexts/AuthContext";
 import ChooseCategory from "../components/ChooseCategory";
 import TestPopupInfo from "../components/TestPopupInfo"
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom"
 function GetTests(props) {
     const db = firebase.firestore();
     const { currentUser } = useAuth();
@@ -37,20 +37,6 @@ function GetTests(props) {
             props.onChange(testFromDB);
             props.onLocal(false);
         }
-    }
-    function handleLink(e) {
-        let recId = e.target.getAttribute("value");
-        console.log(recId)
-        setAlertStyle({
-            variantHead: "success",
-            heading: "Direct link to Test",
-            text: `https://sbolotnikov.github.io/test-editor/#/taketest/${recId}`,
-            color1: "",
-            button1: "",
-            color2: "secondary",
-            button2: "Cancel"
-        });
-        setRevealAlert(true)
     }
     function handleDelete(e) {
         let recId = e.target.getAttribute("value")
@@ -202,18 +188,23 @@ function GetTests(props) {
         setTestsRecordsDisplay(chosenRec);
     }, [selectedOption])
     return (
-        <div style={{ width: '100%', maxWidth: "600px", height: "40vh", margin: '10% 0%' }}>
-        {revealInfo && <TestPopupInfo test={testInfo} onRes={e=>{
-             setRevealInfo(false); console.log('close')}
-        }/>}
+        <div style={{ width: '100%', maxWidth: "600px", height: "40vh", margin: '15% 0%' }}>
+            {revealInfo && <TestPopupInfo test={testInfo} onRes={e => {
+                setRevealInfo(false); console.log('close')
+            }
+            } />}
+            {(props.forPage === 'test') && (currentUser) && <button className="testNav" style={{ width: '100%', margin:0}} onClick={e=>{ window.location.assign(process.env.PUBLIC_URL + '/#/create'); }}>
+                Create New test
+            </button>}
+            <p className="testNav" style={{backgroundColor:'transparent', textAlign:'center'}}> Choose Test to {(props.forPage === 'test')? 'Take':'Manage'}</p>
             {categoriesLayout &&
                 <ChooseCategory type={categoriesLayout.length} answers={categoriesLayout} checkedMarks={checked} onChange={(ch) => { getChoosenTests(ch) }} />
             }
-            {testRecordsDisplay && <div style={{ width: '97%', height: '45%', overflow: 'auto', margin: '0' }}>
+            {testRecordsDisplay && <div style={{ height: '35%', overflow: 'auto', margin: '0' }}>
                 <table style={{ width: '100%' }} >
                     <thead>
                         <tr>
-                            <th></th>
+                            {(props.forPage === 'create') && <th></th>}
                             <th style={{ backgroundColor: 'white', borderRadius: '5px' }} >DISCOVER TESTS</th>
 
                         </tr>
@@ -221,18 +212,18 @@ function GetTests(props) {
                     <tbody>
                         {testRecordsDisplay.map((test, j) => {
                             return (
-                                <tr key={"divTests" + j} >
-                                    <td><button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', padding: '4%', backgroundColor: '#0c5460', margin: '4%' }} key={"linkBtnTests" + j} value={test.id} onClick={e => handleLink(e)}>Link &#128279;</button>
+                                <tr key={"divTests" + j} >                         
+                                        {/* <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', padding: '4%', backgroundColor: '#0c5460', margin: '4%' }} key={"linkBtnTests" + j} value={test.id} onClick={e => handleLink(e)}>Link &#128279;</button> */}
                                         {(props.forPage === 'create') &&
-                                            <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', padding: '4%', backgroundColor: '#721c24', margin: '4%' }} key={"eraseBtnTests" + j} value={test.id} onClick={e => handleDelete(e)}>Del <img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(.9vw,10px)', height: 'max(.9vw,10px)' }} /></button>
-                                        }
-                                    </td>
-                                    <td style={{ backgroundColor: 'white', borderRadius: '5px' }}><div key={"textTests" + j} className='testText' value={test.id} onClick={e => handleHover(e)}  style={{ cursor: "pointer", whiteSpace: 'wrap', textAlign: 'center', border: 0, width: "100%" }}>{test.main.name} <span value={test.id} style={{ fontStyle: 'oblique', color: '#554FA7' }}>@{test.main.authorName}</span></div></td>
-                                    <td><button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', padding: '4%', backgroundColor: 'white', color: '#554FA7', }} key={"playBtnTests" + j} value={test.id} onClick={e => handleClick(e)}><img src={(props.forPage === 'create') ? process.env.PUBLIC_URL + "/icons/EditIcon.svg" : process.env.PUBLIC_URL + "/icons/Play.svg"} value={test.id} alt={(props.forPage === 'create') ? "edit" : "play"} style={{ width: 'max(4vw,25px)', height: 'max(4vw,25px)' }} />{(props.forPage === 'create') ? 'Edit' : 'Play'}</button></td>
+                                           <td><button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', padding: '4%', backgroundColor: '#721c24', margin: '4%', display: 'flex', flexDirection: "column", alignItems: 'center' }} key={"eraseBtnTests" + j} value={test.id} onClick={e => handleDelete(e)}>Del <img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(.9vw,10px)', height: 'max(.9vw,10px)' }} /></button></td>
+                                        }                                  
+                                    <td style={{ backgroundColor: 'white', borderRadius: '5px' }}><div key={"textTests" + j} className='testText' value={test.id} onClick={e => handleHover(e)} style={{ cursor: "pointer", whiteSpace: 'wrap', textAlign: 'center', border: 0, width: "100%" }}>{test.main.name} <span value={test.id} style={{ fontStyle: 'oblique', color: '#554FA7' }}>@{test.main.authorName}</span></div></td>
+                                    <td><button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', padding: '4%', backgroundColor: 'white', color: '#554FA7'}} key={"playBtnTests" + j} value={test.id} onClick={e => handleClick(e)}><img src={(props.forPage === 'create') ? process.env.PUBLIC_URL + "/icons/EditIcon.svg" : process.env.PUBLIC_URL + "/icons/Play.svg"} value={test.id} alt={(props.forPage === 'create') ? "Edit" : "Play"} style={{ width: 'max(3.5vw,25px)', height: 'max(3.5vw,25px)' }} /></button></td>
+                                    {/* button text if needed <strong>{(props.forPage === 'create') ? 'Edit' : 'Play'}</strong> */}
                                 </tr>
                             )
                         }
-                        )} 
+                        )}
                     </tbody>
                 </table>
             </div>}
@@ -242,11 +233,9 @@ function GetTests(props) {
               </label>}
             {currentUser && checkEditLocalTestVisible && <input type="file" id="fileinput" onChange={e => readSingleFile(e)} />}
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
-            {/* {(props.forPage === 'test') && <Link to="/taketest/RtqxyubO57LToxbaOzpj">
-                <button className="btnNav">
-                    Take Demo Test
-              </button>
-            </Link>} */}
+            {(props.forPage === 'test') && <div className="divStyle">
+            Want a demo? <Link className="links" to="/taketest/RtqxyubO57LToxbaOzpj">Take Demo Test</Link>
+          </div>}
         </div>
     );
 }

@@ -5,12 +5,12 @@ import  "./Nav.scss";
 
 
 function Nav(props) {
-    const [isNavCollapsed, setIsNavCollpased] = useState(true);
+    const [isNavCollapsed, setIsNavCollapsed] = useState(true);
     const { currentUser } = useAuth();
     const [imgDisplay, setImgDisplay] = useState('');
     
-    function handleNavCollpase() {
-        setIsNavCollpased(!isNavCollapsed)
+    function handleNavCollapse() {
+        setIsNavCollapsed(!isNavCollapsed)
     }
     useEffect(() => {
         let imgLink =  process.env.PUBLIC_URL + "/icons/defaultUser.svg"
@@ -47,11 +47,11 @@ function Nav(props) {
     return (
         <nav className="navbar" >
             
-            {window.innerWidth<1000 ? <Link to="/update-profile"><img className="member-photo" src={imgDisplay} alt="avatar"/></Link>
+            {window.innerWidth<1000 ? <Link to="/dashboard"><img className="member-photo" src={imgDisplay} alt="avatar"/></Link>
              :<Link to="/" className="navHeader"> <img src={ process.env.PUBLIC_URL+"/icons/logoName.svg"} alt="close" style={{width:'1.5em',height:'2em'}}/></Link> }
 			{window.innerWidth<1000 ? <Link to="/" className="navHeader"> 
             Quiz Land</Link> : null}
-            {window.innerWidth<1000 ? <span id="navbar-toggler"  onClick={handleNavCollpase}>
+            {window.innerWidth<1000 ? <span id="navbar-toggler"  onClick={handleNavCollapse}>
                 <div style={{ width: '1em', height: '1em',float:'center' }}>
                    {isNavCollapsed ? 
                      <img src={ process.env.PUBLIC_URL+"/icons/burger.svg"} alt="open" /> :
@@ -63,42 +63,42 @@ function Nav(props) {
 
 
                    {!currentUser && <li className="nav-item">
-                        <Link to="/login" className="nav-link" onClick={event => handleNavCollpase()}>
+                        <Link to="/login" className="nav-link" onClick={event => handleNavCollapse()}>
                             Login
                         </Link>
 
                     </li>}
                     {!currentUser && <li className="nav-item">
-                        <Link to="/signup" className="nav-link" onClick={event => handleNavCollpase()}>
+                        <Link to="/signup" className="nav-link" onClick={event => handleNavCollapse()}>
                             Signup
                     </Link>
 
                     </li>}
 
                     <li className="nav-item">
-                        <Link to="/test" className="nav-link" onClick={event => handleNavCollpase()}>
+                        <Link to="/" className="nav-link" onClick={event => handleNavCollapse()}>
                             Take tests
                     </Link>
                     </li>
                    {  currentUser && <li className="nav-item">
-                        <Link to="/create" className="nav-link" onClick={event => handleNavCollpase()}>
+                        <Link to="/create" className="nav-link" onClick={event => handleNavCollapse()}>
                             Manage tests
                     </Link>
                     </li>}
                     <li className="nav-item">
-                        <Link to="/" className="nav-link" onClick={event => handleNavCollpase()}>
+                        <Link to="/about" className="nav-link" onClick={event => handleNavCollapse()}>
                             About
                     </Link>
                     </li>
                     {  currentUser && <li className="nav-item">
-                        <Link to="/logout" className="nav-link" onClick={event =>  handleNavCollpase()} >
+                        <Link to="/logout" className="nav-link" onClick={event =>  handleNavCollapse()} >
                             Logout
                     </Link>
                     </li>}
                 </ul>
             
 
-            {window.innerWidth<1000 ? null: <Link to="/update-profile">
+            {window.innerWidth<1000 ? null: <Link to="/dashboard">
                <img className="member-photo"  src={imgDisplay} alt="member avatar"/>
             </Link>}
         </nav>

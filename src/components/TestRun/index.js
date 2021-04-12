@@ -111,7 +111,7 @@ function TestRun(props) {
 
   return (
     <>
-      {results.length > 0 && <ResultsDisplay res={results} rate={rating} time={resultTime} background={testBackground} testId={props.local?"":props.test.id} />}
+      {results.length > 0 && <ResultsDisplay res={results} rate={rating} time={resultTime} background={testBackground} testName={props.test.main.name} testId={props.local?"":props.test.id} />}
       {testGenerated && results.length <= 0 && 
       <div  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '10%' }}>
       <TestNav  qNumber={testGenerated.length} hours={quizDuration[0]} minutes={quizDuration[1]} seconds={quizDuration[2]} onExit={(t) => { handleQuizEnd(t) }} onChange={(q) => { handleChangeQuestion(q) }} />

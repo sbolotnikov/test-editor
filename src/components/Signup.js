@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, Redirect } from "react-router-dom"
+import Footer from "./Footer";
 import "./Login.scss";
 export default function Signup() {
   const emailRef = useRef()
@@ -62,6 +63,7 @@ export default function Signup() {
           Already have an account? <Link className="links" to="/login">Log In</Link>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

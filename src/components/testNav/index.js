@@ -101,12 +101,12 @@ function TestNav(props) {
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
             <button className="testNav" id="startNav" style={{ position: 'absolute', top: '44vh', left: "43vw", zIndex: '200' }}
                 onClick={timerDraw}>Start</button>
-            <button className="testNav invisible" style={{ position: "absolute", top: '48vh', left: 0, background: "transparent", zIndex: 1500 }}
+            <button className="testNav invisible" style={{ position: "absolute", top: '48vh', left: 0,textShadow:"1px 1px black", background: "transparent", zIndex: 1500 }}
                 onClick={e => { questionNumberSet(-1) }}>&#9194;Back</button>
             <label className="testNav invisible" style={{position: "absolute",top:'0',left:'0', margin:'1.25vh 1vw', fontSize: 'calc(10px + 1vw)', zIndex: 1500 }} >
                 <input className="testNavLight invisible" style={{ width: '3ch', fontSize: 'calc(10px + 1vw)' }} type="number" id="questionPage" min="1" max={props.qNumber.toString()} onClick={e => questionNumberSet(e.target.value)}></input>
                 of {props.qNumber}</label>
-            <button className="testNav invisible " style={{ position: "absolute", top: '48vh', right: 0, background: "transparent", zIndex: 1500 }}
+            <button className="testNav invisible " style={{ position: "absolute", top: '48vh', right: 0,textShadow:"1px 1px black", background: "transparent", zIndex: 1500 }}
                 onClick={e => { questionNumberSet(1) }}>&#9193;Next</button>
 
             <label className="testNav invisible" style={{ position: "absolute", background: "transparent", top: 0, left: '38vw', width: '8ch', zIndex: 1500 }}>{displayTime}</label> 
