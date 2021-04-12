@@ -223,7 +223,7 @@ function GetTests(props) {
                     </tbody>
                 </table>
             </div>}
-            {currentUser && <label >
+            {(props.forPage === 'create') && <label >
                 <input type="checkbox" id="checkEditLocalTest" style={{ margin: '5% 2% 0 2%' }} onChange={e => setCheckEditLocalTestVisible(document.querySelector("#checkEditLocalTest").checked)} />
               Load local test from your disk
               

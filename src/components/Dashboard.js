@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import firebase from "../firebase";
 import Footer from "./Footer";
+import { Redirect } from "react-router-dom"
 import "./Login.scss";
  function Dashboard() {
   const [error, setError] = useState("");
@@ -54,10 +55,11 @@ import "./Login.scss";
     <div className='mainContainer'>
       <div style={{ width: '98%', maxWidth: "400px", marginTop: '6%' }}>
         <div className='registeCard' style={{ padding: '.75em' }}>
-          <h2 className="header1">Welcome
-          <img src={process.env.PUBLIC_URL + "/icons/QuizLogo.svg"} alt="logo simple" className='logo' /></h2>
+        <div className="closeTag" onClick={(e) =>{ window.location.assign(process.env.PUBLIC_URL + '/#/')}}> <img src={process.env.PUBLIC_URL + "/icons/QuizLogo.svg"} alt="logo simple" style={{ height:'1%' }} />
+        <img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(2vw,20px)', height: 'max(2vw,20px)', float:'right' }} />
+         </div>
           {error && <label className='alertStyle'>{error}</label>}
-          <img style={{ width: '60%', margin: '3% 15%' }} src={currentUser.photoURL > "" ? currentUser.photoURL : process.env.PUBLIC_URL + "/icons/defaultUser.svg"} alt="profile pic" />
+          <img style={{ maxWidth: '60vw',maxHeight:'35vh', margin: '3% 15%' }} src={currentUser.photoURL > "" ? currentUser.photoURL : process.env.PUBLIC_URL + "/icons/defaultUser.svg"} alt="profile pic" />
           <h2 className="divStyle" style={{ textAlign: 'center', width: '100%', maxWidth: '23ch', margin: 'auto' }}> <strong>@</strong>{currentUser.displayName}</h2>
           <h6 className="divStyle" style={{ textAlign: 'center', textDecoration: 'underline' }} >   {currentUser.email} </h6>
         </div>

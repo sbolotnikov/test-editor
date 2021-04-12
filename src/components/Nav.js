@@ -64,13 +64,13 @@ function Nav(props) {
 
                    {!currentUser && <li className="nav-item">
                         <Link to="/login" className="nav-link" onClick={event => handleNavCollapse()}>
-                            Login
+                            Log In
                         </Link>
 
                     </li>}
                     {!currentUser && <li className="nav-item">
                         <Link to="/signup" className="nav-link" onClick={event => handleNavCollapse()}>
-                            Signup
+                            Sign Up
                     </Link>
 
                     </li>}

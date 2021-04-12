@@ -7,12 +7,12 @@ export default function Signup() {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
-  const { signup } = useAuth()
+  const {currentUser, signup } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [toRoot, setToRoot] = useState(false);
   if (toRoot === true) { return <Redirect to="/" /> }
-
+  if (currentUser) { return <Redirect to="/redirect" /> }
   async function handleSubmit(e) {
     e.preventDefault()
 

@@ -6,11 +6,12 @@ import "./Login.scss";
 export default function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
-  const { login } = useAuth()
+  const {currentUser, login } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [toRoot, setToRoot] = useState(false);
   if (toRoot === true) { return <Redirect to="/" /> }
+  if (currentUser) { return <Redirect to="/redirect" /> }
   async function handleSubmit(e) {
     e.preventDefault()
 

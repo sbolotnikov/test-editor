@@ -8,16 +8,16 @@ export default function UpdateProfile() {
   const emailRef = useRef()
   const passwordRef = useRef()
   const userNameRef = useRef()
-  const userURLRef = useRef()
   const passwordConfirmRef = useRef()
   const { currentUser, updatePassword, updateEmail, updateUser } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [toRoot, setToRoot] = useState(false);
+  const [userURL, setUserURL] = useState(currentUser.photoURL);
   const getImgUrl = (url) => {
     document.querySelector("#userURL").childNodes[1].value = url;
-    userURLRef.current.value = url;
-    console.log(userURLRef.current.value)
+    setUserURL (url)
+    console.log(userURL)
   }
   function handleSubmit(e) {
     e.preventDefault()
@@ -35,8 +35,8 @@ export default function UpdateProfile() {
     if (passwordRef.current.value) {
       promises.push(updatePassword(passwordRef.current.value))
     }
-    if ((userNameRef.current.value !== currentUser.displayName) || (userURLRef.current.value !== currentUser.photoURL)) {
-      promises.push(updateUser(userNameRef.current.value, userURLRef.current.value))
+    if ((userNameRef.current.value !== currentUser.displayName) || (userURL !== currentUser.photoURL)) {
+      promises.push(updateUser(userNameRef.current.value, userURL))
     }
     Promise.all(promises)
       .then(() => {
@@ -56,14 +56,14 @@ export default function UpdateProfile() {
       <div style={{ width: '98%', maxWidth: "400px", marginTop: '5%' }}>
         <div className='registeCard' >
           <h2 className="header1">Update Profile
-          <img src={process.env.PUBLIC_URL + "/icons/QuizLogo.svg"} alt="logo simple" className='logo' /></h2>
+          {(userURL.length>0) && <img src={userURL} alt="logo simple" className='logo' />}</h2>
           {error && <label className='alertStyle'>{error}</label>}
           <form onSubmit={handleSubmit}>
             <label className='headerStyle'  >User's Name (keep it shorter then 20 symbols please)
                 <input id="userName" type="text" ref={userNameRef} defaultValue={currentUser.displayName} placeholder="Leave blank to keep the same" />
             </label>
             <label className='headerStyle' id="userURL" >User's picture link
-                <input type="text" ref={userURLRef} defaultValue={currentUser.photoURL} />
+                <input type="text" onChange={(e)=>{setUserURL(e.target.value)}} defaultValue={currentUser.photoURL} />
               <Cloudinary style={{ width: "200px", objectFit: "cover", margin: "10px" }} getImgUrl={getImgUrl} />
             </label>
             <label className='headerStyle'  >Email
