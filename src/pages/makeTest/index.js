@@ -464,7 +464,7 @@ function ToRenderEverything() {
             {testArray[displayQ] &&
                 <GetQuestion q={testArray[displayQ]} onChange={(t) => handleReturnQuestion(t)} />
             }
-          <div style={{width:'100%', marginLeft:"10px",textShadow:"2px 2px white", pointerEvents:"cursor"}}>&copy; 2021 <Link to="/about">Sergey Bolotnikov</Link> </div>  
+          <div style={{width:'100%', marginLeft:"10px", pointerEvents:"cursor"}}>&copy; 2021 <Link to="/about">Sergey Bolotnikov</Link> </div>  
         </div >
     )
 }

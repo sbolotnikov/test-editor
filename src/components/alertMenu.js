@@ -31,9 +31,20 @@ var variant = {
 export default function AlertMenu(props) {
   const [button1Color, setbutton1Color]=useState('');
   const [button2Color, setbutton2Color]=useState('');
+  function StopScroll(){
+    var x=window.scrollX;
+    var y=window.scrollY;
+    window.onscroll=function(){window.scrollTo(x, y);};
+  console.log(x, y)
+       
+}
+function AllowScroll(){
+  window.onscroll=function(){};
+}
   useEffect(() => {
     setbutton1Color(Object.values(variant)[Object.keys(variant).indexOf(props.styling.color1)].color);
     setbutton2Color(Object.values(variant)[Object.keys(variant).indexOf(props.styling.color2)].color);
+    StopScroll();
 }, []);
   return (
 
@@ -42,10 +53,10 @@ export default function AlertMenu(props) {
         <label className='alertItemStyle' style={Object.values(variant)[Object.keys(variant).indexOf(props.styling.variantHead)]}>{props.styling.heading}</label>
         <h5 className="alertItemStyle">{props.styling.text}</h5>
         {props.styling.inputField && <input id="inputField" style={{ width: "100%", marginBottom: "10px" }} defaultValue={props.inputValue} />}
-        {(props.styling.color1!=="") && <button className='alertItemStyle' style={{backgroundColor:button1Color, color:'white'}} onClick={e => { props.onReturn(props.styling.button1, (props.styling.inputField ? document.querySelector("#inputField").value : null)); }}>
+        {(props.styling.color1!=="") && <button className='alertItemStyle' style={{backgroundColor:button1Color, color:'white'}} onClick={e => {AllowScroll(); props.onReturn(props.styling.button1, (props.styling.inputField ? document.querySelector("#inputField").value : null)); }}>
           {props.styling.button1}
         </button>}
-        {(props.styling.color2!=="") &&<button className="alertItemStyle" style={{backgroundColor:button2Color, color:'white'}} onClick={e => { props.onReturn(props.styling.button2) }}>
+        {(props.styling.color2!=="") &&<button className="alertItemStyle" style={{backgroundColor:button2Color, color:'white'}} onClick={e => {AllowScroll(); props.onReturn(props.styling.button2) }}>
           {props.styling.button2}
         </button>}
 

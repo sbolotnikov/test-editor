@@ -188,7 +188,7 @@ function GetTests(props) {
         setTestsRecordsDisplay(chosenRec);
     }, [selectedOption])
     return (
-        <div style={{ width: '100%', maxWidth: "600px", height: "40vh", margin: '15% 0%' }}>
+        <div style={{ width: '100%', maxWidth: "600px", height: "52vh", margin: '6em 0 2em 0' }}>
             {revealInfo && <TestPopupInfo test={testInfo} onRes={e => {
                 setRevealInfo(false); console.log('close')
             }
@@ -196,19 +196,15 @@ function GetTests(props) {
             {(props.forPage === 'test') && (currentUser) && <button className="testNav" style={{ width: '100%', margin:0}} onClick={e=>{ window.location.assign(process.env.PUBLIC_URL + '/#/create'); }}>
                 Create New test
             </button>}
-            <p className="testNav" style={{backgroundColor:'transparent', textAlign:'center'}}> Choose Test to {(props.forPage === 'test')? 'Take':'Manage'}</p>
+            <p className="testNav" style={{backgroundColor:'transparent', textAlign:'center'}}> CHOOSE TEST TO {(props.forPage === 'test')? 'TAKE':'MANAGE'}</p>
             {categoriesLayout &&
                 <ChooseCategory type={categoriesLayout.length} answers={categoriesLayout} checkedMarks={checked} onChange={(ch) => { getChoosenTests(ch) }} />
             }
+            <p className="testNav" style={{backgroundColor:'transparent', textAlign:'center'}}>DISCOVER TESTS</p>
             {testRecordsDisplay && <div style={{ height: '35%', overflow: 'auto', margin: '0' }}>
+            
                 <table style={{ width: '100%' }} >
-                    <thead>
-                        <tr>
-                            {(props.forPage === 'create') && <th></th>}
-                            <th style={{ backgroundColor: 'white', borderRadius: '5px' }} >DISCOVER TESTS</th>
-
-                        </tr>
-                    </thead>
+                   
                     <tbody>
                         {testRecordsDisplay.map((test, j) => {
                             return (
@@ -228,10 +224,11 @@ function GetTests(props) {
                 </table>
             </div>}
             {currentUser && <label >
-                <input type="checkbox" id="checkEditLocalTest" style={{ margin: '5% 2%' }} onChange={e => setCheckEditLocalTestVisible(document.querySelector("#checkEditLocalTest").checked)} />
+                <input type="checkbox" id="checkEditLocalTest" style={{ margin: '5% 2% 0 2%' }} onChange={e => setCheckEditLocalTestVisible(document.querySelector("#checkEditLocalTest").checked)} />
               Load local test from your disk
-              </label>}
-            {currentUser && checkEditLocalTestVisible && <input type="file" id="fileinput" onChange={e => readSingleFile(e)} />}
+              
+            { checkEditLocalTestVisible && <input type="file" id="fileinput" onChange={e => readSingleFile(e)} />}
+            </label>}
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
             {(props.forPage === 'test') && <div className="divStyle">
             Want a demo? <Link className="links" to="/taketest/RtqxyubO57LToxbaOzpj">Take Demo Test</Link>

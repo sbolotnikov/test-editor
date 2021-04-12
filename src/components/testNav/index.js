@@ -12,10 +12,18 @@ function TestNav(props) {
            stopTest();
         }
     }
+    function StopScroll(){
+        var x=window.scrollX;
+        var y=window.scrollY;
+        window.onscroll=function(){window.scrollTo(x, y);};
+      console.log(x, y)
+           
+    }
     function timerDraw(event) {
         let seconds = props.seconds;
         let minutes = props.minutes;
         let hours = props.hours;
+        StopScroll();
         questionNumberSet('0');
         event.preventDefault();
         if ((seconds !== 0) || (minutes !== 0) || (hours !== 0)) {
@@ -46,6 +54,7 @@ function TestNav(props) {
     }
     function stopTest() {
         clearInterval(timerInterval);
+        window.onscroll=function(){};
         console.log('end')
         document.querySelector(".testNav").classList.add('invisible');
         let navButton = document.querySelectorAll(".testNav");
@@ -109,7 +118,7 @@ function TestNav(props) {
             <button className="testNav invisible " style={{ position: "absolute", top: '48vh', right: 0,textShadow:"1px 1px black", background: "transparent", zIndex: 1500 }}
                 onClick={e => { questionNumberSet(1) }}>&#9193;Next</button>
 
-            <label className="testNav invisible" style={{ position: "absolute", background: "transparent", top: 0, left: '38vw', width: '8ch', zIndex: 1500 }}>{displayTime}</label> 
+            <label className="testNav invisible" style={{ position: "absolute", background: "transparent", top: 0, left: '38vw', width: '8ch', zIndex: 1500, textShadow:"1px 1px black" }}>{displayTime}</label> 
             <button className="testNav invisible" id="finishBtn"  style={{ position: "absolute", top: 0, right: 0,marginTop:'1.25vh', backgroundImage:`url(${process.env.PUBLIC_URL + "/icons/finish.svg"})`,width: "9vh", height: "3vh", borderWidth: '0px',borderRadius:'5px', zIndex: 1500 }}
                 onClick={stopTest}></button>
 
