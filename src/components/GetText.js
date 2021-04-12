@@ -39,13 +39,14 @@ function GetText(props) {
     }, [props.answer]);
     return (
             <div >
-                <textarea style={{ width: '100%' }} value={answerText} onChange={e => changeInput(e)} />
+                <textarea style={{ width: '100%', borderRadius: '.25rem', borderColor: 'lightgray' }} value={answerText} onChange={e => changeInput(e)} />
                 <label style={{ color: 'black', width: '100%' }}>
                     <input type="checkbox" id={"check_" + props.num+props.cor} onChange={e => setCheckBox(document.querySelector("#check_"+props.num+props.cor).checked)} />
                 check to add image link</label>
-                {checkBox && <div>
-                    <input type="text" style={{ width: '80%', opacity: checkBox }} value={imgLink} onChange={e => changeImage(e)} />
+                {checkBox && <div >
+                    <input type="text" style={{ width: '100%', opacity: checkBox, borderRadius: '.25rem', borderColor: 'lightgray' }} value={imgLink} onChange={e => changeImage(e)} />
                     <Cloudinary style={{ width: "200px", objectFit: "cover", margin: "10px" }} getImgUrl={getImgUrl} />
+                    <img src={imgLink} style={{width:'19%'}} alt='thumbnail'/>
                 </div>}
             </div>
     );

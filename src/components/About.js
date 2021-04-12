@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
-import { Link, Redirect } from "react-router-dom"
+import { Link} from "react-router-dom"
 import Footer from "./Footer";
 import "./Login.scss";
 export default function About() {

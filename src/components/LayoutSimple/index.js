@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Textfit from 'react-textfit';
+import ZoomImage from '../ZoomImage';
 import "./style.css";
 function LayoutSimple(props) {
-
+    const [revealModal, setRevealModal] = useState(false);
     useEffect(() => {
         for (let i = 0; i < props.answers.length; i++) {
             document.querySelector("#answer_" + i).checked = false;
@@ -29,9 +30,13 @@ function LayoutSimple(props) {
 
     return (
         <div id='questionContainerSimple' style={{ opacity: props.vis}}>
+
+
+
+            {revealModal && <ZoomImage img={props.info.img} closeModal={(e)=>{setRevealModal(false)}} />}
             <section className="questionSection" style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', flexWrap: 'wrap', width: '98%', overflow: 'hidden' }}>
                 <div style={{width:'100%',display: 'flex',justifyContent:'center', alignItems: 'center', height: window.innerWidth < 700 ? '30%' : '70%' }}>
-                    <img src={props.info.img} style={{ height:'100%', alignSelf:'center'}} alt={props.info.img} />
+                    <img src={props.info.img} style={{ height:'100%', alignSelf:'center'}} alt={props.info.img} onClick={(e)=>{setRevealModal(true)}} />
                 </div>
                 <div style={{width:'100%', height: window.innerWidth < 700 ? '70%' : '30%' }}>
                     <Textfit max={256} mode='multi'
@@ -58,10 +63,10 @@ function LayoutSimple(props) {
                                 <Textfit className="name" key={"spanSimple" + j} max={256} mode='multi'
                                     min={10}
                                     style={{
-                                        minHeight: "95%",
-                                        maxHeight: "95%",
-                                        minWidth: "95%",
-                                        maxWidth: "95%",
+                                        minHeight: "90%",
+                                        maxHeight: "90%",
+                                        minWidth: "90%",
+                                        maxWidth: "90%",
                                         lineHeight: 1,
                                         textAlign: "center",
                                         textShadow: '1px 1px 2px black'

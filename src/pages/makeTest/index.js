@@ -189,6 +189,7 @@ function ToRenderEverything() {
         console.log(displayQ);
     }
     function handleShow() {
+        StopScroll();
         let arr = testArray[displayQ].rights.slice(0, testArray[displayQ].info.correct);
         demoArr = testArray[displayQ].wrongs.slice(0, testArray[displayQ].info.positions - testArray[displayQ].info.correct);
         for (let i = 0; i < arr.length; i++) {
@@ -367,6 +368,11 @@ function ToRenderEverything() {
             reloadNeeded();
         }
     }
+    function StopScroll(){
+        var x=window.scrollX;
+        var y=window.scrollY;
+        window.onscroll=function(){window.scrollTo(x, y);};    
+    }
     useEffect(() => {
         fetchCategories();
         let pasteItem = JSON.parse(localStorage.getItem('testCopy'));
@@ -457,7 +463,7 @@ function ToRenderEverything() {
                 onShow={(e) => handleShow(e)} onChange={(q) => { handleUpdateQuestion(q) }} onCopy={(q) => { handleCopyQuestion(q) }} onPaste={(q) => { handleInsertQuestion(q) }} />
             {show &&
                 <div className="modalContainer" style={{top: window.pageYOffset}}>
-                    <div className="closeTag" style={{position:'absolute',top:'2%', right:'2%'}} onClick={(e) => setShow(false)}><img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(1.2vw,12px)', height: 'max(1.2vw,12px)' }} /></div>
+                    <div className="closeTag" style={{position:'absolute',top:'2%', right:'2%'}} onClick={(e) =>{ setShow(false); window.onscroll=function(){};}}><img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(1.2vw,12px)', height: 'max(1.2vw,12px)' }} /></div>
                     <QuestionDisplay style={{ pointerEvents: 'none' }} background={testBackground} gradient={testGradient} status={"create"} info={{ positions: testArray[displayQ].info.positions, correct: testArray[displayQ].info.correct, layout: testArray[displayQ].info.layout, img: testArray[displayQ].info.img }} vis={1} question={testArray[displayQ].question} answers={demoArr} checkedMarks={[]} onChange={(ch) => { }} />
                 </div>
             }

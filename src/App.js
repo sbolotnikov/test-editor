@@ -8,6 +8,7 @@ import Dashboard from "./components/Dashboard"
 import Login from "./components/Login"
 import About from "./components/About"
 import Logout from "./components/Logout"
+import RedirectMain from "./components/RedirectMain"
 import PrivateRoute from "./components/PrivateRoute"
 import ForgotPassword from "./components/ForgotPassword"
 import UpdateProfile from "./components/UpdateProfile"
@@ -16,6 +17,7 @@ import Nav from "./components/Nav"
 //Pages
 import testPage from './pages/testPage';
 import makeTest from './pages/makeTest';
+import ResultsDisplay from "./components/ResultsDisplay";
 
 function App() {
 
@@ -25,6 +27,7 @@ function App() {
           <Nav />
           <Switch>
             <Route exact path="/" component={testPage} />
+            <Route exact path="/redirect" component={RedirectMain} />
             <PrivateRoute path="/update-profile" component={UpdateProfile} />
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />

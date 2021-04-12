@@ -20,7 +20,9 @@ const ResultsDisplay = props => {
 
     }
     function handleDont() {
-        window.location.reload();
+        // if (window.location.pathname!=='/test-editor/') 
+        // window.location.reload()
+        window.location.assign(process.env.PUBLIC_URL + '/#/redirect');
         console.log("redirect to /")
         // setToTest([true]);
     }
