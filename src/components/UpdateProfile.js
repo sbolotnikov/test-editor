@@ -56,7 +56,7 @@ export default function UpdateProfile() {
       <div style={{ width: '98%', maxWidth: "400px", marginTop: '5%' }}>
         <div className='registeCard' >
           <h2 className="header1">Update Profile
-          {(userURL.length>0) && <img src={userURL} alt="logo simple" className='logo' />}</h2>
+          {(userURL!=null) && <img src={userURL} alt="logo simple" className='logo' />}</h2>
           {error && <label className='alertStyle'>{error}</label>}
           <form onSubmit={handleSubmit}>
             <label className='headerStyle'  >User's Name (keep it shorter then 20 symbols please)

@@ -59,7 +59,7 @@ import "./Login.scss";
         <img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(2vw,20px)', height: 'max(2vw,20px)', float:'right' }} />
          </div>
           {error && <label className='alertStyle'>{error}</label>}
-          <img style={{ maxWidth: '60vw',maxHeight:'35vh', margin: '3% 15%' }} src={currentUser.photoURL > "" ? currentUser.photoURL : process.env.PUBLIC_URL + "/icons/defaultUser.svg"} alt="profile pic" />
+          <img style={{ maxWidth: '60%',maxHeight:'35vh', margin: '3% 15%' }} src={currentUser.photoURL > "" ? currentUser.photoURL : process.env.PUBLIC_URL + "/icons/defaultUser.svg"} alt="profile pic" />
           <h2 className="divStyle" style={{ textAlign: 'center', width: '100%', maxWidth: '23ch', margin: 'auto' }}> <strong>@</strong>{currentUser.displayName}</h2>
           <h6 className="divStyle" style={{ textAlign: 'center', textDecoration: 'underline' }} >   {currentUser.email} </h6>
         </div>
