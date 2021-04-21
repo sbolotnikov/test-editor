@@ -4,10 +4,12 @@ import { useAuth } from "../../contexts/AuthContext";
 import GetResults from "../getResults";
 import SharePost from '../SharePost';
 const ResultsDisplay = props => {
+    // component to display results of the test and top results of other users
     const { currentUser } = useAuth()
     const [testeeName, setTesteeName] = useState(currentUser ? currentUser.displayName : "");
     const testeeId = useRef(currentUser ? currentUser.uid : "");
     function handleSave() {
+        // function to save results in the database
         const db = firebase.firestore();
         db.collection("results").add({
             testId: props.testId,
@@ -20,13 +22,12 @@ const ResultsDisplay = props => {
 
     }
     function handleDont() {
-        // if (window.location.pathname!=='/test-editor/') 
-        // window.location.reload()
+        // do not save results and reload
         window.location.assign(process.env.PUBLIC_URL + '/#/redirect');
-        console.log("redirect to /")
-        // setToTest([true]);
+        console.log("redirect to /");
     }
     function timeInSeconds(t) {
+        // get amount of time left in seconds
         let time = t.split(':');
         return parseInt(time[0]) * 3600 + parseInt(time[1]) * 60 + parseInt(time[2])
     }
@@ -37,6 +38,7 @@ const ResultsDisplay = props => {
             backgroundImage: 'linear-gradient(90deg, transparent 0%, transparent 8%,rgba(90, 90, 90,0.05) 8%, rgba(90, 90, 90,0.05) 21%,transparent 21%, transparent 100%),linear-gradient(45deg, transparent 0%, transparent 23%,rgba(90, 90, 90,0.05) 23%, rgba(90, 90, 90,0.05) 37%,transparent 37%, transparent 100%),linear-gradient(0deg, transparent 0%, transparent 37%,rgba(90, 90, 90,0.05) 37%, rgba(90, 90, 90,0.05) 49%,transparent 49%, transparent 100%),linear-gradient(90deg, rgb(255,255,255),rgb(255,255,255))', backgroundSize: '100% 100%'
         }}>
             {props.testId.length > 0 && <h3 style={{ width: '100%', textAlign: 'center' }}>Top results</h3>}
+            {/* component that dislay results of others */}
             {props.testId.length > 0 && <GetResults testId={props.testId} />}
             <h3 style={{ width: '100%', textAlign: 'center' }}>You have {props.rate}% {timeInSeconds(props.time)}sec left</h3>
             <div style={{ width: '60vw', maxHeight: '20vh', overflow: 'auto', textAlign: 'center', justifyContent: 'center', borderRadius: "10px" }}>

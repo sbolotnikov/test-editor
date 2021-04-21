@@ -2,17 +2,21 @@ import React, { useEffect, useState } from 'react';
 import GetText from './GetText.js';
 
 function GetAnswers(props) {
+    // component that handles EDITing answer's options (right and wrong) for particular test receive info from child-component(GetText) and sending them up to parent(GetQuestion)
     function handleNewText() {
+        // create new answering option and send it up to GetAnswers
         let emptyNew = { text: '', img: '', choice: props.correct };
         props.onNew(emptyNew);
     }
     function handlePasteText(){
+        // pasting answer from localStorage and sending it up to GetAnswers
         let pasteItem=JSON.parse(localStorage.getItem('answerCopy'));
         if (pasteItem===null) return
         pasteItem.choice=props.correct;
         props.onNew(pasteItem);
     }
     function handleChangeText(t) {
+        // getting answers changes from GetText and send them up to GetAnswers
         let localArr = props.answers;
         if ((t.text === '') && (t.img === '')) {
             localArr.splice(t.num, 1);
@@ -23,13 +27,16 @@ function GetAnswers(props) {
         props.onChange(localArr);
     }
     function handleDelete(e) {
+// delete answer option
         props.onDelete(e.target.value)
     }
     function handleCopy(e){
+        // Copy answer and send it up to GetAnswers
         props.onCopy(e.target.value)
     }
     const [answers, setAnswers] = useState([]);
     useEffect(() => {
+        // setting answering options from parent and updating on props change
         setAnswers(props.answers);
     }, [props.answers]);
     return (

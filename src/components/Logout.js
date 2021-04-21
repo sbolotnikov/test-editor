@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"
 
 function Logout() {
-
+//  Logout component
     const { logout } = useAuth();
     async function logoutHandle() {
         try {

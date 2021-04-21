@@ -3,6 +3,7 @@ import Select from 'react-select'
 
 
 const customStyles = {
+    // using Select library allows to select multiple categories for the test
     menu: (provided, state) => ({
         ...provided,
         width: state.selectProps.width,

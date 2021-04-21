@@ -4,6 +4,7 @@ import Axios from 'axios'
 
 
 function Cloudinary(props) {
+    // handles cloudinary upload and providing the link for a parent component
     const [imageSelected, setImageSelected]=useState('');
     const pictureUpload=(event)=> {
        const formData= new FormData();

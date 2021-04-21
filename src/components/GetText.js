@@ -1,24 +1,27 @@
 import React, {useState, useEffect } from 'react';
 import Cloudinary from './Cloudinary';
 function GetText(props) {
+    // component collecting answer option and image link for it, passing it to parent(GetAnswers)
     const [answerText, setAnswerText] = useState(props.answer.text);
     const [imgLink, setImgLink] = useState(props.answer.img);
     const [checkBox, setCheckBox] = useState();
     const getImgUrl = (url) => {
+        // on change url
         document.querySelector("#mainImg").value = url;
         setImgLink(url);
         sendBack(answerText, url);
     }
     function changeInput(e) {
+        // on change answer
         setAnswerText(e.target.value)
         sendBack(e.target.value, imgLink);
     }
     function changeImage(e) {
         setImgLink(e.target.value);
-        console.log(imgLink)
         sendBack(answerText, e.target.value);
     }
     function sendBack(a, b) {
+    // sending props back
         let choice = {
             text: a,
             img: b,
@@ -27,6 +30,7 @@ function GetText(props) {
         props.onChange(choice);
     }
     useEffect(() => {
+        //  setting text and link for one answering option and updating on props change
         setAnswerText(props.answer.text);
         if (props.answer.img.length > 0) {
             setCheckBox(true);

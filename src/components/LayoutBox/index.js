@@ -2,15 +2,17 @@ import React, { Fragment, useEffect } from 'react';
 import Textfit from 'react-textfit';
 import "./style.css";
 const LayoutBox = props => {
-
+// component creates layout called Box and display current question in style of this layout
 
     useEffect(() => {
+        // drawing the selected options of anwers inputed by user
         for (let i = 0; i < props.answers.length; i++) {
             document.querySelector("#answer_" + i).checked = false;
             if (props.checkedMarks.indexOf(i) >= 0) document.querySelector("#answer_" + i).checked = true;
         }
     },[props.answers]);
     function checkingMulti(e) {
+        // on Change sending the new result back to parent
         if (props.type === 1) {
             for (let i = 0; i < props.answers.length; i++) {
                 document.querySelector("#answer_" + i).checked = false;
@@ -31,6 +33,7 @@ const LayoutBox = props => {
         <Fragment>
             <div id='questionContainerBox' style={{ opacity: props.vis}}>
                 <section className="questionSection">
+                    {/* using the Textfit to make entered text fit into the provided space */}
                     <Textfit max={256} mode='multi'
                         min={12}
                         style={{

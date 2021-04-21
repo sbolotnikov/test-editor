@@ -8,6 +8,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
+  // setting up context to deal with firebase user collection database
   const [currentUser, setCurrentUser] = useState()
   const [loading, setLoading] = useState(true)
 

@@ -7,12 +7,13 @@ import "./style.css";
 
 
 function ToRenderEverything() {
-
+// main page that runs tests 
   const [testLoad, setTestLoad] = useState(false);
   const [localTest, setLocalTest] = useState(false);
   const { currentUser } = useAuth()
 
   function getTestfromDB(n) {
+    // sets test to run taken from the GetTests component. Test run by the TestRun component
     console.log(n)
     setTestLoad(n);
   }

@@ -1,4 +1,5 @@
 import React,{ useEffect, useState } from "react"
+// color schemas for different occasions 
 var variant = {
   'danger': {
     'color': '#721c24',
@@ -29,9 +30,11 @@ var variant = {
   '': {},
 }
 export default function AlertMenu(props) {
+  // main popup alert component
   const [button1Color, setbutton1Color]=useState('');
   const [button2Color, setbutton2Color]=useState('');
   function StopScroll(){
+    // prevent scrolling
     var x=window.scrollX;
     var y=window.scrollY;
     window.onscroll=function(){window.scrollTo(x, y);};
@@ -39,9 +42,11 @@ export default function AlertMenu(props) {
        
 }
 function AllowScroll(){
+  // when done release scroll
   window.onscroll=function(){};
 }
   useEffect(() => {
+    // setup buttons style on load 
     setbutton1Color(Object.values(variant)[Object.keys(variant).indexOf(props.styling.color1)].color);
     setbutton2Color(Object.values(variant)[Object.keys(variant).indexOf(props.styling.color2)].color);
     StopScroll();

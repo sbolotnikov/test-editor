@@ -1,7 +1,7 @@
 import React from "react";
-import { Helmet } from "react-helmet";
-import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, WhatsappShareButton, WhatsappIcon, LinkedinShareButton,LinkedinIcon, EmailShareButton, EmailIcon} from "react-share";
+import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, WhatsappShareButton, WhatsappIcon, EmailShareButton, EmailIcon} from "react-share";
 function SharePost(props) {
+    // sets buttons to share test information on networks
     var socialMediaButton = {
         "&:hover > svg": {
             height: "50px !important",

@@ -5,6 +5,7 @@ import ResultsDisplay from '../ResultsDisplay';
 import "./style.css";
 
 function TestRun(props) {
+  // main test running component. It get the test, generate test, displays navigation(TestNav) and individual questions(QuestionDisplay), and results(ResultsDisplay) in the end, using specific components 
   var quizDuration = [parseInt(props.test.main.hours), parseInt(props.test.main.minutes), parseInt(props.test.main.seconds)];
   var testBackground = props.test.main.background;
   var quizMain = props.test.test;
@@ -18,7 +19,7 @@ function TestRun(props) {
   const [visible, setVisible] = useState(0);
   const [testGenerated, setTestGenerated] = useState('');
   function randomizer(arr) {
-
+//  taking question array and randomize the order of options inside
     let testArray = [];
     let answerCount = arr.length;
     let positionN = 0;
@@ -32,6 +33,7 @@ function TestRun(props) {
   }
 
   function randomChoice(arr, n) {
+    // choosing n random positions from array
 
     let testArray = [];
     let positionN = 0;
@@ -43,6 +45,7 @@ function TestRun(props) {
     return testArray
   }
   function handleChoices(ch) {
+    // saving user responses to specific question to answers array
     let localChoices = choices;
     localChoices.splice(displayQ, 1, ch);
     console.log(localChoices);
@@ -50,6 +53,7 @@ function TestRun(props) {
 
   }
   function handleChangeQuestion(q) {
+    // setting another question
     if (q > 0) { setDisplayQ(q - 1) }
     else {
       setDisplayQ(q);
@@ -58,6 +62,7 @@ function TestRun(props) {
     }
   }
   function correctAnswers() {
+    // setting the array of correct answers to specific generated test
     let arr = [];
     let arrSmall = [];
     for (let i = 0; i < testGenerated.length; i++) {
@@ -70,6 +75,7 @@ function TestRun(props) {
     return arr
   }
   function handleQuizEnd(t) {
+    // finishing quiz by compare user choices with array of correct answers, getting percentage of the right answers and time left and setting the state with these parameters
     let arr = [];
     let n = 0;
     console.log(t);
@@ -87,6 +93,7 @@ function TestRun(props) {
   }
 
   useEffect(() => {
+    // gererating the random answers array for the test and randomize their positions. Generate test before it send to display and saving it to state
     console.log(props.test.id)
     let answersSet = [];
     for (let i = 0; i < quizMain.length; i++) {
@@ -105,6 +112,7 @@ function TestRun(props) {
     setTestGenerated(test);
   }, []);
  useEffect(()=>{
+  //  if results are finalise displays main navigation bar, otherwise hide it
   (results.length > 0) ? document.querySelector("nav.navbar").style.display = 'flex' :document.querySelector("nav.navbar").style.display = 'none';
  },[results]);
 

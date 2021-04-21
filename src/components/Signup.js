@@ -4,6 +4,8 @@ import { Link, Redirect } from "react-router-dom"
 import Footer from "./Footer";
 import "./Login.scss";
 export default function Signup() {
+
+  // component to create new user using AuthContext
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()

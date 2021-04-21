@@ -1,18 +1,21 @@
 import React, { Fragment, useState } from 'react';
 import AlertMenu from '../alertMenu';
 function TestNav(props) {
+    // navigational component for running through questions of the specific test 
     var timerInterval
     const [displayTime, setDisplayTime] = useState(stringTime(props.hours, props.minutes, props.seconds));
     const [revealAlert, setRevealAlert] = useState(false);
     const [alertStyle, setAlertStyle] = useState({});
     let secondsLeft = props.hours * 3600 + props.minutes * 60 + props.seconds;
     const onReturn = (decision1) => {
+        // if Finish test button clicked in Alert window it proceeds to end of the test function
         setRevealAlert(false);
         if (decision1 === "Finish") { 
            stopTest();
         }
     }
     function StopScroll(){
+        // prevent scrolling on page
         var x=window.scrollX;
         var y=window.scrollY;
         window.onscroll=function(){window.scrollTo(x, y);};
@@ -20,6 +23,7 @@ function TestNav(props) {
            
     }
     function timerDraw(event) {
+        // starting the , counting down seconds, and handling run-out-of-time exit  
         let seconds = props.seconds;
         let minutes = props.minutes;
         let hours = props.hours;
@@ -50,9 +54,11 @@ function TestNav(props) {
         }
     };
     function stringTime(h, m, s) {
+        // turning time to string to display
         return `${h < 10 ? '0' + h : h}:${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`
     }
     function stopTest() {
+// handles test finish: timer finish, hiding buttons of the navigation sending time left to the parent component(props.onExit)
         clearInterval(timerInterval);
         window.onscroll=function(){};
         console.log('end')
@@ -64,6 +70,7 @@ function TestNav(props) {
         props.onExit(displayTime);
     }
     function questionNumberSet(n) {
+        // handles navigation through test next, previous shows specific question
         let questionNow = document.querySelector("#questionPage");
         if (Number.isInteger(n)) {
 
@@ -72,6 +79,7 @@ function TestNav(props) {
                 else if (parseInt(questionNow.value) < props.qNumber) { questionNow.value = parseInt(questionNow.value) + 1 }
                 else {
                     questionNow.value = 1;
+                    // if last question is reached it asked if you want to finish the test through the displaying specific alertMenu component 
                     setAlertStyle({
                         variantHead: "danger",
                         heading: "Warning",

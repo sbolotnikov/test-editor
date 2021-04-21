@@ -25,6 +25,7 @@ var emptyQ = {
     }
 }
 function ToRenderEverything() {
+    // main page that edit test
     var defOptionArray = [];
     const { currentUser } = useAuth();
     const [testName, setTestName] = useState('');
@@ -48,7 +49,7 @@ function ToRenderEverything() {
     const [addBackgroundVisible, setAddBackgroundVisible] = useState(false);
     const db = firebase.firestore();
     const fetchCategories = async () => {
-
+// getting categories from db
         const data = await db.collection("categories").get();
         let arrTemp = data.docs.map(doc => ({ ...doc.data() }));
         arrTemp.sort(function (a, b) {
@@ -67,11 +68,14 @@ function ToRenderEverything() {
         setCategories(arrTemp);
     };
     const onReturn = (decision1, inputValue) => {
+        // onClick AlertMenu button
         if (decision1 === "Proceed") {
+            // reload location
             setRevealAlert(false);
             reloadNeeded()
         }
         if (decision1 === "Update") {
+            // update test in db if successful it save current editing test in LocalStorage and reload location
             setRevealAlert(false);
             let text = {
                 main: {
@@ -99,6 +103,7 @@ function ToRenderEverything() {
                 .catch(e => { console.log("file fail to updated"); })
         }
         if (decision1 === "Add") {
+            // adds new category to db
             console.log(inputValue)
             if ((categories.map(function (x) { return x.value; }).indexOf(inputValue) === -1) && (inputValue.length > 5)) {
                 let newItem = { label: inputValue, value: inputValue }
@@ -126,6 +131,7 @@ function ToRenderEverything() {
             }
         }
         if (decision1 === "Cancel") {
+            // if cancel button pressed just close AlertMenu
             setRevealAlert(false);
         }
     }
@@ -133,20 +139,24 @@ function ToRenderEverything() {
         window.location.reload();
     }
     const getImgUrl = (url) => {
+        // set background image 
         document.querySelector("#background").value = url;
         setTestBackground(url);
     }
     const getGradientCSS = (n) => {
+        // set background gradient
         document.querySelector("#backgroundGradient").value = n;
         setTestGradient(n)
     }
     function handleUpdateQuestion(q) {
+        // update of question display number
         if (q > 0) { setDisplayQ(q - 1) }
         else {
             setDisplayQ(q);
         }
     }
     function handleReturnQuestion(t) {
+        // update information of the test state
         let arr = [...testArray];
         if (Object.getOwnPropertyNames(t)[0] === "question") arr[displayQ].question = t.question;
         if (Object.getOwnPropertyNames(t)[0] === "mainImg") arr[displayQ].info.img = t.mainImg;
@@ -158,9 +168,11 @@ function ToRenderEverything() {
         setTestArray(arr);
     }
     function handleCopyQuestion(e) {
+        // saving to localStorage entire question object for further pasting it to new test (copy question)
         localStorage.setItem('questionCopy', JSON.stringify(testArray[displayQ]));
     }
     function handleInsertQuestion(e) {
+        // insert question from localStorage to new test (paste question)
         let arr = [];
         let questCopy = JSON.parse(localStorage.getItem('questionCopy'));
         if (questCopy === null) return
@@ -173,7 +185,7 @@ function ToRenderEverything() {
         setDisplayQ(displayQ + 1)
     }
     function handleAdd(e) {
-        // e.preventDefault()
+        // adding empty new question to state
         setTestArray(oldArray => [...oldArray, {
             question: '',
             rights: [{ text: '', img: '', choice: true }],
@@ -189,6 +201,7 @@ function ToRenderEverything() {
         console.log(displayQ);
     }
     function handleShow() {
+        // show modal with current question displayed like it would be presented on the test
         StopScroll();
         let arr = testArray[displayQ].rights.slice(0, testArray[displayQ].info.correct);
         demoArr = testArray[displayQ].wrongs.slice(0, testArray[displayQ].info.positions - testArray[displayQ].info.correct);
@@ -199,11 +212,12 @@ function ToRenderEverything() {
         show ? setShow(false) : setShow(true)
     }
     function handleDelete() {
-
+// delete question frrom state
         if (displayQ === testArray.length - 1) setDisplayQ(displayQ - 1)
         setTestArray(testArray.filter(item => testArray.indexOf(item) !== displayQ));
     }
     function handleMove(t) {
+        // move question into new position inside the teast
         if (t[0] !== t[1]) {
             let arr = [];
             let record1 = testArray[t[0]];
@@ -225,6 +239,7 @@ function ToRenderEverything() {
         }
     }
     function getTestfromDB(n) {
+        // setting test to edit from outside sourse
         console.log(n)
         let newTest = n;
         setTestArray(newTest.test);
@@ -253,6 +268,7 @@ function ToRenderEverything() {
         setTestSS(newTest.main.seconds);
     }
     function upload(e) {
+        // uploading test to db
         let text = {
             main: {
                 author: currentUser.uid,
@@ -278,6 +294,7 @@ function ToRenderEverything() {
             .catch(e => { console.log("no connectionto DB"); })
     }
     function download(e) {
+        // download test to local hard drive
         let text = JSON.stringify({
             main: {
                 author: currentUser.uid,
@@ -306,6 +323,7 @@ function ToRenderEverything() {
         document.body.removeChild(element);
     }
     function update(e) {
+        // update test inside db with new changes
         setRevealAlert(true);
         setAlertStyle({
             variantHead: "warning",
@@ -318,6 +336,7 @@ function ToRenderEverything() {
         });
     }
     function handleNewCategory(e) {
+        // getting new category through AlertMenu
         setRevealAlert(true);
         setAlertStyle({
             variantHead: "warning",
@@ -332,6 +351,7 @@ function ToRenderEverything() {
         });
     }
     function startNewTest(e) {
+        // 
         if (testName > "") {
             setRevealAlert(true);
             setAlertStyle({
@@ -346,6 +366,7 @@ function ToRenderEverything() {
         }
     }
     const saveReload = (a) => {
+        // saves current test to localStorage in order to return back to it after reload location
         if (a) {
             let text = {
                 main: {
@@ -369,11 +390,13 @@ function ToRenderEverything() {
         }
     }
     function StopScroll(){
+        // prevent scrolling
         var x=window.scrollX;
         var y=window.scrollY;
         window.onscroll=function(){window.scrollTo(x, y);};    
     }
     useEffect(() => {
+        // reloading page with saved test
         fetchCategories();
         let pasteItem = JSON.parse(localStorage.getItem('testCopy'));
         if ((pasteItem !== null)) getTestfromDB(pasteItem)

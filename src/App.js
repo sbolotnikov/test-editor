@@ -17,7 +17,6 @@ import Nav from "./components/Nav"
 //Pages
 import testPage from './pages/testPage';
 import makeTest from './pages/makeTest';
-import ResultsDisplay from "./components/ResultsDisplay";
 
 function App() {
 

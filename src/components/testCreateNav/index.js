@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import "./style.css";
 function TestCreateNav(props) {
-
+// component that displays navigation for the editing specipic question inside the test
     const [qArr, setqArr] = useState('');
     const [moveVis, setMoveVis] = useState(false);
     useEffect(() => {
+        // display question number 1
         document.getElementById('questionPage').value = 1;
     }, []);
     useEffect(() => {
+        // fill/update array of question numbers
         let arr = [];
         for (let i = 0; i < props.qNumber; i++) { arr.push(i + 1) };
         setqArr(arr);
     }, [props.qNumber]);
     function questionNumberSet(n) {
+        // set current question based on pressing navigaton buttons and send result to parent
         let questionNow = document.querySelector("#questionPage");
         if (Number.isInteger(n)) {
 
@@ -39,6 +42,7 @@ function TestCreateNav(props) {
         (n === "0") ? props.onChange(0) : props.onChange(parseInt(questionNow.value));
     }
     function deleteRec() {
+        // deletes current page number and switch to last existing ad send prop to delete to parent 
         props.onDel('');
         let n = document.querySelector("#questionPage");
         let k = ""
@@ -72,12 +76,16 @@ function TestCreateNav(props) {
             <button className="testNav"
                 onClick={e => { deleteRec() }}><img src={ process.env.PUBLIC_URL+"/icons/close.svg"} alt="close" style={{width:'max(1.2vw,12px)',height:'max(1.2vw,12px)'}}/>Delete</button>
             <button className="testNav"
+            // sending response about copy 
                 onClick={e => { e.preventDefault(); props.onCopy('') }}>&#128209;Copy</button>
             <button className="testNav"
+            // sending response on paste
                 onClick={e => { e.preventDefault(); props.onPaste(''); document.querySelector("#questionPage").value = (parseInt(document.querySelector("#questionPage").value) + 1).toString() }}>&#128203;Paste</button>
             <button className="testNav"
+            //  sending response on preview
                 onClick={e => { props.onShow('') }}>&#128240;Preview</button>
             {(props.qNumber > 1) && <button className="testNav"
+            // on click revealing the array of option to move your question to
                 onClick={e => { visibilityMoveTo() }}>&#128242;Move to</button>}
             {(props.qNumber > 1) && qArr && <select id="moveSelect" className="testNavLight text-center invisible" onChange={e => {
                 props.onMove([parseInt(document.querySelector("#questionPage").value) - 1, parseInt(e.target.value)]);

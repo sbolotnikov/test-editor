@@ -3,8 +3,10 @@ import Textfit from 'react-textfit';
 import ZoomImage from '../ZoomImage';
 import "./style.css";
 function LayoutSimple(props) {
+    // component creates layout called Simple and display current question in style of this layout
     const [revealModal, setRevealModal] = useState(false);
     useEffect(() => {
+        // drawing the selected options of anwers inputed by user
         for (let i = 0; i < props.answers.length; i++) {
             document.querySelector("#answer_" + i).checked = false;
             if (props.checkedMarks.indexOf(i) >= 0) document.querySelector("#answer_" + i).checked = true;
@@ -12,6 +14,7 @@ function LayoutSimple(props) {
         
     }, [props.answers]);
     function checkingMulti(e) {
+        // on Change sending the new result back to parent
         if (props.info.correct === 1) {
             for (let i = 0; i < props.answers.length; i++) {
                 document.querySelector("#answer_" + i).checked = false;

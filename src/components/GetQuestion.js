@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import GetAnswers from './GetAnswers.js';
 import Cloudinary from './Cloudinary';
 function GetQuestion(props) {
+  // component that handles EDITing of the particular question of the test. It receive info from child-component(GetAnswers) and sending them up to parent(page/makeTest)  
     var questionObj = {}
 
     const [rights, setRights] = useState([]);
@@ -13,6 +14,7 @@ function GetQuestion(props) {
     // list available layouts
     var layouts = ["simple", "box"];
     useEffect(() => {
+        // fill/updating question depending on changes in parent
         document.querySelector("#question").value = props.q.question;
         document.querySelector("#mainImg").value = props.q.info.img;
         document.querySelector("#positionsCount").value = props.q.info.positions;
@@ -23,20 +25,21 @@ function GetQuestion(props) {
 
     }, [props.q]);
     function handleReturnData(t, corr) {
+        // passing answers to the parent
         if (corr) {
             questionObj.rights = t;
-            // setRights(localChoices);
         } else {
             questionObj.wrongs = t;
-            //  setWrongs(localChoices);
         }
         props.onChange(questionObj)
     }
     function handleCopyData(n, corr) {
+        // saving the answer to the localStorage to copy it
         (corr) ? questionObj = props.q.rights[n] : questionObj = props.q.wrongs[n];
         localStorage.setItem('answerCopy', JSON.stringify(questionObj));
     }
     function newRecord(e, corr) {
+        // setting new Record and send it to parent
         if (corr) {
             questionObj = props.q.rights;
             questionObj.push({ text: e.text, img: e.img, choice: true });
@@ -49,6 +52,7 @@ function GetQuestion(props) {
 
 
     function delRecord(n, corr) {
+        // delete one answer option
         if (corr) {
             questionObj = props.q.rights;
             questionObj.splice(n, 1);

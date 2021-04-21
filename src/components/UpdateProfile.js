@@ -5,6 +5,7 @@ import Cloudinary from './Cloudinary';
 import Footer from "./Footer";
 
 export default function UpdateProfile() {
+  // updating component
   const emailRef = useRef()
   const passwordRef = useRef()
   const userNameRef = useRef()
@@ -15,11 +16,13 @@ export default function UpdateProfile() {
   const [toRoot, setToRoot] = useState(false);
   const [userURL, setUserURL] = useState(currentUser.photoURL);
   const getImgUrl = (url) => {
+    // update URL of the profile picture
     document.querySelector("#userURL").childNodes[1].value = url;
     setUserURL (url)
     console.log(userURL)
   }
   function handleSubmit(e) {
+    // submitting profile updated information
     e.preventDefault()
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match")

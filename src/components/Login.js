@@ -4,6 +4,7 @@ import { Link, Redirect } from "react-router-dom"
 import Footer from "./Footer";
 import "./Login.scss";
 export default function Login() {
+  // login page using the AuthContext trying to login and then redirect to root
   const emailRef = useRef()
   const passwordRef = useRef()
   const {currentUser, login } = useAuth()

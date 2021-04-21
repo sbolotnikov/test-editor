@@ -3,6 +3,7 @@ import { useAuth } from "../contexts/AuthContext"
 import { Link } from "react-router-dom"
 import "./Login.scss";
 export default function ForgotPassword() {
+  // page handles forgot password case
   const emailRef = useRef()
   const { resetPassword } = useAuth()
   const [error, setError] = useState("")

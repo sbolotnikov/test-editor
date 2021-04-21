@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import  "./Nav.scss";
-
-
 function Nav(props) {
+    // main Nav
     const [isNavCollapsed, setIsNavCollapsed] = useState(true);
     const { currentUser } = useAuth();
     const [imgDisplay, setImgDisplay] = useState('');
@@ -13,6 +12,7 @@ function Nav(props) {
         setIsNavCollapsed(!isNavCollapsed)
     }
     useEffect(() => {
+        // based on the user it set the profile picture
         let imgLink =  process.env.PUBLIC_URL + "/icons/defaultUser.svg"
         if (currentUser) {currentUser.photoURL>"" ? setImgDisplay(currentUser.photoURL) : setImgDisplay(imgLink);}
         else{

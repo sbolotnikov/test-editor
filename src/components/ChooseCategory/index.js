@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect } from 'react';
 import "./style.scss";
 const ChooseCategory = props => {
-
+// component getting the chose of single and multiple choice
 
     useEffect(() => {
+        // Selecting chosen categories on start
         for (let i = 0; i <props.answers.length; i++) {
             document.querySelector("#category_" + i).checked = false;
             if (props.checkedMarks.indexOf(i) >= 0) document.querySelector("#category_" + i).checked = true;
@@ -11,6 +12,7 @@ const ChooseCategory = props => {
         console.log(props.answers)
     },[]);
     function checkingMulti(e) {
+        // on click if it is a single choice it remove previously marked category and mark new choice
         if (props.type === 1) {
             for (let i = 0; i < props.answers.length; i++) {
                 document.querySelector("#category_" + i).checked = false;
@@ -19,6 +21,7 @@ const ChooseCategory = props => {
             document.querySelector("#" + e.target.id).checked = true;
         }
         let choice = [];
+        // then it gets an array of choosen categories and thru props.onChange push it up to parent
         for (let i = 0; i < props.answers.length; i++) {
             if (document.querySelector("#category_" + i).checked === true) {
                 choice.push(i);

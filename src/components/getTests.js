@@ -6,6 +6,7 @@ import ChooseCategory from "../components/ChooseCategory";
 import TestPopupInfo from "../components/TestPopupInfo"
 import { Link} from "react-router-dom"
 function GetTests(props) {
+    // get test information, display it, and send it to parent (makeTest or testPage)
     const db = firebase.firestore();
     const { currentUser } = useAuth();
     const [testRecords, setTestsRecords] = useState([]);
@@ -22,6 +23,7 @@ function GetTests(props) {
     const [checkEditLocalTestVisible, setCheckEditLocalTestVisible] = useState(false);
     const [testInfo, setTestInfo] = useState({});
     const onReturn = (decision1) => {
+        // if Delete button is clicked in makeTest it delete test. If Proceed button clicked it send test to apropreate parent 
         setRevealAlert(false);
         if (decision1 === "Delete") {
             db.collection('tests').doc(deleteRecId).delete()
@@ -39,6 +41,7 @@ function GetTests(props) {
         }
     }
     function handleDelete(e) {
+        // handles delete button click and confirm by revealing the AlertMenu
         let recId = e.target.getAttribute("value")
         setDeleteRecId(recId)
         let elementPos = testRecords.map(function (x) { return x.id; }).indexOf(recId);
@@ -55,7 +58,7 @@ function GetTests(props) {
         setRevealAlert(true)
     }
     function handleHover(t) {
-        console.log(t.clientY);
+        // on hover over test name it gather info about the test and reveal modal like panel with test info 
         let test = testRecords.filter(item => item.id === t.target.getAttribute("value"))[0];
         setTestInfo({
             author: test.main.authorName,
@@ -68,7 +71,7 @@ function GetTests(props) {
 
     }
     function handleClick(test) {
-        console.log(test.target.getAttribute("value"))
+        // on clicking Edit test button it reveals the AlertMenu to confirm that information was saved and set test object 
         if (props.forPage === 'create') {
             setAlertStyle({
                 variantHead: "danger",
@@ -84,6 +87,7 @@ function GetTests(props) {
         } else { props.onChange(testRecords.filter(item => item.id === test.target.getAttribute("value"))[0]) }
     }
     const fetchData = async () => {
+        // gather test information from db, sort it, set state to display it
         let arrTemp = [];
         const data = await db.collection("tests").get();
         if (props.forPage === 'create')
@@ -104,12 +108,11 @@ function GetTests(props) {
             return 0;
 
         });
-        console.log(arrTemp)
         setTestsRecords(arrTemp);
         setTestsRecordsDisplay(arrTemp);
     };
     const fetchCategories = async () => {
-
+// getting categories information, sorting it and setting it in the state to show it
         const data = await db.collection("categories").get();
         let arrTemp = data.docs.map(doc => ({ ...doc.data() }));
         arrTemp.sort(function (a, b) {
@@ -131,11 +134,13 @@ function GetTests(props) {
         console.log(arrTemp)
         setCategoriesLayout(arrTemp);
     };
-    function getChoosenTests(ch) {
+    function getChoosenTests(ch) {   
+        // set selected categories state to filter test results accordingly to choosen categories                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
         setChecked(ch);
         (ch.length > 0) ? setSelectedOption(categories.filter((n, j) => ch.indexOf(j) > -1)) : setSelectedOption(categories)
     }
     function readSingleFile(evt) {
+        // getting test information for Editing from local file and confirming that previous info is saved by displaying AlertMenu 
         var f = evt.target.files[0];
         if (f) {
             var r = new FileReader();
@@ -165,10 +170,12 @@ function GetTests(props) {
         }
     }
     useEffect(() => {
+        // fetching original data
         fetchCategories();
         fetchData();
     }, []);
     useEffect(() => {
+        // fetching data and displaying tests accordingly selected categories
         let recordSet = testRecords;
         let chosenRec = [];
         console.log(selectedOption);
@@ -208,8 +215,7 @@ function GetTests(props) {
                     <tbody>
                         {testRecordsDisplay.map((test, j) => {
                             return (
-                                <tr key={"divTests" + j} >                         
-                                        {/* <button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', padding: '4%', backgroundColor: '#0c5460', margin: '4%' }} key={"linkBtnTests" + j} value={test.id} onClick={e => handleLink(e)}>Link &#128279;</button> */}
+                                <tr key={"divTests" + j} > 
                                         {(props.forPage === 'create') &&
                                            <td><button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', padding: '4%', backgroundColor: '#721c24', margin: '4%', display: 'flex', flexDirection: "column", alignItems: 'center' }} key={"eraseBtnTests" + j} value={test.id} onClick={e => handleDelete(e)}>Del <img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(.9vw,10px)', height: 'max(.9vw,10px)' }} /></button></td>
                                         }                                  

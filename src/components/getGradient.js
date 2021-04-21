@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import firebase from "../firebase";
 import AlertMenu from './alertMenu';
 function GetGradient(props) {
+    // handles selection of background gradients in Editing test page and passing css value to the test
     const db = firebase.firestore();
     const [revealAlert, setRevealAlert] = useState(false);
     const [alertStyle, setAlertStyle] = useState({});
@@ -12,6 +13,7 @@ function GetGradient(props) {
     const [addNewGradientVisible, setAddNewGradientVisible] = useState(false);
 
     const onReturn = (decision1) => {
+        // if Delete button on AlertMenu pressed it deletes choosen gradient from db of the gradients
         setRevealAlert(false);
         if (decision1 === "Delete") {
             db.collection('gradients').doc(deleteRecId).delete()
@@ -25,17 +27,18 @@ function GetGradient(props) {
         }
     }
     function handleAdd(e) {
+        // adds name and css of the gradient to the db, then send signal to parent to reload to include new gradient to the list
         db.collection('gradients').add({ name: newGradientName, value: newGradient })
             .then(res => {
                 console.log('added');
                 props.reloadNeeded(true);
-                // setGradients(gradients.push({name:newGradientName,value:newGradient}))
             })
             .catch(error => {
                 console.log("can not delete a record");
             })
     }
     function handleDelete(e) {
+        // confirming delete gradient by revealing the AlertMenu
         let recId = e.target.getAttribute("value")
         setDeleteRecId(recId)
         let elementPos = gradients.map(function (x) { return x.id; }).indexOf(recId);
@@ -54,11 +57,12 @@ function GetGradient(props) {
         setRevealAlert(true)
     }
     function handleClick(grad) {
+        // sending value of the choosen gradient to the parent
         let gr = gradients.filter(item => item.id === grad.target.getAttribute("value"));
         props.onChange(gr[0].value);
     }
     const fetchGradients = async () => {
-
+// getting information of the different gradients from db
         const data = await db.collection("gradients").get();
         let arrTemp = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
         setGradients(arrTemp);

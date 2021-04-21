@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 
 export default function ZoomImage(props) {
-
+// for simple layout it allows to zoom in to picture in the question displayed
   return (
 
     <div style={{ width: '100vw', height: '100vh', position: 'absolute', top: window.pageYOffset, left: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: '1900', backgroundColor: 'rgba(105,105,105, .7)' }} >
