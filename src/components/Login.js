@@ -46,12 +46,11 @@ export default function Login() {
             <button disabled={loading} className="testNav" style={{ width: '100%', margin: '4% auto' }} type="submit">
               Log In
             </button>
-            <button className="testNav" onClick={signInWithGoogle} style={{display:'flex',justifyContent:'space-evenly',width:'100%',margin: '4% auto', alignItems:'center',padding:'.25em'}}>
-                <img src={process.env.PUBLIC_URL + "/icons/G_Logo.svg"} style={{ width: '15%'}} alt="google icon" />
-                <span> Continue with Google</span>
-              </button>
-          </form>   
-         
+          </form>
+          <button className="testNav" onClick={signInWithGoogle} style={{ display: 'flex', justifyContent: 'space-evenly', width: '100%', margin: '4% auto', alignItems: 'center', padding: '.25em' }}>
+            <img src={process.env.PUBLIC_URL + "/icons/G_Logo.svg"} style={{ width: '15%' }} alt="google icon" />
+            <span> Continue with Google</span>
+          </button>
           <div className="divStyle">
             <Link className="links" to="/forgot-password">Forgot Password?</Link>
           </div>
