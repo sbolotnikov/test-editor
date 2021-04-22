@@ -11,6 +11,13 @@ const app = firebase.initializeApp({
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID
 })
-
+const googleProvider = new firebase.auth.GoogleAuthProvider()
+export const signInWithGoogle = () => {
+  auth.signInWithPopup(googleProvider).then((res) => {
+    console.log(res.user)
+  }).catch((error) => {
+    console.log(error.message)
+  })
+}
 export const auth = app.auth()
 export default app

@@ -1,13 +1,14 @@
 import React, { useRef, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, Redirect } from "react-router-dom"
+import { signInWithGoogle } from "../firebase";
 import Footer from "./Footer";
 import "./Login.scss";
 export default function Login() {
   // login page using the AuthContext trying to login and then redirect to root
   const emailRef = useRef()
   const passwordRef = useRef()
-  const {currentUser, login } = useAuth()
+  const { currentUser, login } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [toRoot, setToRoot] = useState(false);
@@ -29,35 +30,40 @@ export default function Login() {
   }
 
   return (
-      <div className='mainContainer'>
-        <div style={{ width: '98%', maxWidth: "400px" }}>
-          <div className='registeCard'>
-            <h2 className="header1">Log In
+    <div className='mainContainer'>
+      <div style={{ width: '98%', maxWidth: "400px" }}>
+        <div className='registeCard'>
+          <h2 className="header1">Log In
             <img src={process.env.PUBLIC_URL + "/icons/QuizLogo.svg"} alt="logo simple" className='logo' /> </h2>
-            {error && <label className='alertStyle'>{error}</label>}
-            <form onSubmit={handleSubmit}>
-              <label className='headerStyle'  >Email
+          {error && <label className='alertStyle'>{error}</label>}
+          <form onSubmit={handleSubmit}>
+            <label className='headerStyle'  >Email
                     <input id="email" style={{ width: '100%', margin: '4% auto' }} type="email" ref={emailRef} required />
-              </label>
-              <label className='headerStyle'  >Password
+            </label>
+            <label className='headerStyle'  >Password
                     <input id="password" style={{ width: '100%', margin: '4% auto' }} type="password" ref={passwordRef} required />
-              </label>
-              <button disabled={loading} className="testNav" style={{ width: '100%', margin: '4% auto' }} type="submit">
-                Log In
+            </label>
+            <button disabled={loading} className="testNav" style={{ width: '100%', margin: '4% auto' }} type="submit">
+              Log In
             </button>
-            </form>
-            <div className="divStyle">
-              <Link className="links" to="/forgot-password">Forgot Password?</Link>
-            </div>
-          </div>
+            <button className="testNav" onClick={signInWithGoogle} style={{display:'flex',justifyContent:'space-evenly',width:'100%',margin: '4% auto', alignItems:'center',padding:'.25em'}}>
+                <img src={process.env.PUBLIC_URL + "/icons/G_Logo.svg"} style={{ width: '15%'}} alt="google icon" />
+                <span> Continue with Google</span>
+              </button>
+          </form>   
+         
           <div className="divStyle">
-            Need an account? <Link className="links" to="/signup">Sign Up</Link>
-          </div>
-          <div className="divStyle">
-            Want a demo? <Link className="links" to="/taketest/RtqxyubO57LToxbaOzpj">Take Demo Test</Link>
+            <Link className="links" to="/forgot-password">Forgot Password?</Link>
           </div>
         </div>
-        <Footer />
+        <div className="divStyle">
+          Need an account? <Link className="links" to="/signup">Sign Up</Link>
+        </div>
+        <div className="divStyle">
+          Want a demo? <Link className="links" to="/taketest/RtqxyubO57LToxbaOzpj">Take Demo Test</Link>
+        </div>
       </div>
+      <Footer />
+    </div>
   )
 }
