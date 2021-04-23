@@ -130,7 +130,7 @@ function GetTests(props) {
 
         });
         setCategories(arrTemp);
-        arrTemp = arrTemp.map(option => { return ({ 'text': option.value, img: process.env.PUBLIC_URL + "/icons/QuizLogo.svg" }) });
+        arrTemp = arrTemp.map(option => { return ({ 'text': option.value, img: "" }) });
         console.log(arrTemp)
         setCategoriesLayout(arrTemp);
     };
@@ -195,7 +195,7 @@ function GetTests(props) {
         setTestsRecordsDisplay(chosenRec);
     }, [selectedOption])
     return (
-        <div style={{ width: '100%', maxWidth: "600px", height: "52vh", margin: '6em 0 2em 0' }}>
+        <div style={{ width: '100%', maxWidth: "600px", height: "80%", overflow:'auto', margin: '6em 0 2em 0' }}>
             {revealInfo && <TestPopupInfo test={testInfo} onRes={e => {
                 setRevealInfo(false); console.log('close')
             }
@@ -203,12 +203,12 @@ function GetTests(props) {
             {(props.forPage === 'test') && (currentUser) && <button className="testNav" style={{ width: '100%', margin:0}} onClick={e=>{ window.location.assign(process.env.PUBLIC_URL + '/#/create'); }}>
                 Create New test
             </button>}
-            <p className="testNav" style={{backgroundColor:'transparent', textAlign:'center'}}> CHOOSE TEST TO {(props.forPage === 'test')? 'TAKE':'MANAGE'}</p>
+            <p className="testHeaders" > CHOOSE TEST TO {(props.forPage === 'test')? 'TAKE':'MANAGE'}</p>
             {categoriesLayout &&
                 <ChooseCategory type={categoriesLayout.length} answers={categoriesLayout} checkedMarks={checked} onChange={(ch) => { getChoosenTests(ch) }} />
             }
-            <p className="testNav" style={{backgroundColor:'transparent', textAlign:'center'}}>DISCOVER TESTS</p>
-            {testRecordsDisplay && <div style={{ height: '35%', overflow: 'auto', margin: '0' }}>
+            <p className="testHeaders" >DISCOVER TESTS</p>
+            {testRecordsDisplay && <div style={{ height: "52%", overflow:'auto', margin: '0' }}>
             
                 <table style={{ width: '100%' }} >
                    
@@ -217,10 +217,10 @@ function GetTests(props) {
                             return (
                                 <tr key={"divTests" + j} > 
                                         {(props.forPage === 'create') &&
-                                           <td><button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', padding: '4%', backgroundColor: '#721c24', margin: '4%', display: 'flex', flexDirection: "column", alignItems: 'center' }} key={"eraseBtnTests" + j} value={test.id} onClick={e => handleDelete(e)}>Del <img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(.9vw,10px)', height: 'max(.9vw,10px)' }} /></button></td>
+                                           <td><button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', padding: '0% 4%', backgroundColor: '#721c24', margin: '0 9% 0 0', display: 'flex', flexDirection: "column", alignItems: 'center', width:'100%' }} key={"eraseBtnTests" + j} value={test.id} onClick={e => handleDelete(e)}>Del <img src={process.env.PUBLIC_URL + "/icons/close.svg"} alt="close" style={{ width: 'max(3.5vw,20px)', height: 'max(3.5vw,20px)' }}  /></button></td>
                                         }                                  
                                     <td style={{ backgroundColor: 'white', borderRadius: '5px' }}><div key={"textTests" + j} className='testText' value={test.id} onClick={e => handleHover(e)} style={{ cursor: "pointer", whiteSpace: 'wrap', textAlign: 'center', border: 0, width: "100%" }}>{test.main.name} <span value={test.id} style={{ fontStyle: 'oblique', color: '#554FA7' }}>@{test.main.authorName}</span></div></td>
-                                    <td><button className="testNav" style={{ fontSize: 'max(1.2vw,12px)', padding: '4%', backgroundColor: 'white', color: '#554FA7'}} key={"playBtnTests" + j} value={test.id} onClick={e => handleClick(e)}><img src={(props.forPage === 'create') ? process.env.PUBLIC_URL + "/icons/EditIcon.svg" : process.env.PUBLIC_URL + "/icons/Play.svg"} value={test.id} alt={(props.forPage === 'create') ? "Edit" : "Play"} style={{ width: 'max(3.5vw,25px)', height: 'max(3.5vw,25px)' }} /></button></td>
+                                    <td><button className="testNav" style={{ padding: '15% 4%',margin:'0', backgroundColor: 'white', color: '#554FA7', height:'100%', display: 'flex', alignItems: 'center',}} key={"playBtnTests" + j} value={test.id} onClick={e => handleClick(e)}><img src={(props.forPage === 'create') ? process.env.PUBLIC_URL + "/icons/EditIcon.svg" : process.env.PUBLIC_URL + "/icons/Play.svg"} value={test.id} alt={(props.forPage === 'create') ? "Edit" : "Play"} style={{ width: 'max(3.5vw,25px)', height: 'max(3.5vw,25px)' }} /></button></td>
                                     {/* button text if needed <strong>{(props.forPage === 'create') ? 'Edit' : 'Play'}</strong> */}
                                 </tr>
                             )

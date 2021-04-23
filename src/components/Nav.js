@@ -48,7 +48,7 @@ function Nav(props) {
         <nav className="navbar" >
             
             {window.innerWidth<1000 ? <Link to="/dashboard"><img className="member-photo" src={imgDisplay} alt="avatar"/></Link>
-             :<Link to="/" className="navHeader"> <img src={ process.env.PUBLIC_URL+"/icons/logoName.svg"} alt="close" style={{width:'1.2em',height:'1.5em'}}/></Link> }
+             :<Link to="/" className="navHeader"> <img  src={ process.env.PUBLIC_URL+"/icons/logoName.svg"} style={{width:'5.4vh', height:'8.5vh'}} alt="close"/></Link> }
 			{window.innerWidth<1000 ? <Link to="/" className="navHeader"> 
             Quiz Land</Link> : null}
             {window.innerWidth<1000 ? <span id="navbar-toggler"  onClick={handleNavCollapse}>

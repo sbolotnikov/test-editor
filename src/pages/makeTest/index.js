@@ -404,8 +404,9 @@ function ToRenderEverything() {
     }, []);
     return (
         <div className="makerContainer">
-            
-            <GetTests user={currentUser.uid} forPage={'create'} reloadNeeded={reloadNeeded} onLocal={n => { console.log("test loaded") }} onChange={n => getTestfromDB(n)} />
+            <div style={{display: 'flex', alignItems:'start', justifyContent:'center'}}>
+             <GetTests user={currentUser.uid} forPage={'create'} reloadNeeded={reloadNeeded} onLocal={n => { console.log("test loaded") }} onChange={n => getTestfromDB(n)} />
+            </div>
             {revealAlert && <AlertMenu onReturn={onReturn} styling={alertStyle} />}
             <div className='navContainer' >
                 <h3 style={{ width: '100%', textAlign: "center", fontSize: '4vw', color: '#FFFFFF' }}><strong>Test editing panel</strong></h3>

@@ -33,7 +33,7 @@ div.cloudinary-button {
 	flex-wrap: wrap;
 	width: 97%;
 	max-width:1000px;
-	margin:7em auto;
+	margin:1em auto;
 	padding:10px;
 	border-radius:0 0 15px 15px;
 	justify-content: center;
@@ -48,7 +48,6 @@ div.cloudinary-button {
     height: 100vh;
 }
 .makerContainer{
-	max-width:1440px;
 	overflow: hidden;
 	display:block;
 	background-image:
@@ -76,12 +75,18 @@ div.cloudinary-button {
     margin:8px;
     padding: 0;
     color: $primary-color;
-    // border:2px solid $primary-color;
 	border: 0px transparent;
 	border-radius: 5px;
 	font-size:calc(12px + 1.5vw);
 	cursor: pointer; 
 	background-color: $secondary-color;
+}
+.testHeaders{
+    padding: 0;
+    color: $primary-color;
+	text-align:center;
+	font-size:calc(12px + 1vw);
+	
 }
 .headerStyle{
     color: black;
