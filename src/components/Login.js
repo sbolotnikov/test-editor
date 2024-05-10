@@ -13,7 +13,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const [toRoot, setToRoot] = useState(false);
   if (toRoot === true) { return <Redirect to="/" /> }
-  if (currentUser) { return <Redirect to="/redirect" /> }
+  // if (currentUser) { return <Redirect to="/redirect" /> }
   async function handleSubmit(e) {
     e.preventDefault()
 
