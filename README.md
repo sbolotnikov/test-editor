@@ -50,4 +50,4 @@ Here is the video tutorial link: https://youtu.be/x116B9S0tX4
 ## Review 
   * Here is this repo link: https://github.com/sbolotnikov/test-editor
  
-  * Link: [Quiz Land](https://sbolotnikov.github.io/test-editor)
+  * Link: [Quiz Land](https://test-editor-qbm4.onrender.com/)
