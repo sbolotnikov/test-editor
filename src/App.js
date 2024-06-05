@@ -14,12 +14,13 @@ import ForgotPassword from "./components/ForgotPassword"
 import UpdateProfile from "./components/UpdateProfile"
 import DirectTestPage from "./components/DirectTestPage"
 import Nav from "./components/Nav"
+
 //Pages
 import testPage from './pages/testPage';
 import makeTest from './pages/makeTest';
-
+require('dotenv').config();
 function App() {
-
+console.log("App.js is running",process.env.REACT_APP_FIREBASE_PROJECT_ID )
   return (
     <Router>
       <AuthProvider>

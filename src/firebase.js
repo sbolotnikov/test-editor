@@ -2,6 +2,21 @@ import firebase from "firebase/app"
 import "firebase/auth"
 import "firebase/analytics"
 import "firebase/firestore";
+// import axios from "axios";
+// export const getEnvs = async() =>{
+//   axios.get("https://pwa-budget-tracker.onrender.com/api/proxy_envs") 
+//   .then((response)=> {   
+//     // fixing CORS
+//     return response.data;
+//     // res.header('Access-Control-Allow-Origin', '*');
+//     // res.send(response.data);     
+// }).catch((error)=> {
+//   console.log(error);
+//   return error;
+// }); 
+// }
+//  let envs= await getEnvs()
+//  console.log(envs)
 const app = firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
